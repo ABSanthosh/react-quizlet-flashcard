@@ -1,9 +1,8 @@
 # react-quizlet-flashcard
 
-A replica of quizlet's flashcard component
-![react-quizlet-flashcard](https://user-images.githubusercontent.com/24393343/150370884-88dea80b-249b-48a5-b5f5-061801c80bfa.gif)
-<i>react-quizlet-flashcard</i>
+A replica of quizlet's flashcard component built with typescript
 
 
-![Quizlet's flashcard component](https://user-images.githubusercontent.com/24393343/150371163-033fa375-f8d2-4d61-bf00-34a6bed8a810.gif)
-<i>Quizlet's flashcard component</i>
+react-quizlet-flashcard            | Quizlet's flashcard component
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/24393343/150373172-a4f2a7d9-ba19-4220-9046-4fe8fab80ef7.gif)  |  ![](https://user-images.githubusercontent.com/24393343/150373430-8b5f9905-9e4f-4639-827e-a8be303f49cb.gif)
