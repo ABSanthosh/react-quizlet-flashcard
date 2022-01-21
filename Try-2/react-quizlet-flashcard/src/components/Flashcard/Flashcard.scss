@@ -1,0 +1,78 @@
+@mixin make-flex($dir: column, $align: center, $just: center) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $just;
+}
+
+.FlashcardWrapper {
+  height: 100%;
+  width: 100%;
+  perspective: 1000px;
+  position: relative;
+
+  zoom: 1;
+  bottom: 10%;
+  clear: left;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: none !important;
+
+  &__item {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.45s ease;
+    background-color: transparent;
+    border-radius: 1rem;
+
+    &--front,
+    &--back {
+      box-shadow: 0 0 2.5rem 0 rgb(0 0 0 / 16%);
+      border-radius: 1rem;
+      backface-visibility: hidden;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+
+      font-size: 28px;
+      color: rgb(0, 0, 0);
+
+      cursor: pointer;
+      @include make-flex();
+    }
+
+    &--front {
+      background-color: #ffffff;
+    }
+
+    &--back {
+      background-color: #ffffff;
+      transform: rotateX(-180deg);
+    }
+
+    &--flip {
+      transform: rotateX(180deg) !important;
+    }
+
+    &--content {
+      @include make-flex();
+      text-align: center;
+      padding: 40px 34px;
+      font-size: 30px;
+      height: 100%;
+      width: 100%;
+      font-family: "Poppins", sans-serif;
+    }
+  }
+}
