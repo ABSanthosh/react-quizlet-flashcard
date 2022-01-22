@@ -54,7 +54,6 @@
 }
 .FlashcardArrayWrapper__controls button {
   height: 100%;
-  /* width: 50%; */
   font-size: 40px;
   background-color: rgba(240, 248, 255, 0);
   border: none;
@@ -72,7 +71,6 @@
   cursor: pointer;
   height: 80%;
   background-color: rgba(255, 255, 255, 0);
-  /* filter: invert(80%); */
 }
 
 .FlashcardArrayWrapper__controls button img:hover {
