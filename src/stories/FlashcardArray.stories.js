@@ -57,14 +57,15 @@ import FlashcardArray from "../components/FlashcardArray/FlashcardArray";
 const stories = storiesOf("Flashcard Array", module);
 
 stories.add("default", () => {
-  const arrayRef = useRef({});
+  // const arrayRef = useRef({});
   return (
     <div>
       <div>
         <FlashcardArray
-          cards={deck.cards}
+          cards={cards}
+          count={false}
           forwardRef={arrayRef}
-          onCardChange={(cardNumber) => {}}
+          control={false}
         />
         <button onClick={() => arrayRef.current.prevCard()}>Prev</button>
         <button onClick={() => arrayRef.current.nextCard()}>Next</button>
@@ -72,3 +73,4 @@ stories.add("default", () => {
     </div>
   );
 });
+
