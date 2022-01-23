@@ -5,4 +5,5 @@ src
 README.md
 rollup.config.js
 yarn.lock
+yarn-error.log
 .npmignore
