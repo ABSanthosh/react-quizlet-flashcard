@@ -5,7 +5,9 @@
   </a>
 </p>
 
-A simple quizlet-like flashcard component with a few additional options.
+A simple and responsive quizlet-like flashcard component with a few additional options. 
+
+Front and back card accepts child components as well as html strings!
 
 |                                          react-quizlet-flashcard                                           |                                       Quizlet's flashcard component                                        |
 | :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
@@ -32,8 +34,10 @@ function App() {
   const cards = [
     {
       id: 1,
-      front: "What is the capital of Alaska?",
+      front: "What is the capital of <u>Alaska</u>?",
       back: "Juneau",
+      frontChild: <div>Hello there</div>
+      backChild: <p>This is a back child</p>
     },
     {
       id: 2,
