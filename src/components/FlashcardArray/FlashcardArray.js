@@ -5,7 +5,6 @@ import "./FlashcardArray.css";
 import rightArrow from "../../assets/right.png";
 import leftArrow from "../../assets/left.png";
 
-
 function FlashcardArray({ cards, controls, count, onCardChange, forwardRef }) {
   const [cardNumber, setCardNumber] = useState(0);
   const [cardsInDisplay, setCardsInDisplay] = useState([-1, 0, 1]);
@@ -16,6 +15,8 @@ function FlashcardArray({ cards, controls, count, onCardChange, forwardRef }) {
       reset={index === cardNumber}
       front={item.front}
       back={item.back}
+      frontChild={item.frontChild ? item.frontChild : null}
+      backChild={item.backChild ? item.backChild : null}
     />
   ));
 

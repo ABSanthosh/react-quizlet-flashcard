@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./Flashcard.css";
 
-function Flashcard({ front, back, className, reset, height, width, ...props }) {
+function Flashcard({
+  front,
+  frontChild,
+  back,
+  backChild,
+  className,
+  reset,
+  height,
+  width,
+  ...props
+}) {
   const [isFlipped, setFlipped] = useState(false);
 
   // To reset flip state
@@ -23,10 +33,16 @@ function Flashcard({ front, back, className, reset, height, width, ...props }) {
         onClick={() => setFlipped(!isFlipped)}
       >
         <div className="FlashcardWrapper__item--front">
-          <div className="FlashcardWrapper__item--content">{front}</div>
+          <div className="FlashcardWrapper__item--content">
+            <span dangerouslySetInnerHTML={{ __html: front }} />
+            {frontChild}
+          </div>
         </div>
         <div className="FlashcardWrapper__item--back">
-          <div className="FlashcardWrapper__item--content">{back}</div>
+          <div className="FlashcardWrapper__item--content">
+            <span dangerouslySetInnerHTML={{ __html: back }} />
+            {backChild}
+          </div>
         </div>
       </div>
     </div>
@@ -40,6 +56,8 @@ Flashcard.propTypes = {
   reset: PropTypes.bool,
   height: PropTypes.string,
   width: PropTypes.string,
+  frontChild: PropTypes.node,
+  backChild: PropTypes.node,
 };
 
 Flashcard.defaultProps = {
@@ -49,6 +67,8 @@ Flashcard.defaultProps = {
   reset: false,
   height: "",
   width: "",
+  frontChild: null,
+  backChild: null,
 };
 
 export default Flashcard;
