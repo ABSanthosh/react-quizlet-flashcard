@@ -1,3 +1,7 @@
+.FlashcardArrayWrapper * {
+  box-sizing: border-box;
+}
+
 .FlashcardArrayWrapper {
   gap: 10px;
   position: relative;
@@ -9,8 +13,6 @@
   width: 560px;
 }
 .FlashcardArrayWrapper__CardHolder {
-  /* gap: 30px; */
-
   height: 340px;
   width: 100%;
   perspective: 1000px;

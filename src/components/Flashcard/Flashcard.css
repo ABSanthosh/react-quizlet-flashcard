@@ -1,3 +1,7 @@
+.FlashcardWrapper * {
+  box-sizing: border-box;
+}
+
 .FlashcardWrapper {
   height: 100%;
   width: 100%;
