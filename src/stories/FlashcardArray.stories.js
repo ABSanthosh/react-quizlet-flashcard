@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { storiesOf } from "@storybook/react";
 
 const deck = {
@@ -57,20 +57,11 @@ import FlashcardArray from "../components/FlashcardArray/FlashcardArray";
 const stories = storiesOf("Flashcard Array", module);
 
 stories.add("default", () => {
-  // const arrayRef = useRef({});
   return (
     <div>
       <div>
-        <FlashcardArray
-          cards={cards}
-          count={false}
-          forwardRef={arrayRef}
-          control={false}
-        />
-        <button onClick={() => arrayRef.current.prevCard()}>Prev</button>
-        <button onClick={() => arrayRef.current.nextCard()}>Next</button>
+        <FlashcardArray cards={deck.cards} />
       </div>
     </div>
   );
 });
-

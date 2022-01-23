@@ -1,18 +1,19 @@
 .FlashcardArrayWrapper {
   gap: 10px;
   position: relative;
-  width: fit-content;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 560px;
 }
 .FlashcardArrayWrapper__CardHolder {
-  gap: 30px;
-  perspective: 1000px;
+  /* gap: 30px; */
+
   height: 340px;
-  width: 560px;
+  width: 100%;
+  perspective: 1000px;
 
   display: flex;
   flex-direction: row;
@@ -80,4 +81,9 @@
 
 .FlashcardArrayWrapper__controls--count {
   font-size: 15px !important;
+}
+@media only screen and (max-width: 625px) {
+  .CardScrollerWrapper {
+    width: 90vw;
+  }
 }
