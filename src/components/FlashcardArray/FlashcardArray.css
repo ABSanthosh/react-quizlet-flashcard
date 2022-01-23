@@ -85,7 +85,7 @@
   font-size: 15px !important;
 }
 @media only screen and (max-width: 625px) {
-  .CardScrollerWrapper {
+  .FlashcardArrayWrapper {
     width: 90vw;
   }
 }
