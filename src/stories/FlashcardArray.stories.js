@@ -9,9 +9,11 @@ const deck = {
   cards: [
     {
       id: 1,
-      front: "What is the capital of Alaska?",
+      front: "What is the <u>capital</u> of Alaska?",
       back: "Juneau",
       options: ["Juneau", "Anchorage", "Fairbanks"],
+      frontChild: <div>Hello there</div>,
+      backChild: "THis is back child hehe",
     },
     {
       id: 2,
