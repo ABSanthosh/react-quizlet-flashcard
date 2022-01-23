@@ -2,7 +2,6 @@
 node_modules
 src
 .gitignore
-package.json
 README.md
 rollup.config.js
 yarn.lock
