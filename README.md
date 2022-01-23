@@ -86,11 +86,8 @@ function App() {
 
 ## Various examples
 
-<br>
 
 ### Cards without Controls and card count:
-
-<br>
 
 ```javascript
 import { FlashcardArray } from "react-quizlet-flashcard";
@@ -105,11 +102,7 @@ function App() {
 }
 ```
 
-<br><br>
-
 ### Card change callback:
-
-<br>
 
 ```javascript
 import { FlashcardArray } from "react-quizlet-flashcard";
@@ -130,11 +123,7 @@ function App() {
 }
 ```
 
-<br><br>
-
 ### Cards with custom controls(Using forwardRef prop):
-
-<br>
 
 ```javascript
 import { FlashcardArray } from "react-quizlet-flashcard";
@@ -162,8 +151,6 @@ function App() {
 }
 
 ```
-
-<br><br>
 
 ## 🤝 Contributing
 

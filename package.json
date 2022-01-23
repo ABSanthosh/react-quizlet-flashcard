@@ -1,6 +1,6 @@
 {
   "name": "react-quizlet-flashcard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple quizlet like flashcard",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
