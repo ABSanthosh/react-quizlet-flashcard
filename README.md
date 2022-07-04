@@ -173,9 +173,9 @@ function App() {
       <div>
         <FlashcardArray
           cards={deck.cards}
+          // Called everytime the card is changed. 
+          // You can use useState to store the current card index.
           setCurrentCardIndex={(index) => {
-		    // Called everytime the card is changed. 
-		    // You can use useState to store the current card index.
             console.log(index);
           }}
         />
