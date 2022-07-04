@@ -11,6 +11,8 @@ function Flashcard({
   reset,
   height,
   width,
+  FlashCardStyle,
+  onClick,
   ...props
 }) {
   const [isFlipped, setFlipped] = useState(false);
@@ -20,17 +22,24 @@ function Flashcard({
     setFlipped(false);
   }, [reset]);
 
+  // useEffect(() => {
+  //   onClick(isFlipped);
+  // }, [isFlipped]);
+
   return (
     <div
       className={`FlashcardWrapper ${className}`}
-      style={{ height: height, width: width }}
+      style={{ height: height, width: width, ...FlashCardStyle }}
       {...props}
     >
       <div
         className={`FlashcardWrapper__item ${
           isFlipped ? "FlashcardWrapper__item--flip" : ""
         }`}
-        onClick={() => setFlipped(!isFlipped)}
+        onClick={() => {
+          setFlipped(!isFlipped);
+          onClick(!isFlipped);
+        }}
       >
         <div className="FlashcardWrapper__item--front">
           <div className="FlashcardWrapper__item--content">
@@ -58,6 +67,8 @@ Flashcard.propTypes = {
   width: PropTypes.string,
   frontChild: PropTypes.node,
   backChild: PropTypes.node,
+  FlashCardStyle: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 Flashcard.defaultProps = {
@@ -69,6 +80,8 @@ Flashcard.defaultProps = {
   width: "",
   frontChild: null,
   backChild: null,
+  FlashCardStyle: {},
+  onClick: () => false,
 };
 
 export default Flashcard;

@@ -11,7 +11,12 @@ function FlashcardArray({
   count,
   onCardChange,
   forwardRef,
+  setCurrentCardIndex,
+  FlashCardStyle,
   setCurrentCard,
+  setIsFlipped,
+  FlashCardClassName,
+  FlashCardWrapperStyle,
 }) {
   const [cardNumber, setCardNumber] = useState(0);
   const [cardsInDisplay, setCardsInDisplay] = useState([-1, 0, 1]);
@@ -24,6 +29,13 @@ function FlashcardArray({
       back={item.back}
       frontChild={item.frontChild ? item.frontChild : null}
       backChild={item.backChild ? item.backChild : null}
+      className={FlashCardClassName}
+      FlashCardStyle={FlashCardStyle}
+      onClick={(flipped = false) => {
+        setCurrentCard({ ...item, index: index, flipped: flipped });
+        onCardChange(index);
+        setIsFlipped(flipped);
+      }}
     />
   ));
 
@@ -36,7 +48,13 @@ function FlashcardArray({
 
   useEffect(() => {
     onCardChange(cardNumber + 1);
-    setCurrentCard(cardNumber);
+    setCurrentCardIndex(cardNumber);
+
+    setCurrentCard({
+      ...cards[cardNumber],
+      index: cardNumber,
+      flipped: false,
+    });
   }, [cardNumber]);
 
   const placeFillerCard = (
@@ -68,7 +86,7 @@ function FlashcardArray({
   };
 
   return (
-    <div className="FlashcardArrayWrapper">
+    <div className="FlashcardArrayWrapper" style={FlashCardWrapperStyle}>
       <div className="FlashcardArrayWrapper__CardHolder">
         {cardsInDisplay[0] !== -1
           ? childArray[cardsInDisplay[0]]
@@ -108,6 +126,11 @@ FlashcardArray.propTypes = {
   count: PropTypes.bool,
   onCardChange: PropTypes.func,
   forwardRef: PropTypes.object,
+  setCurrentCardIndex: PropTypes.func,
+  FlashCardStyle: PropTypes.object,
+  FlashCardClassName: PropTypes.string,
+  FlashCardWrapperStyle: PropTypes.object,
+  setIsFlipped: PropTypes.func,
   setCurrentCard: PropTypes.func,
 };
 
@@ -116,7 +139,12 @@ FlashcardArray.defaultProps = {
   count: true,
   onCardChange: () => {},
   forwardRef: null,
+  setCurrentCardIndex: () => {},
+  FlashCardStyle: {},
+  FlashCardClassName: "",
+  FlashCardWrapperStyle: {},
   setCurrentCard: () => {},
+  setIsFlipped: () => {},
 };
 
 export default FlashcardArray;
