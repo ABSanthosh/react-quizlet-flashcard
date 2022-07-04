@@ -59,10 +59,15 @@ import FlashcardArray from "../components/FlashcardArray/FlashcardArray";
 const stories = storiesOf("Flashcard Array", module);
 
 stories.add("default", () => {
+  const [currentCard, setCurrentCard] = React.useState(0);
+
+  React.useEffect(() => {
+    console.log (currentCard);
+  }, [currentCard]);
   return (
     <div>
       <div>
-        <FlashcardArray cards={deck.cards} />
+        <FlashcardArray cards={deck.cards} setCurrentCard={setCurrentCard} />
       </div>
     </div>
   );

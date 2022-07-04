@@ -5,7 +5,14 @@ import "./FlashcardArray.css";
 import rightArrow from "../../assets/right.png";
 import leftArrow from "../../assets/left.png";
 
-function FlashcardArray({ cards, controls, count, onCardChange, forwardRef }) {
+function FlashcardArray({
+  cards,
+  controls,
+  count,
+  onCardChange,
+  forwardRef,
+  setCurrentCard,
+}) {
   const [cardNumber, setCardNumber] = useState(0);
   const [cardsInDisplay, setCardsInDisplay] = useState([-1, 0, 1]);
 
@@ -29,6 +36,7 @@ function FlashcardArray({ cards, controls, count, onCardChange, forwardRef }) {
 
   useEffect(() => {
     onCardChange(cardNumber + 1);
+    setCurrentCard(cardNumber);
   }, [cardNumber]);
 
   const placeFillerCard = (
@@ -100,6 +108,7 @@ FlashcardArray.propTypes = {
   count: PropTypes.bool,
   onCardChange: PropTypes.func,
   forwardRef: PropTypes.object,
+  setCurrentCard: PropTypes.func,
 };
 
 FlashcardArray.defaultProps = {
@@ -107,6 +116,7 @@ FlashcardArray.defaultProps = {
   count: true,
   onCardChange: () => {},
   forwardRef: null,
+  setCurrentCard: () => {},
 };
 
 export default FlashcardArray;
