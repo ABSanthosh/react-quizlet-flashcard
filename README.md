@@ -37,7 +37,7 @@ function App() {
       id: 1,
       front: "What is the capital of <u>Alaska</u>?",
       back: "Juneau",
-      frontChild: <div>Hello there</div>
+      frontChild: <div>Hello there</div>,
       backChild: <p>This is a back child</p>
     },
     {
