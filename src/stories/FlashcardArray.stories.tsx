@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { storiesOf } from "@storybook/react";
 const stories = storiesOf("Flashcard Array", module);
 import "./storyStyle.scss";
@@ -57,9 +57,14 @@ const deck = {
 };
 
 stories.add("default", () => {
+  const currentCardFlipRef = useRef(null);
   return (
     <div className="storyContainer">
-      <FlashcardArray cards={deck.cards} />
+      <FlashcardArray
+        currentCardFlipRef={currentCardFlipRef}
+        cards={deck.cards}
+      />
+      <button onClick={() => currentCardFlipRef.current()}>Flip</button>
     </div>
   );
 });

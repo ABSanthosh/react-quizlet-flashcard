@@ -44,6 +44,12 @@ export default interface FlashcardArrayProps {
      */
     width?: string;
     /**
+     * Card border radius in px|%|vh|vw.
+     * @default 1rem
+     * @type string
+     */
+    borderRadius?: string;
+    /**
      * Styles for the card container.
      */
     style?: React.CSSProperties;
@@ -86,4 +92,8 @@ export default interface FlashcardArrayProps {
    * Callback function that is called when a card is flipped with card id and flip state
    */
   onCardChange?: (id: number, state: boolean) => void;
+  /**
+   * when passed with a ref, ref.current object will contain reference to `flipCard()` for the current card
+   */
+  currentCardFlipRef?: React.MutableRefObject<() => void>;
 }

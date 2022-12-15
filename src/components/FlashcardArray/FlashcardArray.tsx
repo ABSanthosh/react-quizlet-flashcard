@@ -14,6 +14,7 @@ function FlashcardArray({
   backContentStyle = {},
   forwardRef = null,
   FlashcardArrayStyle = {},
+  currentCardFlipRef,
 }: FlashcardArrayProps) {
   const [cardNumber, setCardNumber] = React.useState(0);
   const [cardsInDisplay, setCardsInDisplay] = React.useState([-1, 0, 1]);
@@ -33,6 +34,7 @@ function FlashcardArray({
       key={index}
       frontHTML={card.frontHTML}
       backHTML={card.backHTML}
+      manualFlipRef={cardNumber === index ? currentCardFlipRef : null}
       frontCardStyle={{ ...card.frontCardStyle, ...frontCardStyle }}
       frontContentStyle={{ ...card.frontContentStyle, ...frontContentStyle }}
       backCardStyle={{ ...card.backCardStyle, ...backCardStyle }}
