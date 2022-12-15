@@ -1,0 +1,16 @@
+@import "../Styles/mixins";
+
+html,
+body,
+#root {
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  @include box(100vw, 100vh);
+  @include make-flex();
+}
+
+.storyContainer {
+  @include box();
+  @include make-flex();
+}
