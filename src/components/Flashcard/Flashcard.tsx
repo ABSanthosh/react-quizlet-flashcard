@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import FlashcardProps from "../../interfaces/IFlashcard";
 import "./Flashcard.scss";
 
@@ -24,7 +24,7 @@ function Flashcard({
   width,
   resetState = false,
   onCardFlip = (state = false) => {},
-  manualFlipRef = null,
+  manualFlipRef = { current: null },
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -32,7 +32,7 @@ function Flashcard({
     setIsFlipped(!isFlipped);
     onCardFlip(!isFlipped);
   }
-  if (manualFlipRef) manualFlipRef.current = onManualFlip;
+  manualFlipRef.current = useCallback(onManualFlip, [isFlipped]);
 
   return (
     <div
@@ -51,7 +51,7 @@ function Flashcard({
           borderRadius: borderRadius,
         }}
         onClick={() => {
-          if (manualFlipRef) return;
+          if (manualFlipRef.current) return;
           setIsFlipped(!isFlipped);
           onCardFlip(!isFlipped);
         }}

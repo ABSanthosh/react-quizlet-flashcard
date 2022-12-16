@@ -58,13 +58,20 @@ const deck = {
 
 stories.add("default", () => {
   const currentCardFlipRef = useRef(null);
+  const arrayRef = useRef({});
+
   return (
     <div className="storyContainer">
       <FlashcardArray
         currentCardFlipRef={currentCardFlipRef}
         cards={deck.cards}
+        cycle={true}
+        controls={false}
+        forwardRef={arrayRef}
       />
+      <button onClick={() => arrayRef.current.prevCard()}>Prev</button>
       <button onClick={() => currentCardFlipRef.current()}>Flip</button>
+      <button onClick={() => arrayRef.current.nextCard()}>Next</button>
     </div>
   );
 });

@@ -96,4 +96,10 @@ export default interface FlashcardArrayProps {
    * when passed with a ref, ref.current object will contain reference to `flipCard()` for the current card
    */
   currentCardFlipRef?: React.MutableRefObject<() => void>;
+  /**
+   * When set to true, the cards will repeat from the beginning when the last card is reached.
+   * @default false
+   * @type boolean
+   */
+  cycle?: boolean;
 }

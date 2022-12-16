@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FlashcardArrayProps from "../../interfaces/IFlashcardArray";
 import Flashcard from "../Flashcard/Flashcard";
 import "./FlashcardArray.scss";
+
+// added
+// cycle?: boolean;
+// currentCardFlipRef?: React.MutableRefObject<() => void>;
 
 function FlashcardArray({
   cards,
@@ -15,10 +19,13 @@ function FlashcardArray({
   forwardRef = null,
   FlashcardArrayStyle = {},
   currentCardFlipRef,
+  cycle = false,
 }: FlashcardArrayProps) {
-  const [cardNumber, setCardNumber] = React.useState(0);
-  const [cardsInDisplay, setCardsInDisplay] = React.useState([-1, 0, 1]);
-  const [isOverFlow, setIsOverFlow] = React.useState("");
+  const [cardNumber, setCardNumber] = useState(0);
+  const [cardsInDisplay, setCardsInDisplay] = useState(
+    !cycle ? [-1, 0, 1] : [cards.length - 1, 0, 1]
+  );
+  const [isOverFlow, setIsOverFlow] = useState("");
 
   const placeFillerCard = (
     <Flashcard
@@ -34,7 +41,9 @@ function FlashcardArray({
       key={index}
       frontHTML={card.frontHTML}
       backHTML={card.backHTML}
-      manualFlipRef={cardNumber === index ? currentCardFlipRef : null}
+      manualFlipRef={
+        cardNumber === index ? currentCardFlipRef : { current: null }
+      }
       frontCardStyle={{ ...card.frontCardStyle, ...frontCardStyle }}
       frontContentStyle={{ ...card.frontContentStyle, ...frontContentStyle }}
       backCardStyle={{ ...card.backCardStyle, ...backCardStyle }}
@@ -56,10 +65,9 @@ function FlashcardArray({
   const numberOfCards =
     cardsList.length !== undefined ? cardsList.length - 1 : 0;
 
-  const nextCard = () => {
+  const nextCard = useCallback(() => {
     const currentCardNumber =
       cardNumber + 1 < numberOfCards ? cardNumber + 1 : numberOfCards;
-    setCardNumber(currentCardNumber);
 
     if (currentCardNumber < numberOfCards) {
       setIsOverFlow("hidden");
@@ -67,17 +75,27 @@ function FlashcardArray({
         setIsOverFlow("");
       }, 90);
     }
+    if (cycle) {
+      setCardsInDisplay((prevState) => {
+        setCardNumber(prevState[1] + 1 < cards.length ? prevState[1] + 1 : 0);
+        return [
+          prevState[0] + 1 < cards.length ? prevState[0] + 1 : 0,
+          prevState[1] + 1 < cards.length ? prevState[1] + 1 : 0,
+          prevState[2] + 1 < cards.length ? prevState[2] + 1 : 0,
+        ];
+      });
+    } else {
+      setCardNumber(currentCardNumber);
+      setCardsInDisplay(
+        currentCardNumber < numberOfCards
+          ? [currentCardNumber - 1, currentCardNumber, currentCardNumber + 1]
+          : [numberOfCards - 1, numberOfCards, -1]
+      );
+    }
+  }, [cardNumber, cycle, numberOfCards]);
 
-    setCardsInDisplay(
-      currentCardNumber < numberOfCards
-        ? [currentCardNumber - 1, currentCardNumber, currentCardNumber + 1]
-        : [numberOfCards - 1, numberOfCards, -1]
-    );
-  };
-
-  const prevCard = () => {
+  const prevCard = useCallback(() => {
     const currentCardNumber = cardNumber - 1 >= 0 ? cardNumber - 1 : 0;
-    setCardNumber(currentCardNumber);
 
     if (currentCardNumber !== 0) {
       setIsOverFlow("hidden");
@@ -86,19 +104,37 @@ function FlashcardArray({
       }, 90);
     }
 
-    setCardsInDisplay(
-      currentCardNumber === 0
-        ? [-1, 0, 1]
-        : [currentCardNumber - 1, currentCardNumber, currentCardNumber + 1]
-    );
-  };
+    if (cycle) {
+      setCardsInDisplay((prevState) => {
+        const activeCard =
+          prevState[1] - 1 < 0 ? cards.length - 1 : prevState[1] - 1;
 
-  // useEffect(() => {
-  //   if (forwardRef) {
-  //     forwardRef.current.nextCard = nextCard;
-  //     forwardRef.current.prevCard = prevCard;
-  //   }
-  // });
+        setCardNumber(
+          prevState[1] - 1 >= 0 ? prevState[1] - 1 : cards.length - 1
+        );
+
+        return [
+          activeCard - 1 < 0 ? cards.length - 1 : activeCard - 1,
+          activeCard,
+          activeCard + 1 < cards.length ? activeCard + 1 : 0,
+        ];
+      });
+    } else {
+      setCardNumber(currentCardNumber);
+      setCardsInDisplay(
+        currentCardNumber === 0
+          ? [-1, 0, 1]
+          : [currentCardNumber - 1, currentCardNumber, currentCardNumber + 1]
+      );
+    }
+  }, [cardNumber, cycle, numberOfCards]);
+
+  useEffect(() => {
+    if (forwardRef) {
+      forwardRef.current.nextCard = nextCard;
+      forwardRef.current.prevCard = prevCard;
+    }
+  });
 
   return (
     <div className="FlashcardArrayWrapper" style={FlashcardArrayStyle}>
