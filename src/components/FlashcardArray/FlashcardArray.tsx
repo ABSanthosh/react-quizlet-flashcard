@@ -6,6 +6,7 @@ import "./FlashcardArray.scss";
 // added
 // cycle?: boolean;
 // currentCardFlipRef?: React.MutableRefObject<() => void>;
+// resetArray
 
 function FlashcardArray({
   cards,
@@ -39,7 +40,7 @@ function FlashcardArray({
   const cardsList = cards.map((card, index) => (
     <Flashcard
       key={index}
-      frontHTML={card.frontHTML}
+      frontHTML={card.id + ": " + card.frontHTML}
       backHTML={card.backHTML}
       manualFlipRef={
         cardNumber === index ? currentCardFlipRef : { current: null }
@@ -64,6 +65,11 @@ function FlashcardArray({
 
   const numberOfCards =
     cardsList.length !== undefined ? cardsList.length - 1 : 0;
+
+  const resetArray = () => {
+    setCardsInDisplay(!cycle ? [-1, 0, 1] : [cards.length - 1, 0, 1]);
+    setCardNumber(0);
+  };
 
   const nextCard = useCallback(() => {
     const currentCardNumber =
@@ -133,6 +139,7 @@ function FlashcardArray({
     if (forwardRef) {
       forwardRef.current.nextCard = nextCard;
       forwardRef.current.prevCard = prevCard;
+      forwardRef.current.resetArray = resetArray;
     }
   });
 

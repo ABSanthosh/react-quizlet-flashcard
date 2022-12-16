@@ -71,6 +71,7 @@ stories.add("default", () => {
       />
       <button onClick={() => arrayRef.current.prevCard()}>Prev</button>
       <button onClick={() => currentCardFlipRef.current()}>Flip</button>
+      <button onClick={() => arrayRef.current.resetArray()}>Reset</button>
       <button onClick={() => arrayRef.current.nextCard()}>Next</button>
     </div>
   );

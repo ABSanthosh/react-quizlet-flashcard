@@ -61,9 +61,13 @@ export default interface FlashcardArrayProps {
    */
   controls?: boolean;
   /**
-   * when passed with a ref, ref.current object will contain reference to nextCard() and prevCard()
+   * when passed with a ref, ref.current object will contain reference to `nextCard()`, `prevCard()` and `resetArray()` functions
    */
-  forwardRef?: any;
+  forwardRef?: null | React.MutableRefObject<{
+    nextCard: () => void;
+    prevCard: () => void;
+    resetArray: () => void;
+  }>;
   /**
    * Show or hide the current count of card
    */
