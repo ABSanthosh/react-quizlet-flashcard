@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import FlashcardProps from "../../interfaces/IFlashcard";
 import "./Flashcard.scss";
 
@@ -32,8 +32,11 @@ function Flashcard({
     setIsFlipped(!isFlipped);
     onCardFlip(!isFlipped);
   }
-  manualFlipRef.current = useCallback(onManualFlip, [isFlipped]);
 
+  if (manualFlipRef.current !== null) {
+    manualFlipRef.current = useCallback(onManualFlip, [isFlipped]);
+  }
+  
   return (
     <div
       className={`FlashcardWrapper ${className}`}
@@ -60,7 +63,7 @@ function Flashcard({
           className="FlashcardWrapper__item--front"
           style={{
             ...frontCardStyle,
-            cursor: manualFlipRef ? "default" : "pointer",
+            cursor: manualFlipRef.current ? "default" : "pointer",
           }}
         >
           {typeof frontHTML !== "string" ? (
@@ -82,7 +85,7 @@ function Flashcard({
           className="FlashcardWrapper__item--back"
           style={{
             ...backCardStyle,
-            cursor: manualFlipRef ? "default" : "pointer",
+            cursor: manualFlipRef.current ? "default" : "pointer",
           }}
         >
           {typeof backHTML !== "string" ? (

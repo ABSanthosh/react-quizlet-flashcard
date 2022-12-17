@@ -23,11 +23,11 @@ function Button({ onClick, children }) {
 }
 
 stories.add("default", () => {
-  const flipRef = useRef(null);
+  const flipRef = useRef();
   return (
     <div className="storyContainer">
       <Flashcard
-        manualFlipRef={flipRef}
+        // manualFlipRef={flipRef}
         backCardStyle={{ backgroundColor: "red" }}
         backContentStyle={{ color: "white", display: "block", padding: "0px" }}
         borderRadius="10px"
@@ -41,9 +41,6 @@ stories.add("default", () => {
           </Button>
         }
         frontHTML="<h1>Back</h1>"
-        onCardFlip={(state) => {
-          console.log(state);
-        }}
       />
       <button
         onClick={() => {

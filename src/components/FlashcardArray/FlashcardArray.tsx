@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import FlashcardArrayProps from "../../interfaces/IFlashcardArray";
 import Flashcard from "../Flashcard/Flashcard";
 import "./FlashcardArray.scss";
@@ -17,7 +17,7 @@ function FlashcardArray({
   frontContentStyle = {},
   backCardStyle = {},
   backContentStyle = {},
-  forwardRef = null,
+  forwardRef = { current: null },
   FlashcardArrayStyle = {},
   currentCardFlipRef,
   cycle = false,
@@ -40,7 +40,7 @@ function FlashcardArray({
   const cardsList = cards.map((card, index) => (
     <Flashcard
       key={index}
-      frontHTML={card.id + ": " + card.frontHTML}
+      frontHTML={card.frontHTML}
       backHTML={card.backHTML}
       manualFlipRef={
         cardNumber === index ? currentCardFlipRef : { current: null }
