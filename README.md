@@ -10,9 +10,8 @@ A simple and responsive quizlet-like flashcard component with a few additional o
 Front and back card accepts html strings and JSX elements!
 
 <h2 align="center">
-<a href="https://absanthosh.github.io/react-quizlet-flashcard/?path=/story/flashcard--basic-flashcard">Check out the demo here</a>
+<a href="https://absanthosh.github.io/react-quizlet-flashcard/?path=/story/flashcard--basic-flashcard" target="_blank">Check out the demo here</a>
 </h2>
-
 
 |                                          react-quizlet-flashcard                                           |                                       Quizlet's flashcard component                                        |
 | :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
