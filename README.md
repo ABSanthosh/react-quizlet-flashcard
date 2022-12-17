@@ -410,7 +410,7 @@ Give a ⭐️ if this project helped you!
 
 ## To-Do:
 
-- Write the component with typescript.
-- Write Unit tests.
-- More finer control.
-- Write the styles with Sass
+- [x] Write the component with typescript.
+- [ ] Write Unit tests.
+- [x] More finer control.
+- [x] Write the styles with Sass
