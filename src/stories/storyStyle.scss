@@ -1,5 +1,11 @@
 @import "../Styles/mixins";
 
+// reset all styles
+* {
+  padding: 0;
+  margin: 0 !important;
+}
+
 html,
 body,
 #root {

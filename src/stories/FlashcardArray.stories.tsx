@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { storiesOf } from "@storybook/react";
 const stories = storiesOf("Flashcard Array", module);
 import "./storyStyle.scss";
@@ -56,23 +56,163 @@ const deck = {
   ],
 };
 
-stories.add("default", () => {
-  const currentCardFlipRef = useRef(null);
-  const arrayRef = useRef({});
+stories.add("Basic FlashcardArray", () => {
+  return (
+    <div className="storyContainer">
+      <FlashcardArray cards={deck.cards} />
+    </div>
+  );
+});
+
+stories.add("Custom Controls", () => {
+  const controlRef = useRef({}); // {} should definitely be passed to useRef for it to work
+  const currentCardFlipRef = useRef(); // nothing should be passed to useRef for it to work
+  const [currentCard, setCurrentCard] = useState(1);
 
   return (
     <div className="storyContainer">
       <FlashcardArray
-        currentCardFlipRef={currentCardFlipRef}
         cards={deck.cards}
-        cycle={true}
         controls={false}
-        forwardRef={arrayRef}
+        showCount={false}
+        forwardRef={controlRef}
+        currentCardFlipRef={currentCardFlipRef}
+        onCardChange={(id, index) => {
+          setCurrentCard(index);
+        }}
       />
-      <button onClick={() => arrayRef.current.prevCard()}>Prev</button>
+      <p>
+        {currentCard} / {deck.cards.length}
+      </p>
+      <button onClick={() => controlRef.current.prevCard()}>Prev</button>
+      <button onClick={() => controlRef.current.resetArray()}>Reset</button>
+      <button onClick={() => controlRef.current.nextCard()}>Next</button>
       <button onClick={() => currentCardFlipRef.current()}>Flip</button>
-      <button onClick={() => arrayRef.current.resetArray()}>Reset</button>
-      <button onClick={() => arrayRef.current.nextCard()}>Next</button>
     </div>
   );
 });
+
+stories.add("Custom Styles for all cards", () => {
+  return (
+    <div className="storyContainer">
+      <FlashcardArray
+        cards={deck.cards}
+        frontContentStyle={{
+          backgroundColor: "lightgoldenrodyellow",
+          color: "black",
+        }}
+        backContentStyle={{
+          backgroundColor: "turquoise",
+        }}
+      />
+    </div>
+  );
+});
+
+stories.add("Custom Styles for each cards", () => {
+  return (
+    <div className="storyContainer">
+      <FlashcardArray
+        cards={[
+          {
+            id: 1,
+            frontHTML: (
+              <>
+                <span style={{ backgroundColor: "lawngreen" }}>Option 1</span>
+                <span style={{ backgroundColor: "lawngreen" }}>Option 2</span>
+                <span style={{ backgroundColor: "lawngreen" }}>Option 3</span>
+              </>
+            ),
+            backHTML: "Juneau",
+            options: ["Juneau", "Anchorage", "Fairbanks"],
+            frontContentStyle: {
+              backgroundColor: "lightgoldenrodyellow",
+              color: "black",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gridTemplateRows: "1fr",
+              gap: "10px",
+              padding: "10px",
+            },
+          },
+          {
+            id: 2,
+            frontHTML: (
+              <>
+                <span style={{ backgroundColor: "pink" }}>Option 1</span>
+                <span style={{ backgroundColor: "pink" }}>Option 2</span>
+                <span style={{ backgroundColor: "pink" }}>Option 3</span>
+              </>
+            ),
+            backHTML: "Sacramento",
+            options: ["Sacramento", "Los Angeles", "San Francisco"],
+            frontContentStyle: {
+              backgroundColor: "lightgoldenrodyellow",
+              color: "black",
+              display: "grid",
+              gridTemplateColumns: "1fr",
+              gridTemplateRows: "1fr 1fr 1fr",
+              gap: "10px",
+              padding: "10px",
+            },
+          },
+        ]}
+      />
+    </div>
+  );
+});
+
+// import { FlashcardArray } from "react-quizlet-flashcard";
+
+// function App() {
+//   return (
+//     <div className="storyContainer">
+//       <FlashcardArray
+//         cards={[
+//           {
+//             id: 1,
+//             frontHTML: (
+//               <>
+//                 <span style={{ backgroundColor: "lawngreen" }}>Option 1</span>
+//                 <span style={{ backgroundColor: "lawngreen" }}>Option 2</span>
+//                 <span style={{ backgroundColor: "lawngreen" }}>Option 3</span>
+//               </>
+//             ),
+//             backHTML: "Juneau",
+//             options: ["Juneau", "Anchorage", "Fairbanks"],
+//             frontContentStyle: {
+//               backgroundColor: "lightgoldenrodyellow",
+//               color: "black",
+//               display: "grid",
+//               gridTemplateColumns: "1fr 1fr 1fr",
+//               gridTemplateRows: "1fr",
+//               gap: "10px",
+//               padding: "10px",
+//             },
+//           },
+//           {
+//             id: 2,
+//             frontHTML: (
+//               <>
+//                 <span style={{ backgroundColor: "pink" }}>Option 1</span>
+//                 <span style={{ backgroundColor: "pink" }}>Option 2</span>
+//                 <span style={{ backgroundColor: "pink" }}>Option 3</span>
+//               </>
+//             ),
+//             backHTML: "Sacramento",
+//             options: ["Sacramento", "Los Angeles", "San Francisco"],
+//             frontContentStyle: {
+//               backgroundColor: "lightgoldenrodyellow",
+//               color: "black",
+//               display: "grid",
+//               gridTemplateColumns: "1fr",
+//               gridTemplateRows: "1fr 1fr 1fr",
+//               gap: "10px",
+//               padding: "10px",
+//             },
+//           },
+//         ]}
+//       />
+//     </div>
+//   );
+// }

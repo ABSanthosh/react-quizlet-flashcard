@@ -13,6 +13,7 @@ function FlashcardArray({
   controls = true,
   showCount = true,
   onCardChange = () => {},
+  onCardFlip = () => {},
   frontCardStyle = {},
   frontContentStyle = {},
   backCardStyle = {},
@@ -54,7 +55,7 @@ function FlashcardArray({
       width={card.width || "100%"}
       style={card.style}
       onCardFlip={(state) => {
-        onCardChange(card.id, state);
+        onCardFlip(card.id, index, state);
         setIsOverFlow("hidden");
         setTimeout(() => {
           setIsOverFlow("");
@@ -98,6 +99,8 @@ function FlashcardArray({
           : [numberOfCards - 1, numberOfCards, -1]
       );
     }
+
+    onCardChange(cards[currentCardNumber].id, currentCardNumber + 1);
   }, [cardNumber, cycle, numberOfCards]);
 
   const prevCard = useCallback(() => {
@@ -133,10 +136,11 @@ function FlashcardArray({
           : [currentCardNumber - 1, currentCardNumber, currentCardNumber + 1]
       );
     }
+    onCardChange(cards[currentCardNumber].id, currentCardNumber + 1);
   }, [cardNumber, cycle, numberOfCards]);
 
   useEffect(() => {
-    if (forwardRef) {
+    if (forwardRef.current) {
       forwardRef.current.nextCard = nextCard;
       forwardRef.current.prevCard = prevCard;
       forwardRef.current.resetArray = resetArray;

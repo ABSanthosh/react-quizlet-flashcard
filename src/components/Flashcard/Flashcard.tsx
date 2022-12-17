@@ -20,9 +20,8 @@ function Flashcard({
   className = "",
   style,
   height,
-  borderRadius,
+  borderRadius = "1rem",
   width,
-  resetState = false,
   onCardFlip = (state = false) => {},
   manualFlipRef = { current: null },
 }: FlashcardProps) {
@@ -34,9 +33,9 @@ function Flashcard({
   }
 
   if (manualFlipRef.current !== null) {
-    manualFlipRef.current = useCallback(onManualFlip, [isFlipped]);
+    manualFlipRef.current = onManualFlip;
   }
-  
+
   return (
     <div
       className={`FlashcardWrapper ${className}`}

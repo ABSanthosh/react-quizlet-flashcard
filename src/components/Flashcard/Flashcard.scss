@@ -15,7 +15,6 @@
     left: 0;
     @include box();
     position: absolute;
-    border-radius: 1rem;
     transform-style: preserve-3d;
     background-color: transparent;
     transition: transform 0.45s ease;
@@ -49,6 +48,7 @@
 
     &--content {
       @include box();
+      border-radius: inherit;
     }
   }
 }

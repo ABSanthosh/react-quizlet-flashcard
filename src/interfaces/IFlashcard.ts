@@ -40,10 +40,6 @@ export default interface FlashcardProps {
    */
   width?: string;
   /**
-   * Boolean to reset the state of the card
-   */
-  resetState?: boolean;
-  /**
    * CSS styles to be applied to the wrapper div
    */
   style?: React.CSSProperties;

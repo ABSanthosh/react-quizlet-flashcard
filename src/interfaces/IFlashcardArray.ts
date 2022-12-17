@@ -10,11 +10,11 @@ export default interface FlashcardArrayProps {
     /**
      * HTML string for the front of the card.
      */
-    frontHTML: string;
+    frontHTML: string | JSX.Element;
     /**
      * HTML string for the back of the card.
      */
-    backHTML: string;
+    backHTML: string | JSX.Element;
     /**
      * Styles for the front of the card.
      */
@@ -93,9 +93,13 @@ export default interface FlashcardArrayProps {
    */
   FlashcardArrayStyle?: React.CSSProperties;
   /**
+   * Callback function that is called when card in view changes with card id and index
+   */
+  onCardChange?: (id: any, index: number) => void;
+  /**
    * Callback function that is called when a card is flipped with card id and flip state
    */
-  onCardChange?: (id: number, state: boolean) => void;
+  onCardFlip?: (id: any, index: number, state: boolean) => void;
   /**
    * when passed with a ref, ref.current object will contain reference to `flipCard()` for the current card
    */
