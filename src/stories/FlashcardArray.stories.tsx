@@ -64,6 +64,14 @@ stories.add("Basic FlashcardArray", () => {
   );
 });
 
+stories.add("Cycling FlashcardArray", () => {
+  return (
+    <div className="storyContainer">
+      <FlashcardArray cards={deck.cards} cycle={true} />
+    </div>
+  );
+});
+
 stories.add("Custom Controls", () => {
   const controlRef = useRef({}); // {} should definitely be passed to useRef for it to work
   const currentCardFlipRef = useRef(); // nothing should be passed to useRef for it to work
@@ -81,13 +89,39 @@ stories.add("Custom Controls", () => {
           setCurrentCard(index);
         }}
       />
-      <p>
-        {currentCard} / {deck.cards.length}
-      </p>
-      <button onClick={() => controlRef.current.prevCard()}>Prev</button>
-      <button onClick={() => controlRef.current.resetArray()}>Reset</button>
-      <button onClick={() => controlRef.current.nextCard()}>Next</button>
-      <button onClick={() => currentCardFlipRef.current()}>Flip</button>
+      <br />
+      <div className="storyContainer__row">
+        <h2>Custom Controls</h2>
+      </div>
+      <div className="storyContainer__row">
+        <button
+          className="storyContainer--buttons"
+          onClick={() => controlRef.current.prevCard()}
+        >
+          Prev
+        </button>
+        <button
+          className="storyContainer--buttons"
+          onClick={() => controlRef.current.resetArray()}
+        >
+          Reset
+        </button>
+        <p>
+          {currentCard} / {deck.cards.length}
+        </p>
+        <button
+          className="storyContainer--buttons"
+          onClick={() => currentCardFlipRef.current()}
+        >
+          Flip
+        </button>
+        <button
+          className="storyContainer--buttons"
+          onClick={() => controlRef.current.nextCard()}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 });
@@ -161,58 +195,3 @@ stories.add("Custom Styles for each cards", () => {
     </div>
   );
 });
-
-// import { FlashcardArray } from "react-quizlet-flashcard";
-
-// function App() {
-//   return (
-//     <div className="storyContainer">
-//       <FlashcardArray
-//         cards={[
-//           {
-//             id: 1,
-//             frontHTML: (
-//               <>
-//                 <span style={{ backgroundColor: "lawngreen" }}>Option 1</span>
-//                 <span style={{ backgroundColor: "lawngreen" }}>Option 2</span>
-//                 <span style={{ backgroundColor: "lawngreen" }}>Option 3</span>
-//               </>
-//             ),
-//             backHTML: "Juneau",
-//             options: ["Juneau", "Anchorage", "Fairbanks"],
-//             frontContentStyle: {
-//               backgroundColor: "lightgoldenrodyellow",
-//               color: "black",
-//               display: "grid",
-//               gridTemplateColumns: "1fr 1fr 1fr",
-//               gridTemplateRows: "1fr",
-//               gap: "10px",
-//               padding: "10px",
-//             },
-//           },
-//           {
-//             id: 2,
-//             frontHTML: (
-//               <>
-//                 <span style={{ backgroundColor: "pink" }}>Option 1</span>
-//                 <span style={{ backgroundColor: "pink" }}>Option 2</span>
-//                 <span style={{ backgroundColor: "pink" }}>Option 3</span>
-//               </>
-//             ),
-//             backHTML: "Sacramento",
-//             options: ["Sacramento", "Los Angeles", "San Francisco"],
-//             frontContentStyle: {
-//               backgroundColor: "lightgoldenrodyellow",
-//               color: "black",
-//               display: "grid",
-//               gridTemplateColumns: "1fr",
-//               gridTemplateRows: "1fr 1fr 1fr",
-//               gap: "10px",
-//               padding: "10px",
-//             },
-//           },
-//         ]}
-//       />
-//     </div>
-//   );
-// }
