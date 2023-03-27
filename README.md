@@ -38,40 +38,38 @@ function App() {
   const cards = [
     {
       id: 1,
-      front: "What is the capital of <u>Alaska</u>?",
-      back: "Juneau",
-      frontChild: <div>Hello there</div>,
-      backChild: <p>This is a back child</p>,
+      frontHTML: <div>What is the capital of <u>Alaska</u>?</div>,
+      backHTML: <>Juneau</>,
     },
     {
       id: 2,
-      front: "What is the capital of California?",
-      back: "Sacramento",
+      frontHTML: <>What is the capital of California?</>,
+      backHTML: <>Sacramento</>,
     },
     {
       id: 3,
-      front: "What is the capital of New York?",
-      back: "Albany",
+      frontHTML: <>What is the capital of New York?</>,
+      backHTML: <>Albany</>,
     },
     {
       id: 4,
-      front: "What is the capital of Florida?",
-      back: "Tallahassee",
+      frontHTML: <>What is the capital of Florida?</>,
+      backHTML: <>Tallahassee</>,
     },
     {
       id: 5,
-      front: "What is the capital of Texas?",
-      back: "Austin",
+      frontHTML: <>What is the capital of Texas?</>,
+      backHTML: <>Austin</>,
     },
     {
       id: 6,
-      front: "What is the capital of New Mexico?",
-      back: "Santa Fe",
+      frontHTML: <>What is the capital of New Mexico?</>,
+      backHTML: <>Santa Fe</>,
     },
     {
       id: 7,
-      front: "What is the capital of Arizona?",
-      back: "Phoenix",
+      frontHTML: <>What is the capital of Arizona?</>,
+      backHTML: <>Phoenix</>,
     },
   ];
   return (
