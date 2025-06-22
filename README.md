@@ -413,6 +413,6 @@ Give a ⭐️ if this project helped you!
 ## To-Do:
 
 - [x] Write the component with typescript.
-- [ ] Write Unit tests.
+- [x] Write Unit tests.
 - [x] More finer control.
 - [x] Write the styles with Sass
