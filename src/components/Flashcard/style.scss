@@ -1,14 +1,15 @@
-@import "../../styles/mixins";
+@use '../../styles/mixins' as *;
 
 .FlashcardWrapper {
-  & * {
-    box-sizing: border-box;
-  }
   bottom: 10%;
   clear: left;
   perspective: 1000px;
   @include box(560px, 340px);
   transform: none !important;
+
+  & * {
+    box-sizing: border-box;
+  }
 
   &__item {
     top: 0;

@@ -12,8 +12,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      // TODO: replace stories with ladle files
-      exclude: ['**/*.stories.tsx', 'src/test-setup.ts', '**/test.tsx'],
+      exclude: ['**/*.stories.tsx', 'src/test-setup.ts', '**/*.test.tsx'],
       tsconfigPath: 'tsconfig.app.json',
     }),
   ],

@@ -1,13 +1,13 @@
-@import "../../styles/mixins";
+@use '../../styles/mixins' as *;
 
 .FlashcardArrayWrapper {
-  & * {
-    box-sizing: border-box;
-  }
-
   gap: 10px;
   @include make-flex();
   @include box(560px, auto);
+
+  & * {
+    box-sizing: border-box;
+  }
 
   @include respondAt(625px) {
     width: 90%;
@@ -27,7 +27,9 @@
         background: transparent;
         display: block !important;
         transform-style: preserve-3d;
-        transition: transform 0.24s ease, opacity 0.12s linear !important;
+        transition:
+          transform 0.24s ease,
+          opacity 0.12s linear !important;
       }
 
       &:nth-child(1) {
@@ -57,7 +59,9 @@
         background: transparent;
         display: block !important;
         transform-style: preserve-3d;
-        transition: transform 0.24s ease, opacity 0.12s linear !important;
+        transition:
+          transform 0.24s ease,
+          opacity 0.12s linear !important;
       }
     }
   }
