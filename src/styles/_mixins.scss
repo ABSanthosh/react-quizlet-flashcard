@@ -1,0 +1,44 @@
+@mixin respondAt($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin respondAtAlt($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin respondAtLarge($breakpoint, $breakpoint2) {
+  @media only screen and (min-width: $breakpoint) and (max-width: $breakpoint2) {
+    @content;
+  }
+}
+
+@mixin box($width: 100%, $height: 100%) {
+  width: $width;
+  height: $height;
+}
+
+@mixin prefix($prop, $value) {
+  // @include css3-prefix(transform, scale3d(2.5, 2, 1.5));
+  -webkit-#{$prop}: #{$value};
+  -moz-#{$prop}: #{$value};
+  -ms-#{$prop}: #{$value};
+  -o-#{$prop}: #{$value};
+  #{$prop}: #{$value};
+}
+
+@mixin vertical-center {
+  position: relative;
+  top: 50%;
+  @include prefix(transform, translate(-50%));
+}
+
+@mixin make-flex($dir: column, $align: center, $just: center) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $just;
+}
