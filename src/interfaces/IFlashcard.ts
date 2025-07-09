@@ -50,5 +50,5 @@ export default interface FlashcardProps {
   /**
    * when passed with a ref, ref.current object will contain reference to `flipCard()` function
    */
-  manualFlipRef?: React.MutableRefObject<() => void>;
+  manualFlipRef?: React.MutableRefObject<() => void> | React.MutableRefObject<undefined>;
 }

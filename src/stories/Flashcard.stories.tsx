@@ -23,6 +23,7 @@ stories.add("Manual flip", () => {
         backHTML={<h1>Back</h1>}
         manualFlipRef={flipRef}
       />
+      {/* @ts-ignore */}
       <button onClick={() => flipRef.current()}>Flip</button>
     </div>
   );
