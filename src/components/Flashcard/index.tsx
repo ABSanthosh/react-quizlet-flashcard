@@ -11,6 +11,7 @@ import { FlipState, type UseFlashcard } from '../../hooks/useFlashcard'
 export interface FlashcardProps {
   className?: string
   manualFlip?: boolean
+  style?: CSSProperties
   flipHook?: UseFlashcard
   front: {
     html: ReactElement
@@ -23,6 +24,7 @@ export interface FlashcardProps {
 }
 
 export default function Flashcard({
+  style,
   flipHook,
   manualFlip,
   className,
@@ -38,11 +40,14 @@ export default function Flashcard({
   }, [flipHook?.state])
 
   return (
-    <div className='flashcard-wrapper'>
+    <div
+      style={style}
+      className='flashcard-wrapper'
+    >
       <div
         className={['flashcard', className].filter(Boolean).join(' ')}
         data-flip={isFlipped}
-        data-dir={flipHook?.flipDirection}
+        data-dir={flipHook?.flipDirection || 'bt'}
         role='region'
         aria-label={`Flashcard, currently showing ${isFlipped ? 'back' : 'front'} side`}
         aria-live='polite'
@@ -60,12 +65,18 @@ export default function Flashcard({
         <div
           className='flashcard__front'
           data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
+          style={front.style}
+          aria-hidden={isFlipped}
+          role='contentinfo'
         >
           {front.html}
         </div>
         <div
           className='flashcard__back'
           data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
+          style={back.style}
+          aria-hidden={isFlipped}
+          role='contentinfo'
         >
           {back.html}
         </div>

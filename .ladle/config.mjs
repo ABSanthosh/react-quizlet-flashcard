@@ -16,5 +16,11 @@ export default {
     source: {
       enabled: false,
     },
+    theme: {
+      enabled: false,
+    },
+    width: {
+      enabled: false,
+    }
   },
 };

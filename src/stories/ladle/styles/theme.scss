@@ -1,0 +1,58 @@
+:root {
+  --white: #ffffff;
+
+  /* Base Colors */
+  --scroll: light-dark(#d0d0d0, gray);
+  --foreground: light-dark(#262626, #e6e6e6);
+  --subFg-1: light-dark(#91999e, #91999e);
+  --subFg-2: light-dark(#555555, #aaaaaa);
+  --background: light-dark(#ffffff, #030303);
+  --iconColor: light-dark(#656d76, #7d8590);
+  --elevation-1: light-dark(#f9fbfb, #1a1a1b);
+  --elevation-2: light-dark(#1f232814, #1f2328a1);
+
+  /* Crisp Theme */
+  --t-crp-disabled-color: light-dark(#a3a3a3, #eaeaea);
+  --t-crp-background-hover: light-dark(#eaecee, #2f3337);
+  --t-crp-disabled-background-color: light-dark(#eaecee, #2f3337);
+  --t-crp-link-primary: light-dark(#7547ff, #b49bff);
+  --t-crp-border: light-dark(#d0d7de, #343536);
+  --t-crp-light-border: light-dark(#e8edf1, #2f2e2e);
+  --t-crp-border-hover: light-dark(#ccced1, #8b949e);
+  --t-crp-disabled-border: light-dark(#eaecee, #2f3337);
+
+  /* Message Colors */
+  --crp-message-color-error: light-dark(#b31410, #942926);
+  --crp-message-border-color-error: light-dark(#b31410, #942926);
+  --crp-message-background-color-error: light-dark(#ffe6e6, #ffe6e6);
+
+  --crp-message-color-info: light-dark(#005197, #e6e6e6);
+  --crp-message-border-color-info: light-dark(#005197, #6b91fb);
+  --crp-message-background-color-info: light-dark(#e3f0ff, #303849);
+
+  --crp-message-color-convo2024: light-dark(#c3b197, #c3b197);
+  --crp-message-border-color-convo2024: light-dark(#9d7b7b, #9d7b7b);
+  --crp-message-background-color-convo2024: light-dark(#f9efde, #dbceb8);
+
+  --crp-tab-background-color: light-dark(#f4f4f5, #27272a);
+  --crp-tab-item-background-color: light-dark(#ffffff, #09090b);
+}
+
+/* Non-color properties that can't use light-dark() */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --t-crp-select-downArrow: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  --t-crp-box-shadow: #1f23280a 0px 1px 0px 0px, #ffffff40 0px 1px 0px 0px inset;
+  --t-crp-elevation-shadow: #8c959f33 0px 8px 24px 0px;
+  --home-card-box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --t-crp-select-downArrow: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  --t-crp-box-shadow: #00000000 0px 0px 0px 0px, #00000000 0px 0px 0px 0px;
+  --t-crp-elevation-shadow: #191a1a 0px 8px 24px 0px;
+  --home-card-box-shadow: '';
+}

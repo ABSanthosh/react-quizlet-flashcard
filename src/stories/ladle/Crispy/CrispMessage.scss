@@ -1,0 +1,56 @@
+@use '../../../styles/mixins' as *;
+
+.CrispMessage {
+  &[data-type='error'] {
+    --crp-message-icon: 'report';
+    --crp-message-color: var(--crp-message-color-error);
+    --crp-message-border-color: var(--crp-message-border-color-error);
+    --crp-message-background-color: var(--crp-message-background-color-error);
+  }
+
+  &[data-no-icon] {
+    &::before {
+      display: none;
+    }
+  }
+
+  &[data-type='info'] {
+    --crp-message-icon: 'info';
+    --crp-message-color: var(--crp-message-color-info);
+    --crp-message-border-color: var(--crp-message-border-color-info);
+    --crp-message-background-color: var(--crp-message-background-color-info);
+    // @include make-flex($dir: row, $just: flex-start, $align: flex-start);
+  }
+
+  &[data-format='box'] {
+    --crp-message-border-radius: 8px;
+    --crp-message-padding: 8px 10px;
+
+    border-radius: var(--crp-message-border-radius);
+    border: 1px solid var(--crp-message-border-color);
+    background-color: var(--crp-message-background-color);
+    padding: var(--crp-message-padding);
+    // @include make-flex($just: flex-start, $align: flex-start);
+  }
+
+  column-gap: 8px;
+  line-height: 100%;
+  @include box($height: auto);
+  color: var(--crp-message-color);
+  @include make-flex($dir: row, $just: flex-start);
+
+  &::before {
+    content: var(--crp-message-icon);
+    color: var(--crp-message-color);
+    font: normal normal normal 20px/1 'Material Symbols Rounded';
+  }
+}
+
+.CrispMessageList {
+  --crp-message-list-gap: 8px;
+
+  list-style-type: none;
+  @include box($height: auto);
+  gap: var(--crp-message-list-gap);
+  @include make-flex($align: flex-start, $just: flex-start);
+}

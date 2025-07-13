@@ -1,0 +1,31 @@
+@use '../../../styles/mixins' as *;
+
+.CrispFigure {
+  @include make-flex();
+  gap: 10px;
+  margin: 0;
+  position: relative;
+
+  & > img {
+    border-radius: 7px;
+    padding: 10px 10px 20px 10px;
+    border: 1px solid var(--t-crp-border);
+  }
+
+  & > figcaption {
+    font-size: 15px;
+    color: var(--subFg-1);
+    text-align: center;
+    user-select: none;
+    font-style: italic;
+
+    position: absolute;
+    bottom: -10px;
+    background-color: var(--background);
+    padding: 0 8px;
+    max-width: 80%;
+    border-left: 1px solid var(--t-crp-border);
+    border-right: 1px solid var(--t-crp-border);
+    border-radius: 5px;
+  }
+}

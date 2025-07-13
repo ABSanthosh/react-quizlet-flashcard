@@ -1,0 +1,295 @@
+@use '../../../styles/mixins' as *;
+
+/**
+ * @usage
+<details class="CrispMenu Demo">
+	<summary> Navigation </summary>
+	<ul class="CrispMenu__content" data-align={align} data-direction={direction}>
+		<li class="CrispMenu__item">Home</li>
+		<li class="CrispMenu__item">About</li>
+		<li class="CrispMenu__item">Contact</li>
+	</ul>
+</details>
+*/
+
+.CrispMenu {
+  --crp-menu-width: auto;
+  --crp-menu-height: 30px;
+  --crp-menu-min-width: 150px;
+  --crp-menu-offset: 8px;
+
+  --crp-menu-content-border-radius: 12px;
+  --crp-menu-content-padding: 5px;
+  --crp-menu-content-item-border-radius: 7px;
+  --crp-menu-content-width: auto;
+  --crp-menu-content-height: auto;
+
+  --crp-menu-summary-padding: 0 24px 0 10px;
+  --crp-menu-summary-border-radius: 8px;
+
+  position: relative;
+  transition: all 0.15s ease-in-out;
+  min-width: var(--crp-menu-min-width);
+  @include box(var(--crp-menu-width), var(--crp-menu-height));
+
+  &:not([data-no-marker]) {
+    & > summary {
+      &:not([data-no-marker]) {
+        &::after {
+          top: calc(50% + 3px);
+          transform: translateY(-50%);
+          content: 'arrow_drop_down';
+          font: normal normal normal 18px/1 'Material Symbols Rounded';
+        }
+
+        &::before {
+          bottom: calc(50% + 3px);
+          transform: translateY(50%);
+          content: 'arrow_drop_up';
+          font: normal normal normal 18px/1 'Material Symbols Rounded';
+        }
+      }
+    }
+  }
+
+  &[data-no-marker] {
+    & > summary {
+      &::after {
+        display: none;
+        background-image: none;
+      }
+      --crp-menu-summary-padding: 0 10px;
+    }
+  }
+
+  &:not(&[data-type]) {
+    --crp-menu-color: var(--foreground);
+    --crp-menu-color-hover: var(--foreground);
+
+    --crp-menu-background-color: var(--elevation-1);
+    --crp-menu-background-color-hover: var(--t-crp-background-hover);
+
+    --crp-menu-border: 1px solid var(--t-crp-border);
+    --crp-menu-border-hover: 1px solid var(--t-crp-border-hover);
+
+    --crp-menu-box-shadow: var(--t-crp-box-shadow);
+    --crp-menu-summary-icon-color: var(--iconColor);
+    --crp-menu-content-box-shadow: var(--t-crp-elevation-shadow);
+    --crp-menu-content-border: 1px solid var(--t-crp-border);
+  }
+
+  &[open] {
+    & > summary {
+      color: var(--crp-menu-color-hover);
+      border: var(--crp-menu-border-hover);
+      background-color: var(--crp-menu-background-color-hover);
+    }
+  }
+
+  summary {
+    // Basic
+    // outline: none;
+    @include box();
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    position: relative;
+    padding: var(--crp-menu-summary-padding);
+    @include make-flex($dir: row, $just: flex-start);
+    border-radius: var(--crp-menu-summary-border-radius);
+
+    // Colors
+    transition:
+      all 0.1s ease-in-out,
+      border-color 0.3s ease;
+    color: var(--crp-menu-color);
+    border: var(--crp-menu-border);
+    box-shadow: var(--crp-menu-box-shadow);
+    background-color: var(--crp-menu-background-color);
+
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:first-of-type {
+      list-style-type: none;
+    }
+
+    @media (any-hover: hover) {
+      &:hover:not(:disabled),
+      &:focus:not(:disabled) {
+        outline: none;
+        color: var(--crp-menu-color-hover);
+        border: var(--crp-menu-border-hover);
+        background-color: var(--crp-menu-background-color-hover);
+      }
+    }
+
+    &::after,
+    &::before {
+      right: 2px;
+      line-height: 0;
+      font-size: 19px;
+      position: absolute;
+      color: var(--crp-menu-summary-icon-color);
+    }
+  }
+
+  &__content {
+    gap: 5px;
+    z-index: 3;
+    list-style: none;
+    user-select: none;
+    position: absolute;
+    @include make-flex();
+    @include box(var(--crp-menu-content-width), var(--crp-menu-content-height));
+    animation: fadeIn 0.3s ease-out forwards;
+
+    &[data-preclose] {
+      animation: fadeOut 0.3s ease-out forwards !important;
+    }
+
+    // If its a list, remove list styles
+    list-style: none;
+
+    color: var(--crp-menu-color);
+    border: var(--crp-menu-content-border);
+    padding: var(--crp-menu-content-padding);
+    box-shadow: var(--crp-menu-content-box-shadow);
+    background-color: var(--crp-menu-background-color);
+    border-radius: var(--crp-menu-content-border-radius);
+
+    /** 
+    * direction   align
+    * bottom      [left, center, right]
+    * top         [left, center, right]
+    * left        [top, center, bottom]
+    * right       [top, center, bottom]
+    */
+
+    &:not([data-direction]) {
+      top: calc(100% + var(--crp-menu-offset));
+    }
+
+    &:not([data-align]) {
+      right: 0;
+    }
+
+    &[data-direction='bottom'] {
+      &[data-align='left'] {
+        top: calc(100% + var(--crp-menu-offset));
+        left: 0;
+      }
+
+      &[data-align='center'] {
+        top: calc(100% + var(--crp-menu-offset));
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &[data-align='right'] {
+        top: calc(100% + var(--crp-menu-offset));
+        right: 0;
+      }
+    }
+
+    &[data-direction='top'] {
+      &[data-align='left'] {
+        bottom: calc(100% + var(--crp-menu-offset));
+        left: 0;
+      }
+
+      &[data-align='center'] {
+        bottom: calc(100% + var(--crp-menu-offset));
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &[data-align='right'] {
+        bottom: calc(100% + var(--crp-menu-offset));
+        right: 0;
+      }
+    }
+
+    &[data-direction='left'] {
+      &[data-align='top'] {
+        top: 0;
+        right: calc(100% + var(--crp-menu-offset));
+      }
+
+      &[data-align='center'] {
+        top: 50%;
+        right: calc(100% + var(--crp-menu-offset));
+        transform: translateY(-50%);
+      }
+
+      &[data-align='bottom'] {
+        bottom: 0;
+        right: calc(100% + var(--crp-menu-offset));
+      }
+    }
+
+    &[data-direction='right'] {
+      &[data-align='top'] {
+        top: 0;
+        left: calc(100% + var(--crp-menu-offset));
+      }
+
+      &[data-align='center'] {
+        top: 50%;
+        left: calc(100% + var(--crp-menu-offset));
+        transform: translateY(-50%);
+      }
+
+      &[data-align='bottom'] {
+        bottom: 0;
+        left: calc(100% + var(--crp-menu-offset));
+      }
+    }
+  }
+
+  &__separator {
+    border: none;
+    @include make-flex();
+    @include box(90%, 1.4px);
+    background-color: var(--t-crp-light-border);
+  }
+
+  &__item {
+    @include box($height: 30px);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 5px 10px;
+    @include make-flex($dir: row, $just: flex-start);
+
+    // Colors
+    color: var(--crp-menu-color);
+    background-color: var(--crp-menu-background-color);
+    border-radius: var(--crp-menu-content-item-border-radius);
+
+    &:hover {
+      color: var(--crp-menu-color-hover);
+      background-color: var(--crp-menu-background-color-hover);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}

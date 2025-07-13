@@ -1,0 +1,106 @@
+@use '../../../styles/mixins' as *;
+
+.CrispTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  thead tr th {
+    position: sticky;
+    top: 0;
+  }
+
+  &[data-no-footer] {
+    tr {
+      &:last-child > td {
+        border-bottom: 1px solid var(--t-crp-border);
+        &:first-child {
+          border-bottom-left-radius: 6px;
+        }
+
+        &:last-child {
+          border-bottom-right-radius: 6px;
+        }
+      }
+    }
+  }
+
+  tr {
+    background-color: var(--tableHeaderBG);
+    // background-color: #fbfcfd;
+
+    &.empty {
+      & > td {
+        text-align: center;
+        padding: 24px;
+        color: var(--tableHeaderFG);
+        // color: #687076;
+      }
+    }
+
+    & > th,
+    & > td {
+      // padding: 12px 24px;
+      text-align: left;
+      font-size: 15px;
+      white-space: nowrap;
+
+      &:first-child {
+        border-left: 1px solid var(--t-crp-border);
+        padding: 12px 16px 12px 24px;
+      }
+
+      &:last-child {
+        border-right: 1px solid var(--t-crp-border);
+        padding: 12px 24px 12px 16px;
+      }
+
+      &:not(:last-child) {
+        padding-right: 15px;
+      }
+    }
+
+    & > td {
+      border-bottom: 1px solid var(--t-crp-border);
+    }
+
+    & > th {
+      border-top: 1px solid var(--t-crp-border);
+      border-bottom: 1px solid var(--t-crp-border);
+      background-color: var(--background);
+      // color: #687076;
+      color: var(--tableHeaderFG);
+
+      font-weight: 500;
+
+      &:first-child {
+        border-top-left-radius: 6px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 6px;
+      }
+    }
+
+    &:last-child > td {
+      border-bottom: 0;
+    }
+  }
+
+  & > tfoot {
+    & > tr > td {
+      border-radius: 0 0 6px 6px;
+      font-size: 12px;
+      color: var(--subFg-2);
+      position: sticky;
+      bottom: 0;
+      background-color: var(--background);
+      border-top: 1px solid var(--t-crp-border);
+      border-bottom: 1px solid var(--t-crp-border) !important;
+    }
+
+    & > tr > td span {
+      color: var(--subFg-2);
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@use '../../../styles/mixins' as *;
+
+.CrispSelect {
+  --crp-select-width: auto;
+  --crp-select-height: 30px;
+  --crp-select-font-size: 14px;
+  --crp-select-min-width: 150px;
+  --crp-select-icon-offset: 0px;
+  --crp-select-content-padding: 5px;
+  --crp-select-content-border-radius: 12px;
+  --crp-select-content-item-border-radius: 7px;
+  --crp-select-content-border: 0.2px solid #c9c9c966;
+  --crp-select-background-size: 24px 14px;
+  --crp-select-background-position: calc(100% - var(--crp-select-icon-offset)) 50%;
+  --crp-select-padding: 0 20px 0 10px;
+  --crp-select-border-radius: 8px;
+
+  --crp-select-disabled-color: var(--t-crp-disabled-color);
+  --crp-select-disabled-background-color: var(--t-crp-disabled-background-color);
+  --crp-select-disabled-border: 1.2px solid var(--t-crp-disabled-border);
+
+  min-width: var(--crp-select-min-width);
+  @include box(var(--crp-select-width), var(--crp-select-height));
+
+  &:not(&[data-type]) {
+    --crp-select-color: var(--foreground);
+    --crp-select-color-hover: var(--foreground);
+    --crp-select-background-color: var(--elevation-1);
+    --crp-select-background-hover: var(--t-crp-background-hover);
+    --crp-select-border: 1px solid var(--t-crp-border);
+    --crp-select-border-hover: 1px solid var(--t-crp-border-hover);
+    --crp-select-box-shadow: var(--t-crp-box-shadow);
+    --crp-select-content-box-shadow: var(--t-crp-box-shadow);
+    --crp-select-padding: 0 35px 0 10px;
+    --crp-select-icon: var(--t-crp-select-downArrow);
+    --crp-select-background-position: right 5px top 50%;
+    --crp-select-background-size: right 5px top 50%;
+  }
+
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  border-radius: var(--crp-select-border-radius);
+  padding: var(--crp-select-padding);
+  @include make-flex($dir: row, $just: flex-start);
+
+  // Colors
+  color: var(--crp-select-color);
+  border: var(--crp-select-border);
+  box-shadow: var(--crp-select-box-shadow);
+  background-color: var(--crp-select-background-color);
+
+  appearance: none;
+  background-size: var(--crp-select-background-size);
+  background-repeat: no-repeat;
+  font-size: var(--crp-select-font-size);
+  background-image: var(--crp-select-icon);
+  background-position: var(--crp-select-background-position);
+
+  &:hover,
+  &:focus {
+    color: var(--crp-select-color-hover);
+    border: var(--crp-select-border-hover);
+    background-color: var(--crp-select-background-hover);
+  }
+
+  &:disabled {
+    color: var(--crp-select-disabled-color);
+    background-color: var(--crp-select-disabled-background-color);
+    border: var(--crp-select-disabled-border);
+    cursor: not-allowed;
+  }
+}
