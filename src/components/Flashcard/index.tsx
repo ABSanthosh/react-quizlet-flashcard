@@ -43,6 +43,10 @@ export default function Flashcard({
         className={['flashcard', className].filter(Boolean).join(' ')}
         data-flip={isFlipped}
         data-dir={flipHook?.flipDirection}
+        role='region'
+        aria-label={`Flashcard, currently showing ${isFlipped ? 'back' : 'front'} side`}
+        aria-live='polite'
+        tabIndex={0}
         onClick={() => {
           if (manualFlip) return
           if (flipHook) {
