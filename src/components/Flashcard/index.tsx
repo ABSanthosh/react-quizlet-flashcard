@@ -46,6 +46,7 @@ export default function Flashcard({
         onClick={() => {
           if (manualFlip) return
           if (flipHook) {
+            if (flipHook.disableFlip) return
             flipHook.flip()
           } else {
             setIsFlipped(!isFlipped)
@@ -54,13 +55,13 @@ export default function Flashcard({
       >
         <div
           className='flashcard__front'
-          data-manual-flip={manualFlip}
+          data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
         >
           {front.html}
         </div>
         <div
           className='flashcard__back'
-          data-manual-flip={manualFlip}
+          data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
         >
           {back.html}
         </div>

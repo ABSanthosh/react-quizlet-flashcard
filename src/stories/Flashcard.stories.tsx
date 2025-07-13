@@ -2,33 +2,18 @@ import type { Story } from '@ladle/react'
 import Flashcard from '../components/Flashcard'
 import './styles.scss'
 import { Fragment } from 'react/jsx-runtime'
-import { FlipState, useFlashcard, type FlipDirection } from '../hooks/useFlashcard'
-import { useState } from 'react'
+import { FlipState, useFlashcard } from '../hooks/useFlashcard'
 
 // Basic Flashcard
 export const BasicFlashcard: Story = () => {
-  const [dir, setDir] = useState<FlipDirection>('bt')
-
   const flipHook = useFlashcard({
     onFlip: (newState: FlipState) => {
       console.log(`Card flipped to: ${newState}`) // Example callback action
     },
-    flipDirection: dir,
   })
 
   return (
     <Fragment>
-      <select
-        name='flipDirection'
-        id='flipDirection'
-        value={dir}
-        onChange={(e) => setDir(e.target.value as FlipDirection)}
-      >
-        <option value='bt'>Bottom to Top</option>
-        <option value='tb'>Top to Bottom</option>
-        <option value='ltr'>Left to Right</option>
-        <option value='rtl'>Right to Left</option>
-      </select>
       <Flashcard
         flipHook={flipHook}
         back={{ html: <div>Back Content</div> }}

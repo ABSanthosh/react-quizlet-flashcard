@@ -48,11 +48,14 @@
     backface-visibility: hidden;
     box-shadow: var(--box-shadow);
 
-    &:not(&[data-manual-flip='true']) {
-      cursor: pointer;
+    &[data-flip-type='disable'] {
+      cursor: not-allowed;
     }
-    &[data-manual-flip='true'] {
+    &[data-flip-type='manual'] {
       cursor: auto;
+    }
+    &[data-flip-type='auto'] {
+      cursor: pointer;
     }
   }
 

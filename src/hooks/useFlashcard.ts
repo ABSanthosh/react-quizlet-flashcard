@@ -13,22 +13,25 @@ export type FlipDirection = 'rtl' | 'ltr' | 'tb' | 'bt'
 
 export interface UseFlashcard {
   state: FlipState
-  flip: (state?: FlipState) => void
-  // onFlip should be called when a card is flipped and when the flip state changes
-  onFlip?: (state: FlipState) => void
+  disableFlip?: boolean
   flipDirection: FlipDirection
+  flip: (state?: FlipState) => void
+  onFlip?: (state: FlipState) => void
 }
 
 export function useFlashcard({
   onFlip,
+  disableFlip = false,
   flipDirection = 'bt',
 }: {
-  onFlip?: (state: FlipState) => void
+  disableFlip?: boolean
   flipDirection?: FlipDirection
+  onFlip?: (state: FlipState) => void
 }): UseFlashcard {
   const [flashcardSide, setFlashcardSide] = useState<FlipState>(FlipState.Front)
 
   const flip = (state?: FlipState) => {
+    if (disableFlip) return
     setFlashcardSide((prev) => {
       const newState = state ?? (prev === FlipState.Front ? FlipState.Back : FlipState.Front)
       onFlip?.(newState)
@@ -41,5 +44,6 @@ export function useFlashcard({
     flip,
     onFlip,
     flipDirection,
+    disableFlip: disableFlip ? disableFlip : false,
   }
 }
