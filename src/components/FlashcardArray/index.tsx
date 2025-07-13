@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./style.scss";
 import type FlashcardArrayProps from "./types";
-import Flashcard from "../Flashcard";
+import Flashcard from "../Flashcard/oldIndex";
 
 function FlashcardArray({
   cards,

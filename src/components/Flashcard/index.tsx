@@ -1,100 +1,70 @@
-import { useState } from "react";
-import "./style.scss";
-import type FlashcardProps from "./types";
+import { useEffect, useState, type CSSProperties, type ReactElement } from 'react'
+
+import './style.scss'
+import { FlipState, type UseFlashcard } from '../../hooks/useFlashcard'
+
+/**
+ * We're basically moving the content style and card style to userland.
+ *
+ */
+
+export interface FlashcardProps {
+  className?: string
+  manualFlip?: boolean
+  flipHook?: UseFlashcard
+  front: {
+    html: ReactElement
+    style?: CSSProperties
+  }
+  back: {
+    html: ReactElement
+    style?: CSSProperties
+  }
+}
 
 export default function Flashcard({
-  frontHTML,
-  frontCardStyle,
-  frontContentStyle,
-  backHTML,
-  backCardStyle,
-  backContentStyle,
-  className = "",
-  style,
-  height,
-  borderRadius = "1rem",
-  width,
-  onCardFlip = () => {},
-  manualFlipRef = { current: null },
+  flipHook,
+  manualFlip,
+  className,
+  front,
+  back,
 }: FlashcardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === FlipState.Back : false)
 
-  function onManualFlip() {
-    setIsFlipped(!isFlipped);
-    onCardFlip(!isFlipped);
-  }
-
-  if (manualFlipRef.current !== null) {
-    manualFlipRef.current = onManualFlip;
-  }
+  useEffect(() => {
+    if (flipHook) {
+      setIsFlipped(flipHook.state === FlipState.Back)
+    }
+  }, [flipHook?.state])
 
   return (
-    <div
-      className={`FlashcardWrapper ${className}`}
-      style={{
-        height: height,
-        width: width,
-        ...style,
-      }}
-    >
+    <div className='flashcard-wrapper'>
       <div
-        className={`FlashcardWrapper__item ${
-          isFlipped ? "FlashcardWrapper__item--flip" : ""
-        }`}
-        style={{
-          borderRadius: borderRadius,
-        }}
+        className={['flashcard', className].filter(Boolean).join(' ')}
+        data-flip={isFlipped}
+        data-dir={flipHook?.flipDirection}
         onClick={() => {
-          if (manualFlipRef.current) return;
-          setIsFlipped(!isFlipped);
-          onCardFlip(!isFlipped);
+          if (manualFlip) return
+          if (flipHook) {
+            flipHook.flip()
+          } else {
+            setIsFlipped(!isFlipped)
+          }
         }}
       >
         <div
-          className="FlashcardWrapper__item--front"
-          style={{
-            ...frontCardStyle,
-            cursor: manualFlipRef.current ? "default" : "pointer",
-          }}
+          className='flashcard__front'
+          data-manual-flip={manualFlip}
         >
-          {typeof frontHTML !== "string" ? (
-            <div
-              className="FlashcardWrapper__item--content"
-              style={frontContentStyle}
-            >
-              {frontHTML}
-            </div>
-          ) : (
-            <div
-              className="FlashcardWrapper__item--content"
-              dangerouslySetInnerHTML={{ __html: frontHTML }}
-              style={frontContentStyle}
-            />
-          )}
+          {front.html}
         </div>
         <div
-          className="FlashcardWrapper__item--back"
-          style={{
-            ...backCardStyle,
-            cursor: manualFlipRef.current ? "default" : "pointer",
-          }}
+          className='flashcard__back'
+          data-manual-flip={manualFlip}
         >
-          {typeof backHTML !== "string" ? (
-            <div
-              className="FlashcardWrapper__item--content"
-              style={backContentStyle}
-            >
-              {backHTML}
-            </div>
-          ) : (
-            <div
-              className="FlashcardWrapper__item--content"
-              dangerouslySetInnerHTML={{ __html: backHTML }}
-              style={backContentStyle}
-            />
-          )}
+          {back.html}
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,55 +1,86 @@
 @use '../../styles/mixins' as *;
 
-.FlashcardWrapper {
+.flashcard-wrapper {
+  --border-radius: 16px;
+  --back-bg: #ffffff;
+  --front-bg: #ffffff;
+  --box-shadow: 0 0 2.5rem 0 rgba(0, 0, 0, 0.16);
+
   bottom: 10%;
   clear: left;
   perspective: 1000px;
-  @include box(560px, 340px);
   transform: none !important;
+  @include box(560px, 340px);
+  border-radius: var(--border-radius);
+}
+
+.flashcard {
+  top: 0;
+  left: 0;
+  @include box();
+  position: absolute;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  background-color: transparent;
+  transition: transform 0.45s ease;
 
   & * {
     box-sizing: border-box;
   }
 
-  &__item {
+  &__content {
+    @include box();
+    border-radius: inherit;
+  }
+
+  &__front {
+    background-color: var(--front-bg);
+  }
+
+  &__front,
+  &__back {
     top: 0;
     left: 0;
+    color: black;
     @include box();
     position: absolute;
-    transform-style: preserve-3d;
-    background-color: transparent;
-    transition: transform 0.45s ease;
+    border-radius: inherit;
+    backface-visibility: hidden;
+    box-shadow: var(--box-shadow);
 
-    &--front,
-    &--back {
-      top: 0;
-      left: 0;
-      color: black;
-      @include box();
+    &:not(&[data-manual-flip='true']) {
       cursor: pointer;
-      position: absolute;
-      border-radius: inherit;
-      @include make-flex();
-      backface-visibility: hidden;
-      box-shadow: 0 0 2.5rem 0 rgba(0, 0, 0, 0.16);
     }
+    &[data-manual-flip='true'] {
+      cursor: auto;
+    }
+  }
 
-    &--front {
-      background-color: #ffffff;
-    }
+  // Flip directions
+  &[data-flip='true'][data-dir='rtl'] {
+    transform: rotateY(-180deg) !important;
+  }
+  &[data-flip='true'][data-dir='ltr'] {
+    transform: rotateY(180deg) !important;
+  }
+  &[data-flip='true'][data-dir='tb'] {
+    transform: rotateX(-180deg) !important;
+  }
+  &[data-flip='true'][data-dir='bt'] {
+    transform: rotateX(180deg) !important;
+  }
 
-    &--back {
-      background-color: #ffffff;
-      transform: rotateX(-180deg);
-    }
-
-    &--flip {
-      transform: rotateX(180deg) !important;
-    }
-
-    &--content {
-      @include box();
-      border-radius: inherit;
-    }
+  // Default backside rotation
+  &[data-dir='rtl'] &__back {
+    transform: rotateY(-180deg) !important;
+  }
+  &[data-dir='ltr'] &__back {
+    transform: rotateY(180deg) !important;
+  }
+  &[data-dir='tb'] &__back {
+    transform: rotateX(-180deg) !important;
+  }
+  &[data-dir='bt'] &__back {
+    transform: rotateX(180deg) !important;
   }
 }
