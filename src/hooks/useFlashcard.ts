@@ -1,23 +1,5 @@
 import { useState } from 'react'
-
-export enum FlipState {
-  Front = 'front',
-  Back = 'back',
-}
-
-// right-to-left
-// left-to-right
-// top-to-bottom
-// bottom-to-top
-export type FlipDirection = 'rtl' | 'ltr' | 'tb' | 'bt'
-
-export interface UseFlashcard {
-  state: FlipState
-  disableFlip?: boolean
-  flipDirection: FlipDirection
-  flip: (state?: FlipState) => void
-  onFlip?: (state: FlipState) => void
-}
+import { FlipState, type FlipDirection, type UseFlashcard } from '../components/Flashcard/types'
 
 export function useFlashcard({
   onFlip,

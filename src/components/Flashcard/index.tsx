@@ -1,27 +1,11 @@
-import { useEffect, useState, type CSSProperties, type ReactElement } from 'react'
+import { useEffect, useState } from 'react'
 
 import './style.scss'
-import { FlipState, type UseFlashcard } from '../../hooks/useFlashcard'
+import { FlipState, type FlashcardProps } from './types'
 
 /**
  * We're basically moving the content style and card style to userland.
- *
  */
-
-export interface FlashcardProps {
-  className?: string
-  manualFlip?: boolean
-  style?: CSSProperties
-  flipHook?: UseFlashcard
-  front: {
-    html: ReactElement
-    style?: CSSProperties
-  }
-  back: {
-    html: ReactElement
-    style?: CSSProperties
-  }
-}
 
 export default function Flashcard({
   style,

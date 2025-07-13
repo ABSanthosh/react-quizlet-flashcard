@@ -1,9 +1,10 @@
 import type { Story } from '@ladle/react'
 import Flashcard from '../components/Flashcard'
-import { useFlashcard, FlipState, type FlipDirection } from '../hooks/useFlashcard'
+import { useFlashcard } from '../hooks/useFlashcard'
 import './styles.scss'
 import { Fragment } from 'react/jsx-runtime'
 import { useState } from 'react'
+import { FlipState, type FlipDirection } from '../components/Flashcard/types'
 
 // Basic Flashcard (already provided)
 export const BasicFlashcard: Story = () => {
