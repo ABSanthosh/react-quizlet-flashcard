@@ -14,6 +14,7 @@ export default function Flashcard({
   className,
   front,
   back,
+  ...restProps
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === FlipState.Back : false)
 
@@ -26,6 +27,7 @@ export default function Flashcard({
   return (
     <div
       style={style}
+      {...restProps}
       className='flashcard-wrapper'
     >
       <div

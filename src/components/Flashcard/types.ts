@@ -1,10 +1,13 @@
 import type { CSSProperties, ReactElement } from 'react'
 
-export interface FlashcardProps {
-  className?: string
+export interface FlashcardProps extends IFlashcard {
   manualFlip?: boolean
-  style?: CSSProperties
   flipHook?: UseFlashcard
+}
+
+export interface IFlashcard {
+  className?: string
+  style?: CSSProperties
   front: {
     html: ReactElement
     style?: CSSProperties
@@ -28,8 +31,10 @@ export type FlipDirection = 'rtl' | 'ltr' | 'tb' | 'bt'
 
 export interface UseFlashcard {
   state: FlipState
+  isAnimated: boolean
   disableFlip?: boolean
   flipDirection: FlipDirection
   flip: (state?: FlipState) => void
-  onFlip?: (state: FlipState) => void
+  setIsAnimated?: (isAnimated: boolean) => void
+  resetCardState: ({ isAnimated }: { isAnimated?: boolean }) => void
 }

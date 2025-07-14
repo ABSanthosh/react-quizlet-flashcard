@@ -22,6 +22,10 @@
   border-radius: inherit;
   transform-style: preserve-3d;
   background-color: transparent;
+
+  transition:
+    transform 0.45s ease,
+    opacity 0.45s ease;
   transition: transform 0.45s ease;
 
   & * {
