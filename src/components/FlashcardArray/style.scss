@@ -11,53 +11,74 @@
 }
 
 .flashcard-array {
+  position: relative;
   perspective: 1000px;
   @include box(100%, 340px);
   @include make-flex($dir: row);
-  position: relative;
 
   & > .flashcard-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    z-index: 1;
-
-    // Default state (no animation)
-    &:not([data-animation-direction]) {
-      transform: translateX(0) rotateY(0) translateZ(0);
-      opacity: 1;
-      z-index: 2;
+    &:nth-child(1),
+    &:nth-child(3) {
+      opacity: 0;
+      box-shadow: none;
+      visibility: hidden;
+      pointer-events: none;
+      background: transparent;
+      display: block !important;
+      transform-style: preserve-3d;
+      transition:
+        transform 0.24s ease,
+        opacity 0.12s linear !important;
     }
 
-    // Animation for sliding in from the right (next card)
-    &[data-animation-direction='left'] {
-      animation: flashcard-left-enter 0.24s ease forwards;
+    &:nth-child(1) {
       z-index: 5;
+      right: unset;
+      width: 0px !important;
+      transform: translateX(-10%) rotateY(10deg) translateZ(0) !important;
+
+      .flashcard__front,
+      .flashcard__back {
+        display: none;
+      }
     }
 
-    // Animation for sliding in from the left (previous card)
-    &[data-animation-direction='right'] {
-      animation: flashcard-right-enter 0.24s ease forwards;
+    &:nth-child(3) {
       z-index: 5;
+      width: 0px !important;
+      left: unset;
+      transform: translateX(10%) rotateY(-10deg) translateZ(0) !important;
+
+      .flashcard__front,
+      .flashcard__back {
+        display: none;
+      }
+    }
+    &:nth-child(2) {
+      z-index: 6;
+      box-shadow: none;
+      background: transparent;
+      display: block !important;
+      transform-style: preserve-3d;
+      transition:
+        transform 0.24s ease,
+        opacity 0.12s linear !important;
     }
   }
 
   &__controls {
-    @include make-flex($dir: row);
     gap: 10px;
     margin-top: 10px;
     @include box(100%, 40px);
+    @include make-flex($dir: row);
 
     .CrispButton {
-      padding: 8px 16px;
       border: none;
-      background-color: #f0f0f0;
-      border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      background-color: #f0f0f0;
       transition: background-color 0.2s ease;
 
       &:hover {
@@ -69,27 +90,5 @@
         cursor: not-allowed;
       }
     }
-  }
-}
-
-@keyframes flashcard-left-enter {
-  from {
-    transform: translateX(100%) rotateY(-16deg) translateZ(0);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0) rotateY(0) translateZ(0);
-    opacity: 1;
-  }
-}
-
-@keyframes flashcard-right-enter {
-  from {
-    transform: translateX(-100%) rotateY(16deg) translateZ(0);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0) rotateY(0) translateZ(0);
-    opacity: 1;
   }
 }

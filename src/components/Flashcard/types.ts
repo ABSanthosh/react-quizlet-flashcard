@@ -29,12 +29,3 @@ export enum FlipState {
 // bottom-to-top
 export type FlipDirection = 'rtl' | 'ltr' | 'tb' | 'bt'
 
-export interface UseFlashcard {
-  state: FlipState
-  isAnimated: boolean
-  disableFlip?: boolean
-  flipDirection: FlipDirection
-  flip: (state?: FlipState) => void
-  setIsAnimated?: (isAnimated: boolean) => void
-  resetCardState: ({ isAnimated }: { isAnimated?: boolean }) => void
-}

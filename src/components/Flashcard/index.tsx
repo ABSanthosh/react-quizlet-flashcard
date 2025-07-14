@@ -10,7 +10,6 @@ import { FlipState, type FlashcardProps } from './types'
 export default function Flashcard({
   style,
   flipHook,
-  manualFlip,
   className,
   front,
   back,
@@ -39,7 +38,7 @@ export default function Flashcard({
         aria-live='polite'
         tabIndex={0}
         onClick={() => {
-          if (manualFlip) return
+          if (flipHook?.manualFlip) return
           if (flipHook) {
             if (flipHook.disableFlip) return
             flipHook.flip()
@@ -50,7 +49,9 @@ export default function Flashcard({
       >
         <div
           className='flashcard__front'
-          data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
+          data-flip-type={
+            flipHook?.disableFlip ? 'disable' : flipHook?.manualFlip ? 'manual' : 'auto'
+          }
           style={front.style}
           aria-hidden={isFlipped}
           role='contentinfo'
@@ -59,7 +60,9 @@ export default function Flashcard({
         </div>
         <div
           className='flashcard__back'
-          data-flip-type={flipHook?.disableFlip ? 'disable' : manualFlip ? 'manual' : 'auto'}
+          data-flip-type={
+            flipHook?.disableFlip ? 'disable' : flipHook?.manualFlip ? 'manual' : 'auto'
+          }
           style={back.style}
           aria-hidden={isFlipped}
           role='contentinfo'

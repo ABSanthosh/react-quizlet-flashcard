@@ -117,7 +117,7 @@
   background-color: var(--crp-button-background-color);
 
   @media (any-hover: hover) {
-    &:focus:not(:disabled),
+    // &:focus:not(:disabled),
     &:hover:not(:disabled) {
       color: var(--crp-button-color-hover);
       border: var(--crp-button-border-hover);

@@ -17,21 +17,34 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
       deck: deck,
     })
 
+  const SiblingCard = (key: string | number) => {
+    return (
+      <Flashcard
+        key={key}
+        back={{ html: <></> }}
+        front={{ html: <></> }}
+        className='flashcard__sibling'
+      />
+    )
+  }
+
   return (
     <div
       className='flashcard-array-wrapper'
       style={style}
     >
       <div className='flashcard-array'>
+        {SiblingCard(localFlipArrayHook.cardsInDisplay[0])}
         <Flashcard
-          key={localFlipArrayHook.currentCard} // Force re-render to trigger animation
           flipHook={localFlipArrayHook.flipHook}
-          back={deck[localFlipArrayHook.currentCard].back}
-          front={deck[localFlipArrayHook.currentCard].front}
-          style={deck[localFlipArrayHook.currentCard].style}
-          className={deck[localFlipArrayHook.currentCard].className}
+          key={localFlipArrayHook.cardsInDisplay[1]}
+          back={deck[localFlipArrayHook.cardsInDisplay[1]].back}
+          front={deck[localFlipArrayHook.cardsInDisplay[1]].front}
+          style={deck[localFlipArrayHook.cardsInDisplay[1]].style}
           manualFlip={localFlipArrayHook.flipHook?.disableFlip || false}
+          className={deck[localFlipArrayHook.cardsInDisplay[1]].className}
         />
+        {SiblingCard(localFlipArrayHook.cardsInDisplay[2])}
       </div>
       <div className='flashcard-array__controls'>
         <button

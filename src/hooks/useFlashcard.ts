@@ -1,19 +1,29 @@
 import { useState } from 'react'
-import { FlipState, type FlipDirection, type UseFlashcard } from '../components/Flashcard/types'
+import { FlipState, type FlipDirection } from '../components/Flashcard/types'
 
 export interface UseFlashcardProps {
-  onFlip?: (state: FlipState) => void
+  manualFlip?: boolean
   disableFlip?: boolean
   flipDirection?: FlipDirection
+  onFlip?: (state: FlipState) => void
+}
+
+export interface UseFlashcard {
+  state: FlipState
+  manualFlip?: boolean
+  disableFlip?: boolean
+  resetCardState: () => void
+  flipDirection: FlipDirection
+  flip: (state?: FlipState) => void
 }
 
 export function useFlashcard({
   onFlip,
   disableFlip = false,
+  manualFlip = false,
   flipDirection = 'bt',
 }: UseFlashcardProps): UseFlashcard {
   const [flashcardSide, setFlashcardSide] = useState<FlipState>(FlipState.Front)
-  const [isAnimated, setIsAnimated] = useState<boolean>(true)
 
   const flip = (state?: FlipState) => {
     if (disableFlip) return
@@ -24,17 +34,15 @@ export function useFlashcard({
     })
   }
 
-  const resetCardState = ({ isAnimated }: { isAnimated?: boolean }) => {
+  const resetCardState = () => {
     setFlashcardSide(FlipState.Front)
-    setIsAnimated(!!isAnimated)
   }
 
   return {
     state: flashcardSide,
     flip,
+    manualFlip,
     flipDirection,
-    isAnimated,
-    setIsAnimated,
     resetCardState,
     disableFlip: disableFlip ? disableFlip : false,
   }
