@@ -1,5 +1,5 @@
 import './style.scss'
-import type { CSSProperties } from 'react'
+import { type CSSProperties } from 'react'
 import { useFlashcardArray, type UseFlashcardArray } from '../../hooks/useFlashcardArray'
 import Flashcard from '../Flashcard'
 import type { IFlashcard } from '../Flashcard/types'
@@ -14,7 +14,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
   const localFlipArrayHook =
     flipArrayHook ||
     useFlashcardArray({
-      deck: deck,
+      deckLength: deck.length,
     })
 
   const SiblingCard = (key: string | number) => {
@@ -46,25 +46,62 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
         />
         {SiblingCard(localFlipArrayHook.cardsInDisplay[2])}
       </div>
-      <div className='flashcard-array__controls'>
-        <button
-          className='CrispButton'
-          onClick={() => localFlipArrayHook.prevCard()}
-          disabled={localFlipArrayHook.currentCard === 0 && !localFlipArrayHook.cycle}
-        >
-          Previous
-        </button>
-        <span>
-          {localFlipArrayHook.currentCard + 1}/{deck.length}
-        </span>
-        <button
-          className='CrispButton'
-          onClick={() => localFlipArrayHook.nextCard()}
-          disabled={localFlipArrayHook.currentCard === deck.length - 1 && !localFlipArrayHook.cycle}
-        >
-          Next
-        </button>
-      </div>
+
+      {localFlipArrayHook.showProgressBar && (
+        <div className='flashcard-array__progress-bar'>
+          <div
+            className='flashcard-array__progress-bar-fill'
+            style={{ width: `${localFlipArrayHook.progressBar.percentage}%` }}
+          />
+        </div>
+      )}
+      {(localFlipArrayHook.showControls || localFlipArrayHook.showCount) && (
+        <div className='flashcard-array__controls'>
+          {localFlipArrayHook.showControls && (
+            <button
+              onClick={() => localFlipArrayHook.prevCard()}
+              disabled={localFlipArrayHook.currentCard === 0 && !localFlipArrayHook.cycle}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 24 24'
+                style={{ height: '24px', width: '24px' }}
+              >
+                <path
+                  d='M19 12a1 1 0 0 1-1 1H8.414l1.293 1.293a1 1 0 1 1-1.414 1.414l-3-3a1 1 0 0 1 0-1.414l3-3a1 1 0 0 1 1.414 1.414L8.414 11H18a1 1 0 0 1 1 1z'
+                  style={{ fill: '#1c1b1e', height: '24px', width: '24px' }}
+                  data-name='Left'
+                />
+              </svg>
+            </button>
+          )}
+          {localFlipArrayHook.showCount && (
+            <span>
+              {localFlipArrayHook.currentCard + 1}/{deck.length}
+            </span>
+          )}
+          {localFlipArrayHook.showControls && (
+            <button
+              onClick={() => localFlipArrayHook.nextCard()}
+              disabled={
+                localFlipArrayHook.currentCard === deck.length - 1 && !localFlipArrayHook.cycle
+              }
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 24 24'
+                style={{ height: '24px', width: '24px' }}
+              >
+                <path
+                  d='m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z'
+                  style={{ fill: '#1c1b1e', height: '24px', width: '24px' }}
+                  data-name='Right'
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -3,7 +3,7 @@
 .flashcard-array-wrapper {
   @include make-flex($dir: column);
   @include box(560px, auto);
-  gap: 10px;
+  gap: 15px;
 
   @include respondAt(625px) {
     width: 90%;
@@ -66,29 +66,49 @@
     }
   }
 
+  &__progress-bar {
+    gap: 12px;
+    width: 80%;
+    height: 6px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+    background-color: #d0d0d0;
+    @include make-flex($dir: row, $align: center);
+
+    .flashcard-array__progress-bar-fill {
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 3px;
+      position: absolute;
+      background-color: #4a4a4a;
+      transition: width 0.25s ease-out;
+    }
+  }
+
   &__controls {
-    gap: 10px;
-    margin-top: 10px;
+    gap: 35px;
     @include box(100%, 40px);
     @include make-flex($dir: row);
 
-    .CrispButton {
+    button {
+      padding: 0;
       border: none;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 8px 16px;
-      border-radius: 4px;
-      background-color: #f0f0f0;
-      transition: background-color 0.2s ease;
+      font-size: 40px;
+      @include box(auto);
+      @include make-flex();
+      background-color: transparent;
+      transition: all 0.12s cubic-bezier(0.47, 0, 0.745, 0.715);
 
-      &:hover {
-        background-color: #e0e0e0;
+      svg {
+        height: 80%;
+        cursor: pointer;
       }
+    }
 
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
+    &--count {
+      font-size: 15px !important;
     }
   }
 }

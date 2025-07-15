@@ -2,6 +2,7 @@ import type { Story } from '@ladle/react'
 import './styles.scss'
 import { FlashcardArray } from '../main'
 import { useFlashcardArray } from '../hooks/useFlashcardArray'
+import { Fragment } from 'react/jsx-runtime'
 
 const deck = {
   id: 'nsh19mt',
@@ -64,21 +65,19 @@ const deck = {
 export const BasicFlashcardArray: Story = () => {
   const flipArrayHook = useFlashcardArray({
     cycle: true,
-    deck: deck.cards.map((card) => ({
-      id: card.id,
-      front: card.front,
-      back: card.back,
-    })),
+    deckLength: deck.cards.length,
   })
+
   return (
-    <FlashcardArray
-      flipArrayHook={flipArrayHook}
-      deck={deck.cards.map((card) => ({
-        id: card.id,
-        front: card.front,
-        back: card.back,
-      }))}
-      style={{}}
-    />
+    <Fragment>
+      <FlashcardArray
+        flipArrayHook={flipArrayHook}
+        deck={deck.cards.map((card) => ({
+          id: card.id,
+          front: card.front,
+          back: card.back,
+        }))}
+      />
+    </Fragment>
   )
 }

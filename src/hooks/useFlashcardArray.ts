@@ -1,39 +1,53 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useFlashcard, type UseFlashcard, type UseFlashcardProps } from './useFlashcard'
-import type { IFlashcard, FlipState } from '../components/Flashcard/types'
+import type { FlipState } from '../components/Flashcard/types'
 
 export interface UseFlashcardArray {
   cycle?: boolean
+  showCount: boolean
   currentCard: number
   prevCard: () => void
   nextCard: () => void
+  showControls: boolean
   flipHook: UseFlashcard
   cardsInDisplay: number[]
+  showProgressBar: boolean
   setCurrentCard: (index: number) => void
+  progressBar: {
+    current: number
+    total: number
+    percentage: number
+  }
 }
 
 export interface FlashcardArrayProps extends Omit<UseFlashcardProps, 'onFlip'> {
   cycle?: boolean
-  deck: IFlashcard[]
+  deckLength: number
+  showCount?: boolean
+  showControls?: boolean
+  showProgressBar?: boolean
   onCardChange?: (cardIndex: number) => void
   onFlip?: (cardIndex: number, state: FlipState) => void
 }
 
 export function useFlashcardArray({
   cycle = false,
-  deck,
   onFlip,
+  deckLength,
   manualFlip,
   disableFlip,
-  flipDirection,
   onCardChange,
+  flipDirection,
+  showCount = true,
+  showControls = true,
+  showProgressBar = false,
 }: FlashcardArrayProps): UseFlashcardArray {
   const [currentCard, setCurrentCard] = useState<number>(0)
   const [cardsInDisplay, setCardsInDisplay] = useState<number[]>(
-    !cycle ? [-1, 0, 1] : [deck.length - 1, 0, 1]
+    !cycle ? [-1, 0, 1] : [deckLength - 1, 0, 1]
   )
 
-  const totalCards = deck.length
+  const totalCards = deckLength
 
   const flipHook = useFlashcard({
     onFlip: (state) => {
@@ -105,6 +119,14 @@ export function useFlashcardArray({
     prevCard,
     nextCard,
     cardsInDisplay,
+    showCount,
+    showControls,
+    showProgressBar,
+    progressBar: {
+      current: currentCard + 1,
+      total: totalCards,
+      percentage: totalCards > 0 ? Math.round(((currentCard + 1) / totalCards) * 100) : 0,
+    },
     setCurrentCard: (index: number) => {
       const newIndex = cycle
         ? ((index % totalCards) + totalCards) % totalCards
