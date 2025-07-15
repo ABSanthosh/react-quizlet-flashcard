@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useFlashcard, type UseFlashcard, type UseFlashcardProps } from './useFlashcard'
 import type { FlipState } from '../components/Flashcard/types'
+import { useFlashcard, type UseFlashcard, type UseFlashcardProps } from './useFlashcard'
 
 export interface UseFlashcardArray {
   cycle?: boolean

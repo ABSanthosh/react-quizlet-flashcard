@@ -18,7 +18,7 @@ export const BasicFlashcard: Story = () => {
 
 // Manual Flip
 export const ManualFlip: Story = () => {
-  const flipHook = useFlashcard({})
+  const flipHook = useFlashcard({ manualFlip: true })
   return (
     <Fragment>
       <Flashcard

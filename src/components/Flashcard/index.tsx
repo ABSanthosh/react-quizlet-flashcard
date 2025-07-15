@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import './style.scss'
 import { FlipState, type FlashcardProps } from './types'
+import { useFlashcard } from '../../hooks/useFlashcard'
 
 /**
  * We're basically moving the content style and card style to userland.
@@ -16,6 +17,13 @@ export default function Flashcard({
   ...restProps
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === FlipState.Back : false)
+  const localFlipHook =
+    flipHook ||
+    useFlashcard({
+      onFlip: (state) => {
+        setIsFlipped(state === FlipState.Back)
+      },
+    })
 
   useEffect(() => {
     if (flipHook) {
@@ -32,25 +40,21 @@ export default function Flashcard({
       <div
         className={['flashcard', className].filter(Boolean).join(' ')}
         data-flip={isFlipped}
-        data-dir={flipHook?.flipDirection || 'bt'}
+        data-dir={localFlipHook?.flipDirection || 'bt'}
         role='region'
         aria-label={`Flashcard, currently showing ${isFlipped ? 'back' : 'front'} side`}
         aria-live='polite'
         tabIndex={0}
         onClick={() => {
-          if (flipHook?.manualFlip) return
-          if (flipHook) {
-            if (flipHook.disableFlip) return
-            flipHook.flip()
-          } else {
-            setIsFlipped(!isFlipped)
-          }
+          if (localFlipHook?.manualFlip) return
+          if (localFlipHook.disableFlip) return
+          localFlipHook.flip()
         }}
       >
         <div
           className='flashcard__front'
           data-flip-type={
-            flipHook?.disableFlip ? 'disable' : flipHook?.manualFlip ? 'manual' : 'auto'
+            localFlipHook?.disableFlip ? 'disable' : localFlipHook?.manualFlip ? 'manual' : 'auto'
           }
           style={front.style}
           aria-hidden={isFlipped}
@@ -61,7 +65,7 @@ export default function Flashcard({
         <div
           className='flashcard__back'
           data-flip-type={
-            flipHook?.disableFlip ? 'disable' : flipHook?.manualFlip ? 'manual' : 'auto'
+            localFlipHook?.disableFlip ? 'disable' : localFlipHook?.manualFlip ? 'manual' : 'auto'
           }
           style={back.style}
           aria-hidden={isFlipped}
