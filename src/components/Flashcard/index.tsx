@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react'
-
 import './style.scss'
-import { FlipState, type FlashcardProps } from './types'
+import { useEffect, useState } from 'react'
 import { useFlashcard } from '../../hooks/useFlashcard'
-
-/**
- * We're basically moving the content style and card style to userland.
- */
+import { FlipState, type FlashcardProps } from './types'
 
 export default function Flashcard({
   style,
@@ -17,19 +12,20 @@ export default function Flashcard({
   ...restProps
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === FlipState.Back : false)
-  const localFlipHook =
-    flipHook ||
-    useFlashcard({
-      onFlip: (state) => {
-        setIsFlipped(state === FlipState.Back)
-      },
-    })
+
+  const defaultFlipHook = useFlashcard({
+    onFlip: (state) => {
+      setIsFlipped(state === FlipState.Back)
+    },
+  })
+
+  const localFlipHook = flipHook || defaultFlipHook
 
   useEffect(() => {
-    if (flipHook) {
-      setIsFlipped(flipHook.state === FlipState.Back)
+    if (localFlipHook) {
+      setIsFlipped(localFlipHook.state === FlipState.Back)
     }
-  }, [flipHook?.state])
+  }, [localFlipHook])
 
   return (
     <div

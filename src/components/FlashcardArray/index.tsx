@@ -1,21 +1,13 @@
 import './style.scss'
-import { type CSSProperties } from 'react'
-import { useFlashcardArray, type UseFlashcardArray } from '../../hooks/useFlashcardArray'
+import { useFlashcardArray } from '../../hooks/useFlashcardArray'
 import Flashcard from '../Flashcard'
-import type { IFlashcard } from '../Flashcard/types'
-
-export interface FlashcardArrayProps {
-  flipArrayHook?: UseFlashcardArray
-  deck: IFlashcard[]
-  style?: CSSProperties
-}
+import type { FlashcardArrayProps } from './types'
 
 export default function FlashcardArray({ flipArrayHook, deck, style }: FlashcardArrayProps) {
-  const localFlipArrayHook =
-    flipArrayHook ||
-    useFlashcardArray({
-      deckLength: deck.length,
-    })
+  const tempFlipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+  })
+  const localFlipArrayHook = flipArrayHook || tempFlipArrayHook
 
   const SiblingCard = (key: string | number) => {
     return (
@@ -33,7 +25,12 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
       className='flashcard-array-wrapper'
       style={style}
     >
-      <div className='flashcard-array'>
+      <div
+        className='flashcard-array'
+        role='region'
+        aria-label={`Flashcard ${localFlipArrayHook.currentCard + 1} of ${localFlipArrayHook.deckLength}`}
+        aria-live='polite'
+      >
         {SiblingCard(localFlipArrayHook.cardsInDisplay[0])}
         <Flashcard
           flipHook={localFlipArrayHook.flipHook}
@@ -41,7 +38,6 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
           back={deck[localFlipArrayHook.cardsInDisplay[1]].back}
           front={deck[localFlipArrayHook.cardsInDisplay[1]].front}
           style={deck[localFlipArrayHook.cardsInDisplay[1]].style}
-          manualFlip={localFlipArrayHook.flipHook?.disableFlip || false}
           className={deck[localFlipArrayHook.cardsInDisplay[1]].className}
         />
         {SiblingCard(localFlipArrayHook.cardsInDisplay[2])}

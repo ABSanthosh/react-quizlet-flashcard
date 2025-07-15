@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { FlipState } from '../components/Flashcard/types'
 import { useFlashcard, type UseFlashcard, type UseFlashcardProps } from './useFlashcard'
 
 export interface UseFlashcardArray {
   cycle?: boolean
   showCount: boolean
+  deckLength: number
   currentCard: number
   prevCard: () => void
   nextCard: () => void
@@ -20,7 +21,7 @@ export interface UseFlashcardArray {
   }
 }
 
-export interface FlashcardArrayProps extends Omit<UseFlashcardProps, 'onFlip'> {
+export interface UseFlashcardArrayProps extends Omit<UseFlashcardProps, 'onFlip'> {
   cycle?: boolean
   deckLength: number
   showCount?: boolean
@@ -41,24 +42,29 @@ export function useFlashcardArray({
   showCount = true,
   showControls = true,
   showProgressBar = false,
-}: FlashcardArrayProps): UseFlashcardArray {
+}: UseFlashcardArrayProps): UseFlashcardArray {
   const [currentCard, setCurrentCard] = useState<number>(0)
   const [cardsInDisplay, setCardsInDisplay] = useState<number[]>(
     !cycle ? [-1, 0, 1] : [deckLength - 1, 0, 1]
   )
 
-  const totalCards = deckLength
+  const totalCards = useMemo(() => deckLength, [deckLength])
 
-  const flipHook = useFlashcard({
-    onFlip: (state) => {
+  const memoizedOnFlip = useCallback(
+    (state: FlipState) => {
       onFlip?.(currentCard, state)
     },
+    [onFlip, currentCard]
+  )
+
+  const flipHook = useFlashcard({
+    onFlip: memoizedOnFlip,
     manualFlip,
     disableFlip,
     flipDirection,
   })
 
-  const nextCard = () => {
+  const nextCard = useCallback(() => {
     const nextCardIndex = cycle
       ? (currentCard + 1) % totalCards
       : Math.min(currentCard + 1, totalCards - 1)
@@ -83,9 +89,9 @@ export function useFlashcardArray({
     }
 
     onCardChange?.(nextCardIndex)
-  }
+  }, [currentCard, totalCards, cycle, flipHook, onCardChange])
 
-  const prevCard = () => {
+  const prevCard = useCallback(() => {
     const prevCardIndex = cycle
       ? (currentCard - 1 + totalCards) % totalCards
       : Math.max(currentCard - 1, 0)
@@ -110,10 +116,11 @@ export function useFlashcardArray({
     }
 
     onCardChange?.(prevCardIndex)
-  }
+  }, [currentCard, totalCards, cycle, flipHook, onCardChange])
 
   return {
     cycle,
+    deckLength,
     currentCard,
     flipHook,
     prevCard,
@@ -127,28 +134,31 @@ export function useFlashcardArray({
       total: totalCards,
       percentage: totalCards > 0 ? Math.round(((currentCard + 1) / totalCards) * 100) : 0,
     },
-    setCurrentCard: (index: number) => {
-      const newIndex = cycle
-        ? ((index % totalCards) + totalCards) % totalCards
-        : Math.max(0, Math.min(index, totalCards - 1))
+    setCurrentCard: useCallback(
+      (index: number) => {
+        const newIndex = cycle
+          ? ((index % totalCards) + totalCards) % totalCards
+          : Math.max(0, Math.min(index, totalCards - 1))
 
-      console.log(`Setting current card to index: ${newIndex}`)
-      setCurrentCard(newIndex)
+        console.log(`Setting current card to index: ${newIndex}`)
+        setCurrentCard(newIndex)
 
-      // Update cards in display for direct navigation
-      if (cycle) {
-        setCardsInDisplay([
-          (newIndex - 1 + totalCards) % totalCards,
-          newIndex,
-          (newIndex + 1) % totalCards,
-        ])
-      } else {
-        const newLeft = newIndex - 1 < 0 ? -1 : newIndex - 1
-        const newCenter = newIndex
-        const newRight = newIndex + 1 >= totalCards ? -1 : newIndex + 1
+        // Update cards in display for direct navigation
+        if (cycle) {
+          setCardsInDisplay([
+            (newIndex - 1 + totalCards) % totalCards,
+            newIndex,
+            (newIndex + 1) % totalCards,
+          ])
+        } else {
+          const newLeft = newIndex - 1 < 0 ? -1 : newIndex - 1
+          const newCenter = newIndex
+          const newRight = newIndex + 1 >= totalCards ? -1 : newIndex + 1
 
-        setCardsInDisplay([newLeft, newCenter, newRight])
-      }
-    },
+          setCardsInDisplay([newLeft, newCenter, newRight])
+        }
+      },
+      [currentCard, cycle, totalCards]
+    ),
   }
 }

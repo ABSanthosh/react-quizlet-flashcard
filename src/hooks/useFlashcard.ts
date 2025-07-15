@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { FlipState, type FlipDirection } from '../components/Flashcard/types'
 
 export interface UseFlashcardProps {
@@ -10,8 +10,8 @@ export interface UseFlashcardProps {
 
 export interface UseFlashcard {
   state: FlipState
-  manualFlip?: boolean
-  disableFlip?: boolean
+  manualFlip: boolean
+  disableFlip: boolean
   resetCardState: () => void
   flipDirection: FlipDirection
   flip: (state?: FlipState) => void
@@ -25,25 +25,38 @@ export function useFlashcard({
 }: UseFlashcardProps): UseFlashcard {
   const [flashcardSide, setFlashcardSide] = useState<FlipState>(FlipState.Front)
 
-  const flip = (state?: FlipState) => {
-    if (disableFlip) return
-    setFlashcardSide((prev) => {
-      const newState = state ?? (prev === FlipState.Front ? FlipState.Back : FlipState.Front)
-      onFlip?.(newState)
-      return newState
-    })
-  }
+  const memoizedOnFlip = useCallback(onFlip || (() => {}), [onFlip])
 
-  const resetCardState = () => {
+  const flip = useCallback(
+    (state?: FlipState) => {
+      if (disableFlip) return
+
+      setFlashcardSide((prev) => {
+        const newState = state ?? (prev === FlipState.Front ? FlipState.Back : FlipState.Front)
+        // Only call onFlip if state actually changed
+        if (newState !== prev) {
+          memoizedOnFlip(newState)
+        }
+        return newState
+      })
+    },
+    [disableFlip, memoizedOnFlip]
+  )
+
+  const resetCardState = useCallback(() => {
     setFlashcardSide(FlipState.Front)
-  }
+  }, [])
 
-  return {
-    state: flashcardSide,
-    flip,
-    manualFlip,
-    flipDirection,
-    resetCardState,
-    disableFlip: disableFlip ? disableFlip : false,
-  }
+  return useMemo(
+    () => ({
+      flip,
+      manualFlip,
+      disableFlip,
+      flipDirection,
+      resetCardState,
+      state: flashcardSide,
+      onFlip: memoizedOnFlip,
+    }),
+    [flashcardSide, flip, resetCardState, memoizedOnFlip, flipDirection, disableFlip]
+  )
 }

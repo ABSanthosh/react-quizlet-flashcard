@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactElement } from 'react'
+import type { UseFlashcard } from '../../hooks/useFlashcard'
 
 export interface FlashcardProps extends IFlashcard {
   manualFlip?: boolean
