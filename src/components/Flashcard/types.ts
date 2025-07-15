@@ -29,4 +29,3 @@ export enum FlipState {
 // top-to-bottom
 // bottom-to-top
 export type FlipDirection = 'rtl' | 'ltr' | 'tb' | 'bt'
-

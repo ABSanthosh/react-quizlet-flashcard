@@ -158,7 +158,7 @@ export function useFlashcardArray({
           setCardsInDisplay([newLeft, newCenter, newRight])
         }
       },
-      [currentCard, cycle, totalCards]
+      [cycle, totalCards]
     ),
   }
 }

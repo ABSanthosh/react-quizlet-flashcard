@@ -25,7 +25,14 @@ export function useFlashcard({
 }: UseFlashcardProps): UseFlashcard {
   const [flashcardSide, setFlashcardSide] = useState<FlipState>(FlipState.Front)
 
-  const memoizedOnFlip = useCallback(onFlip || (() => {}), [onFlip])
+  const memoizedOnFlip = useCallback(
+    (state: FlipState) => {
+      if (onFlip) {
+        onFlip(state)
+      }
+    },
+    [onFlip]
+  )
 
   const flip = useCallback(
     (state?: FlipState) => {
@@ -57,6 +64,6 @@ export function useFlashcard({
       state: flashcardSide,
       onFlip: memoizedOnFlip,
     }),
-    [flashcardSide, flip, resetCardState, memoizedOnFlip, flipDirection, disableFlip]
+    [flashcardSide, flip, resetCardState, manualFlip, memoizedOnFlip, flipDirection, disableFlip]
   )
 }
