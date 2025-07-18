@@ -1,0 +1,59 @@
+---
+title: Custom Control
+description: Demonstrates custom controls for navigating the flashcard array.
+---
+
+import { CustomControlDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<CustomControlDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import {
+  FlashcardArray,
+  useFlashcardArray,
+} from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+import { useState } from 'react'
+
+function CustomControl() {
+  const [useCycle, setUseCycle] = useState(false)
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+    showCount: false,
+    showControls: false,
+    cycle: useCycle,
+  })
+
+  return (
+    <div>
+      <FlashcardArray
+        deck={deck}
+        flipArrayHook={flipArrayHook}
+      />
+      <div>
+        <button onClick={() => flipArrayHook.prevCard()}>Previous</button>
+        <span>
+          {flipArrayHook.currentCard + 1} / {deck.length}
+        </span>
+        <button onClick={() => flipArrayHook.nextCard()}>Next</button>
+      </div>
+      <div>
+        <label>
+          <input
+            type='checkbox'
+            checked={useCycle}
+            onChange={(e) => setUseCycle(e.target.checked)}
+          />
+          Cycle through cards
+        </label>
+      </div>
+    </div>
+  )
+}
+```

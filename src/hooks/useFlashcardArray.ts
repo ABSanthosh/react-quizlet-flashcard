@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
+'use client'
+import { useCallback, useMemo, useState, useEffect } from 'react'
 import type { FlipState } from '../components/Flashcard/types'
 import { useFlashcard, type UseFlashcard, type UseFlashcardProps } from './useFlashcard'
 
@@ -49,6 +50,24 @@ export function useFlashcardArray({
   )
 
   const totalCards = useMemo(() => deckLength, [deckLength])
+
+  // Update cardsInDisplay when cycle or deckLength changes
+  useEffect(() => {
+    if (cycle) {
+      setCardsInDisplay([
+        (currentCard - 1 + deckLength) % deckLength,
+        currentCard,
+        (currentCard + 1) % deckLength,
+      ])
+    } else {
+      const newLeft = currentCard - 1 < 0 ? -1 : currentCard - 1
+      const newCenter = currentCard
+      const newRight = currentCard + 1 >= deckLength ? -1 : currentCard + 1
+      setCardsInDisplay([newLeft, newCenter, newRight])
+    }
+  }, [cycle, deckLength])
+  
+  // check and update cardsInDisplay based on cycle state change.
 
   const memoizedOnFlip = useCallback(
     (state: FlipState) => {

@@ -19,10 +19,7 @@ export interface IFlashcard {
   }
 }
 
-export enum FlipState {
-  Front = 'front',
-  Back = 'back',
-}
+export type FlipState = 'front' | 'back'
 
 // right-to-left
 // left-to-right

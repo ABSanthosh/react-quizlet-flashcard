@@ -1,0 +1,157 @@
+---
+title: Custom Style for Each Card
+description: Demonstrates applying custom styles to each card in the flashcard array.
+---
+
+import { CustomStylePerCardDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<CustomStylePerCardDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import {
+  FlashcardArray,
+  type IFlashcard,
+  useFlashcardArray,
+} from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+function CustomStylePerCard() {
+  const deck: IFlashcard[] = [
+    {
+      front: {
+        html: (
+          <>
+            <span
+              style={{
+                backgroundColor: 'lawngreen',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 1
+            </span>
+            <span
+              style={{
+                backgroundColor: 'lawngreen',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 2
+            </span>
+            <span
+              style={{
+                backgroundColor: 'lawngreen',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 3
+            </span>
+          </>
+        ),
+        style: {
+          backgroundColor: 'lightgoldenrodyellow',
+          color: 'black',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gridTemplateRows: '1fr',
+          gap: '10px',
+          padding: '10px',
+        },
+      },
+      back: {
+        html: <>Juneau</>,
+        style: {
+          backgroundColor: 'lightgoldenrodyellow',
+          color: 'black',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gridTemplateRows: '1fr',
+          gap: '10px',
+          padding: '10px',
+        },
+      },
+    },
+    {
+      front: {
+        html: (
+          <>
+            <span
+              style={{
+                backgroundColor: 'lightcoral',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 1
+            </span>
+            <span
+              style={{
+                backgroundColor: 'lightcoral',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 2
+            </span>
+            <span
+              style={{
+                backgroundColor: 'lightcoral',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Option 3
+            </span>
+          </>
+        ),
+        style: {
+          backgroundColor: 'lightgoldenrodyellow',
+          color: 'black',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gridTemplateRows: '1fr 1fr 1fr',
+          gap: '10px',
+          padding: '10px',
+        },
+      },
+      back: {
+        html: <>Sacramento</>,
+        style: {
+          backgroundColor: 'lightgoldenrodyellow',
+          color: 'black',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gridTemplateRows: '1fr 1fr 1fr',
+          gap: '10px',
+          padding: '10px',
+        },
+      },
+    },
+  ]
+
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+  })
+
+  return (
+    <FlashcardArray
+      deck={deck}
+      flipArrayHook={flipArrayHook}
+    />
+  )
+}
+```

@@ -1,0 +1,84 @@
+---
+title: useFlashcardArray Hook
+---
+
+Manages state and navigation for a deck of flashcards in the `react-quizlet-flashcard` library. Integrates with the `FlashcardArray` component to handle card navigation, flipping, and display options.
+
+## Usage
+
+Controls a deck of flashcards, providing navigation, progress tracking, and flip state management. Use with `FlashcardArray` or custom implementations.
+
+You can import the `useFlashcardArray` hook from the library:
+
+```tsx
+import { useFlashcardArray } from 'react-quizlet-flashcard';
+```
+
+### Basic Example
+
+```tsx
+import { useFlashcardArray, FlashcardArray } from 'react-quizlet-flashcard';
+import 'react-quizlet-flashcard/dist/index.css'
+
+const deck = [
+  { id: 1, front: { html: <div>Front 1</div> }, back: { html: <div>Back 1</div> } },
+  { id: 2, front: { html: <div>Front 2</div> }, back: { html: <div>Back 2</div> } },
+];
+
+const MyFlashcardArray = () => {
+  const flipArrayHook = useFlashcardArray({ deckLength: deck.length });
+  return <FlashcardArray flipArrayHook={flipArrayHook} deck={deck} />;
+};
+```
+
+## Hook API
+
+### Input Parameters
+
+| Parameter           | Type                           | Default    | Description                                                                 |
+|---------------------|--------------------------------|------------|-----------------------------------------------------------------------------|
+| `deckLength`        | `number`                       | Required   | Total number of cards in the deck.                                          |
+| `cycle?`            | `boolean`                      | `false`    | Enables cyclic navigation (loops to first card after last).                 |
+| `showCount?`        | `boolean`                      | `true`     | Shows current card number and total (e.g., "1/5").                          |
+| `showControls?`     | `boolean`                      | `true`     | Shows previous/next navigation buttons.                                     |
+| `showProgressBar?`  | `boolean`                      | `false`    | Shows a progress bar for deck position.                                     |
+| `onCardChange?`     | `(cardIndex: number) => void`  | `undefined` | Callback when the current card changes, receiving the new index.            |
+| `onFlip?`           | `(cardIndex: number, state: FlipState) => void` | `undefined` | Callback when the current card flips, receiving index and `FlipState`.      |
+| `manualFlip?`       | `boolean`                      | `false`    | Disables automatic flipping on click for the active card.                   |
+| `disableFlip?`      | `boolean`                      | `false`    | Disables flipping for the active card.                                      |
+| `flipDirection?`    | `FlipDirection`                | `'bt'`     | Flip animation direction (`'rtl'`, `'ltr'`, `'tb'`, `'bt'`).                |
+
+### Return Value
+
+Since useFlashcardArray hook is also used internally by the `FlashcardArray` component, it returns a `UseFlashcardArray` object with the following properties and methods. Most of these properties are not very useful outside of the `FlashcardArray` component, but they are available for advanced use cases:
+
+| Property/Method    | Type                           | Description                                                                 |
+|--------------------|--------------------------------|-----------------------------------------------------------------------------|
+| `cycle`           | `boolean`                      | Reflects `cycle` input.                                                    |
+| `showCount`       | `boolean`                      | Reflects `showCount` input.                                                |
+| `showControls`    | `boolean`                      | Reflects `showControls` input.                                             |
+| `showProgressBar` | `boolean`                      | Reflects `showProgressBar` input.                                          |
+| `deckLength`      | `number`                       | Total number of cards.                                                     |
+| `currentCard`     | `number`                       | Index of the current card (0-based).                                       |
+| `cardsInDisplay`  | `number[]`                     | Indices of left, center, and right cards (e.g., `[-1, 0, 1]` for non-cyclic). |
+| `flipHook`        | `UseFlashcard`                 | Hook managing the active card's flip state.                                |
+| `progressBar`     | `{ current: number, total: number, percentage: number }` | Progress info (current card, total, and percentage).                |
+| `prevCard`        | `() => void`                   | Navigates to the previous card.                                            |
+| `nextCard`        | `() => void`                   | Navigates to the next card.                                                |
+| `setCurrentCard`  | `(index: number) => void`      | Sets the current card to the specified index.                              |
+
+### Types
+
+- **FlipState**: Enum for card state (`FlipState.Front`, `FlipState.Back`).
+- **FlipDirection**: Flip animation direction (`'rtl'`, `'ltr'`, `'tb'`, `'bt'`).
+
+## Examples
+
+For examples, check out the [Use-cases](/docs/flashcard-array/use-cases/basic-flashcard-array) section, which includes various configurations and scenarios for using the `useFlashcardArray` hook.
+
+## Best Practices
+
+- **Type Safety**: Use TypeScript to leverage type checking for inputs and outputs.
+- **Stable Props**: Pass stable references for `onCardChange` and `onFlip` to avoid unnecessary re-renders.
+- **Accessibility**: Ensure `FlashcardArray` uses ARIA attributes for screen reader support.
+- **Responsive Design**: Test with the component's responsive styles (90% width at 625px).

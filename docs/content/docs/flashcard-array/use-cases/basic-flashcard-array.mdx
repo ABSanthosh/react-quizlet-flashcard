@@ -1,0 +1,70 @@
+---
+title: Basic Flashcard Array
+description: Demonstrates a basic flashcard array with navigation through a deck of cards.
+---
+
+import { BasicArrayDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<BasicArrayDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { FlashcardArray, IFlashcard, useFlashcardArray } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+function BasicArray() {
+  const deck: IFlashcard[] = [
+    {
+      front: {
+        html: (
+          <p>
+            What is the <u>capital</u> of Alaska?
+          </p>
+        ),
+        style: { color: 'blue' },
+      },
+      back: { html: <>Juneau</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of California?</>, style: { color: 'blue' } },
+      back: { html: <>Sacramento</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of New York?</>, style: { color: 'blue' } },
+      back: { html: <>Albany</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of Florida?</>, style: { color: 'blue' } },
+      back: { html: <>Tallahassee</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of Texas?</>, style: { color: 'blue' } },
+      back: { html: <>Austin</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of New Mexico?</>, style: { color: 'blue' } },
+      back: { html: <>Santa Fe</>, style: { color: 'green' } },
+    },
+    {
+      front: { html: <>What is the capital of Arizona?</>, style: { color: 'blue' } },
+      back: { html: <>Phoenix</>, style: { color: 'green' } },
+    },
+  ]
+
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+  })
+
+  return (
+    <FlashcardArray
+      flipArrayHook={flipArrayHook}
+      deck={deck}
+    />
+  )
+}
+```

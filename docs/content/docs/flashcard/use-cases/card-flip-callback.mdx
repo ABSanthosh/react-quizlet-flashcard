@@ -1,0 +1,35 @@
+---
+title: Card Flip Callback Flashcard
+---
+
+import { CardFlipCallbackDemo } from '../../../demos/flashcard-demos.tsx'
+
+The `CardFlipCallback` example demonstrates how to use the `onFlip` callback in the `useFlashcard` hook to log the flip state to the console whenever the card is flipped. This is useful for tracking user interactions with the flashcard, such as when they flip the card to view the answer.
+
+## Demo
+
+<CardFlipCallbackDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard, useFlashcard } from 'react-quizlet-flashcard'
+import { FlipState } from 'react-quizlet-flashcard'
+
+export const CardFlipCallback = () => {
+  const flipHook = useFlashcard({
+    onFlip: (state: FlipState) => {
+      console.log(`Flipped to ${state}`)
+    },
+  })
+
+  return (
+    <Flashcard
+      flipHook={flipHook}
+      back={{ html: <div>Back Content (Check console for flip state)</div> }}
+      front={{ html: <div>Front Content (Check console for flip state)</div> }}
+    />
+  )
+}

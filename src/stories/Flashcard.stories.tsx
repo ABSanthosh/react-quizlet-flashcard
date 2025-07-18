@@ -4,7 +4,7 @@ import { useFlashcard } from '../hooks/useFlashcard'
 import './styles.scss'
 import { Fragment } from 'react/jsx-runtime'
 import { useState } from 'react'
-import { FlipState, type FlipDirection } from '../components/Flashcard/types'
+import { type FlipState, type FlipDirection } from '../components/Flashcard/types'
 
 // Basic Flashcard (already provided)
 export const BasicFlashcard: Story = () => {
@@ -31,7 +31,7 @@ export const ManualFlip: Story = () => {
         className='CrispButton'
         onClick={() => flipHook.flip()}
       >
-        {`Click to flip to ${flipHook.state === FlipState.Front ? 'Back' : 'Front'}`}
+        {`Click to flip to ${flipHook.state === 'front' ? 'back' : 'front'}`}
       </button>
     </Fragment>
   )

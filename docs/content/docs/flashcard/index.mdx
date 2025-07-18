@@ -1,0 +1,97 @@
+---
+title: Flashcard
+description: Learn how to get started with the react-quizlet-flashcard library.
+---
+
+# Flashcard Component
+
+The `Flashcard` component is a reusable React component designed to display a single flashcard with a front and back side, supporting interactive flipping animations. It can be used standalone or as part of a `FlashcardArray` to create a deck of flashcards. The component supports customizable styles, flip directions, and manual or automatic flipping behavior, making it versatile for educational or quiz applications.
+
+## Usage
+
+The `Flashcard` component renders a card with two sides: a front and a back. Users can click to flip between sides (unless disabled or set to manual flip), and the component supports various flip directions and custom styling. It integrates with the `useFlashcard` hook for state management and can be controlled externally via a `flipHook`.
+
+### Basic Example
+
+```tsx
+'use client'
+
+import { Flashcard } from 'react-quizlet-flashcard';
+import 'react-quizlet-flashcard/dist/index.css'
+
+const MyFlashcard = () => (
+  <Flashcard
+    front={{ html: <div>Front Content</div> }}
+    back={{ html: <div>Back Content</div> }}
+  />
+);
+```
+
+## Props
+
+The following table lists the props available for the `Flashcard` component:
+
+| Prop Name       | Data Type                                       | Default     | Description                                                                                                 |
+|-----------------|-------------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------|
+| `front`         | `{ html: ReactElement, style?: CSSProperties }` | Required    | Defines the content and optional styles for the front side of the flashcard.                                |
+| `back`          | `{ html: ReactElement, style?: CSSProperties }` | Required    | Defines the content and optional styles for the back side of the flashcard.                                 |
+| `manualFlip`    | `boolean`                                       | `false`     | If `true`, disables automatic flipping on click, requiring manual control via `flipHook`.                   |
+| `flipHook`      | `UseFlashcard`                                  | `undefined` | Optional hook to control flip state and behavior. If not provided, an internal `useFlashcard` hook is used. |
+| `className`     | `string`                                        | `undefined` | Additional CSS class for custom styling of the flashcard.                                                   |
+| `style`         | `CSSProperties`                                 | `undefined` | Inline styles for the flashcard wrapper, controlling size or other properties.                              |
+
+## Types
+
+- **FlipState**: An enum defining the card's display state:
+  - `FlipState.Front` (`'front'`): Shows the front side.
+  - `FlipState.Back` (`'back'`): Shows the back side.
+- **FlipDirection**: A type defining the flip animation direction:
+  - `'rtl'`: Right-to-left flip.
+  - `'ltr'`: Left-to-right flip.
+  - `'tb'`: Top-to-bottom flip.
+  - `'bt'`: Bottom-to-top flip (default).
+
+## Integration with `useFlashcard` Hook
+
+The `Flashcard` component can be controlled using the `useFlashcard` hook, which provides methods and state for managing the flip behavior. The hook accepts the following options:
+
+- `manualFlip`: Boolean to enable manual flipping.
+- `disableFlip`: Boolean to disable flipping entirely.
+- `flipDirection`: Specifies the flip animation direction.
+- `onFlip`: Callback function triggered when the card flips, receiving the new `FlipState`.
+
+## Styling
+
+The `Flashcard` component uses SCSS for styling, with the following key classes and variables:
+
+- **Wrapper Class**: `.flashcard-wrapper`
+  - Default size: 560px width, 340px height.
+  - Border radius: 16px (via `--border-radius`).
+  - Box shadow: Configurable via `--box-shadow`.
+- **Card Class**: `.flashcard`
+  - Handles flip animations based on `data-flip` and `data-dir` attributes.
+- **Front/Back Classes**: `.flashcard__front` and `.flashcard__back`
+  - Background colors configurable via `--front-bg` and `--back-bg`.
+  - Support custom `style` props for each side.
+
+In order to include the default styles, ensure to import the CSS file in your project:
+
+```tsx
+import 'react-quizlet-flashcard/dist/index.css';
+```
+
+## Accessibility
+
+- **ARIA Attributes**:
+  - `aria-label`: Indicates the currently displayed side (`front` or `back`).
+  - `aria-live="polite"`: Announces changes to screen readers.
+  - `role="region"`: Defines the flashcard as a region for accessibility.
+  - `tabIndex={0}`: Makes the flashcard focusable for keyboard navigation.
+- **Hidden Content**: The non-visible side is marked with `aria-hidden` to prevent screen reader access.
+
+## Notes
+
+- When using `manualFlip`, ensure a `flipHook` is provided to control flipping, as automatic click-based flipping is disabled.
+- The component is optimized for use within a `FlashcardArray` for multi-card scenarios, where `flipArrayHook` manages navigation and state across cards.
+- The default flip direction is bottom-to-top (`bt`). Use the `flipHook` with a custom `flipDirection` to change this behavior.
+- For production use, consider enabling stricter ESLint rules as outlined in the project's `README.md` for type safety and code quality.

@@ -1,0 +1,138 @@
+@use './mixins' as *;
+
+.CrispButton {
+  --crp-button-gap: 10px;
+  --crp-button-width: auto;
+  --crp-button-height: 30px;
+  --crp-button-font-size: 15px;
+  --crp-button-padding-top: 8px;
+  --crp-button-border-radius: 8px;
+  --crp-button-padding-left: 10px;
+  --crp-button-padding-right: 10px;
+  --crp-button-padding-bottom: 8px;
+
+  --crp-button-disabled-color: var(--t-crp-disabled-color);
+  --crp-button-disabled-background-color: var(--t-crp-disabled-background-color);
+  --crp-button-disabled-border: 1.2px solid var(--t-crp-disabled-border);
+
+  --crp-button-color: var(--foreground);
+  --crp-button-background-color: var(--background);
+  --crp-button-border: 1.2px solid var(--t-crp-border);
+  --crp-button-box-shadow: var(--t-crp-box-shadow);
+
+  &:not(&[data-type]) {
+    --crp-button-color-hover: var(--foreground);
+    --crp-button-background-color-hover: var(--t-crp-background-hover);
+    --crp-button-border-hover: 1.2px solid var(--t-crp-border-hover);
+  }
+
+  &[data-type='black-outline'] {
+    --crp-button-color: #ffffff;
+    --crp-button-color-hover: #000000;
+
+    --crp-button-background-color: #000000;
+    --crp-button-background-color-hover: #ffffff;
+
+    --crp-button-border: 1px solid #ffffff;
+    --crp-button-border-hover: 1px solid #000000;
+
+    --crp-button-box-shadow: transparent;
+
+    --crp-button-disabled-background-color: #757575;
+    --crp-button-disabled-border: 1px solid #757575;
+    --crp-button-disabled-color: #b8b8b8;
+  }
+
+  &[data-type='danger'] {
+    --crp-button-color-hover: #ffffff;
+    --crp-button-background-color-hover: #ff605c;
+    --crp-button-border-hover: 1.2px solid #ff605c;
+    --crp-button-box-shadow: transparent;
+  }
+
+  &[data-type='success'] {
+    --crp-button-color: #11181c;
+    --crp-button-color-hover: #ffffff;
+
+    --crp-button-background-color: #fbfcfd;
+    --crp-button-background-color-hover: #3ecf8e;
+
+    --crp-button-border: 1px solid #dfe3e6;
+    --crp-button-border-hover: 1px solid #3ecf8e;
+
+    --crp-button-box-shadow: transparent;
+  }
+
+  &[data-border='false'] {
+    --crp-button-border: none !important;
+    --crp-button-border-hover: none !important;
+    --crp-button-box-shadow: none !important;
+  }
+
+  &[data-type='ghost'] {
+    --crp-button-color: #11181c;
+    --crp-button-background-color: transparent;
+    --crp-button-border: 1px solid transparent;
+
+    --crp-button-color-hover: var(--foreground);
+    --crp-button-background-color-hover: var(--t-crp-background-hover);
+    --crp-button-border-hover: 1.2px solid var(--t-crp-border-hover);
+    --crp-button-box-shadow: transparent;
+  }
+
+  &[data-type='golden'] {
+    --crp-button-width: auto;
+    --crp-button-font-size: 18px;
+    --crp-button-border-radius: 6px;
+    --crp-button-border: 1.2px solid #9d7b7b;
+
+    --crp-button-background-color-hover: #ece0e0;
+    --crp-button-border-hover: 1.2px solid #9d7b7b;
+  }
+
+  // Basic
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  gap: var(--crp-button-gap);
+  transition: all 0.1s ease-in-out;
+  font-size: var(--crp-button-font-size);
+  border-radius: var(--crp-button-border-radius);
+
+  // Padding
+  padding-top: var(--crp-button-padding-top);
+  padding-left: var(--crp-button-padding-left);
+  padding-right: var(--crp-button-padding-right);
+  padding-bottom: var(--crp-button-padding-bottom);
+
+  // Layout
+  @include make-flex($dir: row);
+  @include box(var(--crp-button-width), var(--crp-button-height));
+
+  // Color
+  color: var(--crp-button-color);
+  border: var(--crp-button-border);
+  box-shadow: var(--crp-button-box-shadow);
+  background-color: var(--crp-button-background-color);
+
+  @media (any-hover: hover) {
+    // &:focus:not(:disabled),
+    &:hover:not(:disabled) {
+      color: var(--crp-button-color-hover);
+      border: var(--crp-button-border-hover);
+      background-color: var(--crp-button-background-color-hover);
+
+      &::before {
+        color: var(--crp-button-color-hover);
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--crp-button-disabled-color);
+    border: var(--crp-button-disabled-border);
+    background-color: var(--crp-button-disabled-background-color);
+  }
+}

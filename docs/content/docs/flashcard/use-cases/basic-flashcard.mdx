@@ -1,0 +1,32 @@
+---
+title: Basic Flashcard
+---
+
+import { Flashcard, useFlashcard } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+The `BasicFlashcard` demonstrates the simplest usage of the `Flashcard` component, displaying a front and back side with default flipping behavior on click.
+
+## Demo
+
+<Flashcard
+  back={{ html: <div>Back Content</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } }}
+  front={{ html: <div>Front Content</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } }}
+/>
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard } from 'react-quizlet-flashcard'
+
+export const BasicFlashcard = () => {
+  return (
+    <Flashcard
+      back={{ html: <div>Back Content</div> }}
+      front={{ html: <div>Front Content</div> }}
+    />
+  )
+}
+```

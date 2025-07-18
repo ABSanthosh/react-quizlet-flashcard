@@ -41,6 +41,10 @@
     background-color: var(--front-bg);
   }
 
+  &__back {
+    background-color: var(--back-bg);
+  }
+
   &__front,
   &__back {
     top: 0;

@@ -1,0 +1,36 @@
+---
+title: Show Progress Bar
+description: Demonstrates showing a progress bar in the flashcard array.
+---
+
+import { ShowProgressBarDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<ShowProgressBarDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import {
+  FlashcardArray,
+  useFlashcardArray,
+} from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+export function ShowProgressBarDemo() {
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+    showProgressBar: true,
+  })
+
+  return (
+    <FlashcardArray
+      deck={deck}
+      flipArrayHook={flipArrayHook}
+    />
+  )
+}
+```

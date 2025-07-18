@@ -3,6 +3,7 @@ import './styles.scss'
 import { FlashcardArray } from '../main'
 import { useFlashcardArray } from '../hooks/useFlashcardArray'
 import { Fragment } from 'react/jsx-runtime'
+import { useState } from 'react'
 
 const deck = {
   id: 'nsh19mt',
@@ -63,8 +64,10 @@ const deck = {
 }
 
 export const BasicFlashcardArray: Story = () => {
+  const [cycle, setCycle] = useState(false)
+
   const flipArrayHook = useFlashcardArray({
-    cycle: true,
+    cycle: cycle,
     deckLength: deck.cards.length,
   })
 
@@ -78,6 +81,12 @@ export const BasicFlashcardArray: Story = () => {
           back: card.back,
         }))}
       />
+      <button
+        className='CrispButton'
+        onClick={() => setCycle(!cycle)}
+      >
+        {cycle ? 'Disable Cycle' : 'Enable Cycle'}
+      </button>
     </Fragment>
   )
 }

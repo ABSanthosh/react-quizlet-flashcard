@@ -1,0 +1,40 @@
+---
+title: Flip Direction
+description: Demonstrates different flip directions for the flashcards.
+---
+
+import { FlipDirectionDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<FlipDirectionDemo />
+
+## Code Example
+
+```tsx
+export function FlipDirectionDemo() {
+  const [dir, setDir] = useState<FlipDirection>('bt')
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+    flipDirection: dir,
+  })
+
+  return (
+    <Fragment>
+      <FlashcardArray
+        deck={deck}
+        flipArrayHook={flipArrayHook}
+      />
+      <select
+        value={dir}
+        onChange={(e) => setDir(e.target.value as FlipDirection)}
+      >
+        <option value='bt'>Bottom to Top</option>
+        <option value='tb'>Top to Bottom</option>
+        <option value='ltr'>Left to Right</option>
+        <option value='rtl'>Right to Left</option>
+      </select>
+    </Fragment>
+  )
+}
+```

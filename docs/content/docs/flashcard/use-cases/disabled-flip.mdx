@@ -1,0 +1,46 @@
+---
+title: Disabled Flip Flashcard
+---
+
+import { DisabledFlipDemo } from '../../../demos/flashcard-demos.tsx'
+
+
+The `DisabledFlip` example showcases a flashcard where the flipping functionality can be toggled on or off using a button, controlled by the `disableFlip` prop in the `useFlashcard` hook.
+
+## Demo
+
+<DisabledFlipDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard, useFlashcard } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+import { Fragment } from 'react/jsx-runtime'
+import { useState } from 'react'
+
+export const DisabledFlip = () => {
+  const [disabled, setDisabled] = useState(false)
+  const flipHook = useFlashcard({
+    disableFlip: disabled,
+  })
+
+  return (
+    <Fragment>
+      <Flashcard
+        flipHook={flipHook}
+        back={{ html: <div>Back Content (Flipping Disabled)</div> }}
+        front={{ html: <div>Front Content (Flipping Disabled)</div> }}
+      />
+      <button
+        className='CrispButton'
+        onClick={() => setDisabled(!disabled)}
+      >
+        {disabled ? 'Enable Flip' : 'Disable Flip'}
+      </button>
+    </Fragment>
+  )
+}
+```

@@ -1,0 +1,96 @@
+---
+title: useFlashcard hook
+---
+
+The `useFlashcard` hook is a custom React hook built to manage the state and behavior of a single flashcard component. It provides a flexible API to control the flip state, direction, and behavior of a flashcard, making it ideal for creating interactive flashcard experiences. 
+You can use this hook with the `Flashcard` component to have more granular control over the flip state and handle flipping logic. You can also customize it for manual or automatic flipping, various animation directions, and callback functions.
+
+## Usage
+
+The `useFlashcard` hook takes an optional configuration object and returns an object with properties and methods to control the flashcard's behavior. It is typically used to manage the state of a `Flashcard` component, but it can also be used independently for custom implementations.
+
+The hook is included in the package and can be imported as follows:
+
+```tsx
+import { useFlashcard, type FlipState, type FlipDirection } from 'react-quizlet-flashcard';
+```
+
+### Basic Example
+
+```tsx
+'use client'
+
+import { useFlashcard, type FlipState, Flashcard } from 'react-quizlet-flashcard';
+import 'react-quizlet-flashcard/dist/index.css'
+
+const MyFlashcard = () => {
+  const flipHook = useFlashcard({
+    onFlip: (state: FlipState) => {
+      console.log(`Flipped to ${state}`);
+    },
+  });
+
+  return (
+    <Flashcard
+      flipHook={flipHook}
+      front={{ html: <div>Front Content</div> }}
+      back={{ html: <div>Back Content</div> }}
+    />
+  );
+};
+```
+
+In this example, the hook manages the flip state, and the `onFlip` callback logs the new state whenever the card is flipped.
+
+## Hook API
+
+### Input Parameters
+
+The `useFlashcard` hook accepts a single optional parameter, `UseFlashcardProps`, which configures the hook's behavior:
+
+| Property         | Type                       | Default    | Description                                                                 |
+|------------------|----------------------------|------------|-----------------------------------------------------------------------------|
+| `manualFlip?`     | `boolean`                  | `false`    | If `true`, disables automatic flipping on click, requiring manual calls to `flip()`. |
+| `disableFlip?`    | `boolean`                  | `false`    | If `true`, disables all flipping, making the card static.                   |
+| `flipDirection?`  | `FlipDirection`            | `'bt'`     | Specifies the animation direction for flipping. Options: `'rtl'`, `'ltr'`, `'tb'`, `'bt'`. |
+| `onFlip?`         | `(state: FlipState) => void` | `undefined` | Optional callback invoked when the card flips, receiving the new `FlipState`. |
+
+### Return Value
+
+The hook returns a `UseFlashcard` object with the following properties and methods. Some of these properties are not relevant outside of the `Flashcard` component, but they are available for advanced use cases:
+
+| Property/Method    | Type                       | Description                                                                 |
+|--------------------|----------------------------|-----------------------------------------------------------------------------|
+| `state`            | `FlipState`                | The current side of the flashcard (`FlipState.Front` or `FlipState.Back`). |
+| `manualFlip`       | `boolean`                  | Reflects the `manualFlip` prop value passed to the hook.                    |
+| `disableFlip`      | `boolean`                  | Reflects the `disableFlip` prop value passed to the hook.                   |
+| `flipDirection`    | `FlipDirection`            | The current flip direction (e.g., `'bt'`, `'rtl'`).                         |
+| `flip`             | `(state?: FlipState) => void` | Function to flip the card to the opposite side or a specified `FlipState`. |
+| `resetCardState`   | `() => void`               | Resets the card to its initial state (`FlipState.Front`).                   |
+
+### Types
+
+- **FlipState**: An enum representing the card's display state:
+  - `FlipState.Front` (`'front'`): The front side is visible.
+  - `FlipState.Back` (`'back'`): The back side is visible.
+- **FlipDirection**: A type defining the flip animation direction:
+  - `'rtl'`: Right-to-left flip.
+  - `'ltr'`: Left-to-right flip.
+  - `'tb'`: Top-to-bottom flip.
+  - `'bt'`: Bottom-to-top flip (default).
+
+
+## Best Practices
+
+- **Use TypeScript**: The hook is written in TypeScript and provides type safety for all inputs and outputs. Ensure your project uses TypeScript to leverage these benefits.
+- **Handle Callbacks**: Use the `onFlip` callback to track user interactions or trigger side effects, such as logging or updating application state.
+- **Control Flipping**: For controlled flashcards, always set `manualFlip` to `true` and provide a `flipHook` to the `Flashcard` component to avoid unexpected behavior.
+- **Optimize Performance**: The hook uses `useCallback` and `useMemo` to memoize functions and values, ensuring optimal performance. Avoid unnecessary re-renders by passing stable references to props like `onFlip`.
+- **Accessibility**: Ensure the `Flashcard` component's accessibility features (e.g., ARIA attributes) are used correctly when integrating with `useFlashcard`.
+
+## Notes
+
+- The hook is optimized for use with the `Flashcard` component but can be used independently for custom implementations requiring flip state management.
+- The default flip direction is `'bt'` (bottom-to-top). Use the `flipDirection` option to customize the animation.
+- When `disableFlip` is `true`, the `flip` method does nothing, ensuring the card remains static.
+- The `resetCardState` method is useful for resetting the card to its initial state (`FlipState.Front`) when navigating between cards in a `FlashcardArray`**.**

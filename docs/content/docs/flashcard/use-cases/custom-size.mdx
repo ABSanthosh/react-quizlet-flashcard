@@ -1,0 +1,29 @@
+---
+title: Custom Card Size Flashcard
+---
+
+import { CustomCardSize } from '../../../demos/flashcard-demos.tsx'
+
+The `CustomCardSize` example showcases how to customize the size of a flashcard by setting specific width and height values using the `style` prop.
+
+## Demo
+
+<CustomCardSize />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard } from 'react-quizlet-flashcard'
+
+export const CustomCardSize = () => {
+  return (
+    <Flashcard
+      style={{ width: '300px', height: '300px' }}
+      back={{ html: <div>Small Back Content</div> }}
+      front={{ html: <div>Small Front Content</div> }}
+    />
+  )
+}
+```

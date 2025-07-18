@@ -1,0 +1,53 @@
+---
+title: Flip Directions Flashcard
+description: Demonstrates a flashcard with customizable flip directions controlled by a dropdown.
+---
+
+import { FlipDirectionsDemo } from '../../../demos/flashcard-demos.tsx'
+
+The `FlipDirections` example showcases a flashcard where the flip direction can be changed using a dropdown menu, allowing for different flip animations such as bottom-to-top, top-to-bottom, left-to-right, or right-to-left.
+
+## Demo
+
+<FlipDirectionsDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard, useFlashcard, type FlipDirection } from 'react-quizlet-flashcard'
+import { Fragment } from 'react/jsx-runtime'
+import { useState } from 'react'
+import 'react-quizlet-flashcard/dist/index.css'
+
+export const FlipDirections = () => {
+  const [dir, setDir] = useState<FlipDirection>('bt') // Default to bottom-to-top
+  const flipHook = useFlashcard({
+    flipDirection: dir,
+  })
+
+  return (
+    <Fragment>
+      <Flashcard
+        flipHook={flipHook}
+        back={{ html: <div>Back Content (RTL Flip)</div> }}
+        front={{ html: <div>Front Content (RTL Flip)</div> }}
+      />
+      <select
+        className='CrispSelect'
+        value={dir}
+        onChange={(e) => setDir(e.target.value as FlipDirection)}
+      >
+        <option value='bt'>Bottom to Top</option>
+        <option value='tb'>Top to Bottom</option>
+        <option value='ltr'>Left to Right</option>
+        <option value='rtl'>Right to Left</option>
+      </select>
+      <p style={{ marginTop: '10px' }}>
+        Current Flip Direction: <strong>{dir}</strong>
+      </p>
+    </Fragment>
+  )
+}
+```

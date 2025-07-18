@@ -1,3 +1,5 @@
+'use client'
+
 import './style.scss'
 import { useFlashcardArray } from '../../hooks/useFlashcardArray'
 import Flashcard from '../Flashcard'

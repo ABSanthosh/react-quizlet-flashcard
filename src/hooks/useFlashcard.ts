@@ -1,5 +1,6 @@
+'use client'
 import { useCallback, useMemo, useState } from 'react'
-import { FlipState, type FlipDirection } from '../components/Flashcard/types'
+import { type FlipState, type FlipDirection } from '../components/Flashcard/types'
 
 export interface UseFlashcardProps {
   manualFlip?: boolean
@@ -23,7 +24,7 @@ export function useFlashcard({
   manualFlip = false,
   flipDirection = 'bt',
 }: UseFlashcardProps): UseFlashcard {
-  const [flashcardSide, setFlashcardSide] = useState<FlipState>(FlipState.Front)
+  const [flashcardSide, setFlashcardSide] = useState<FlipState>("front")
 
   const memoizedOnFlip = useCallback(
     (state: FlipState) => {
@@ -39,7 +40,7 @@ export function useFlashcard({
       if (disableFlip) return
 
       setFlashcardSide((prev) => {
-        const newState = state ?? (prev === FlipState.Front ? FlipState.Back : FlipState.Front)
+        const newState = state ?? (prev === "front" ? "back" : "front")
         // Only call onFlip if state actually changed
         if (newState !== prev) {
           memoizedOnFlip(newState)
@@ -51,7 +52,7 @@ export function useFlashcard({
   )
 
   const resetCardState = useCallback(() => {
-    setFlashcardSide(FlipState.Front)
+    setFlashcardSide("front")
   }, [])
 
   return useMemo(

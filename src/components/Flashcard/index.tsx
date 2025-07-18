@@ -1,7 +1,9 @@
+'use client'
+
 import './style.scss'
 import { useEffect, useState } from 'react'
 import { useFlashcard } from '../../hooks/useFlashcard'
-import { FlipState, type FlashcardProps } from './types'
+import { type FlashcardProps } from './types'
 
 export default function Flashcard({
   style,
@@ -9,13 +11,12 @@ export default function Flashcard({
   className,
   front,
   back,
-  ...restProps
 }: FlashcardProps) {
-  const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === FlipState.Back : false)
+  const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === 'back' : false)
 
   const defaultFlipHook = useFlashcard({
     onFlip: (state) => {
-      setIsFlipped(state === FlipState.Back)
+      setIsFlipped(state === 'back')
     },
   })
 
@@ -23,14 +24,13 @@ export default function Flashcard({
 
   useEffect(() => {
     if (localFlipHook) {
-      setIsFlipped(localFlipHook.state === FlipState.Back)
+      setIsFlipped(localFlipHook.state === 'back')
     }
   }, [localFlipHook])
 
   return (
     <div
       style={style}
-      {...restProps}
       className='flashcard-wrapper'
     >
       <div

@@ -1,0 +1,44 @@
+---
+title: Manual Flip Flashcard
+---
+
+import { ManualFlipDemo } from '../../../demos/flashcard-demos.tsx'
+
+The `ManualFlip` flashcard example showcases a flashcard that does not flip automatically on click. Instead, flipping is controlled manually through a button, utilizing the `useFlashcard` hook with the `manualFlip` prop set to `true`.
+
+## Demo
+
+<ManualFlipDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard, useFlashcard } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+import { Fragment } from 'react'
+
+export default 
+function ManualFlipDemo() {
+  const flipHook = useFlashcard({
+    manualFlip: true,
+  })
+  return (
+    <Fragment>
+      <Flashcard
+        flipHook={flipHook}
+        back={{ html: <div>Back Content (I won't flip on click)</div> }}
+        front={{ html: <div>Front Content (I won't flip on click)</div> }}
+      />
+      {/* TODO: fix crisp style */}
+      <button
+        className='CrispButton'
+        onClick={() => flipHook.flip()}
+      >
+        {`Click to flip to ${flipHook.state === 'front' ? 'back' : 'front'}`}
+      </button>
+    </Fragment>
+  )
+}
+```

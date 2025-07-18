@@ -6,18 +6,24 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 import autoprefixer from 'autoprefixer'
 import dts from 'vite-plugin-dts'
+import preserveDirectives from 'rollup-preserve-directives'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    preserveDirectives(),
     dts({
       exclude: ['**/*.stories.tsx', 'src/test-setup.ts', '**/*.test.tsx'],
-      tsconfigPath: 'tsconfig.app.json',
+      insertTypesEntry: true,
+      rollupTypes: true,
+      tsconfigPath: './tsconfig.app.json',
     }),
   ],
   build: {
+    cssCodeSplit: false, // Inline CSS into JS bundle
     lib: {
+      fileName: 'index',
+      cssFileName: 'index',
       entry: resolve(__dirname, 'src/main.ts'),
       formats: ['es'],
     },

@@ -1,0 +1,134 @@
+---
+title: Custom Styles Flashcard
+---
+
+import { CustomStylesDemo } from '../../../demos/flashcard-demos.tsx'
+
+The `CustomStyles` flashcard example showcases how to apply custom CSS styles to the front and back sides of a flashcard, including background colors, layout, and typography.
+
+## Demo
+
+<CustomStylesDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { Flashcard } from 'react-quizlet-flashcard'
+import { Fragment } from 'react/jsx-runtime'
+
+export const CustomStyles = () => {
+  return (
+    <Flashcard
+      back={{
+        html: <div>Styled Back</div>,
+        style: {
+          backgroundColor: 'palevioletred',
+          color: 'white',
+          padding: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      }}
+      front={{
+        html: (
+          <Fragment>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              1
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              2
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              3
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              4
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              5
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              6
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              7
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              8
+            </span>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              9
+            </span>
+          </Fragment>
+        ),
+        style: {
+          backgroundColor: 'turquoise',
+          color: 'white',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(3, 1fr)',
+          fontSize: '2rem',
+        },
+      }}
+      className='custom-flashcard'
+    />
+  )
+}
+```

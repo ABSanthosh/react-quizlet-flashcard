@@ -1,0 +1,36 @@
+---
+title: Cycling Flashcard Array
+description: Demonstrates a cycling flashcard array with navigation through a deck of cards.
+---
+
+import { CyclingArrayDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+
+<CyclingArrayDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { FlashcardArray, IFlashcard, useFlashcardArray } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+export default function CyclingArray() {
+  const deck: IFlashcard[] = [...]
+
+  const flipArrayHook = useFlashcardArray({
+    cycle: true,
+    deckLength: deck.length,
+  })
+
+  return (
+    <FlashcardArray
+      flipArrayHook={flipArrayHook}
+      deck={deck}
+    />
+  )
+}
+
+```

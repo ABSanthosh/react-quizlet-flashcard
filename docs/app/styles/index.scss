@@ -1,0 +1,11 @@
+@forward "theme.scss";
+@use "./CrispButton.scss" as *;
+@use "./CrispInput.scss" as *;
+@use "./CrispSelect.scss" as *;
+
+
+.flashcard-array__controls {
+  & > button > svg > path{
+    fill: var(--foreground) !important;
+  }
+}

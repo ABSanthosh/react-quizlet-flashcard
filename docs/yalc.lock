@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-quizlet-flashcard": {
+      "signature": "c7d9860df93a858f8958d91fa404ac82",
+      "file": true
+    }
+  }
+}

@@ -1,69 +1,97 @@
-# React + TypeScript + Vite
+# react-quizlet-flashcard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, responsive, and customizable flashcard component library for React, inspired by Quizlet. Create interactive single flashcards or decks with smooth animations and TypeScript support.
 
-Currently, two official plugins are available:
+[![NPM Version](https://img.shields.io/npm/v/react-quizlet-flashcard.svg)](https://www.npmjs.com/package/react-quizlet-flashcard)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+|                                          react-quizlet-flashcard                                           |                                       Quizlet's flashcard component                                        |
+| :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
+| ![](./public/react-quizlet-flashcard.gif) | ![](./public/quizlet-flashcard.gif) |
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Single Flashcard**: Use the `Flashcard` component for individual cards with flip animations.
+- **Flashcard Deck**: Use the `FlashcardArray` component to navigate through multiple cards with progress tracking.
+- **Customizable**: Style cards with CSS properties, support for JSX/HTML content, and configurable flip directions.
+- **TypeScript Support**: Fully typed for type-safe development.
+- **Responsive Design**: Adapts to various screen sizes with customizable styles.
+- **Accessibility**: Includes ARIA attributes for screen reader compatibility.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Demo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Explore the full documentation and live demos at [react-quizlet-flashcard website](https://react-quizlet-flashcard.vercel.app/).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Installation
+
+```bash
+npm install react-quizlet-flashcard
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+or
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn add react-quizlet-flashcard
 ```
+
+## 📖 Usage
+
+### FlashcardArray Example
+
+```tsx
+import { FlashcardArray } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+const deck = [
+  {
+    id: 1,
+    front: { html: <div>What is the capital of Alaska?</div> },
+    back: { html: <div>Juneau</div> },
+  },
+  {
+    id: 2,
+    front: { html: <div>What is the capital of California?</div> },
+    back: { html: <div>Sacramento</div> },
+  },
+]
+
+function App() {
+  return <FlashcardArray deck={deck} />
+}
+```
+
+### Flashcard Example
+
+```tsx
+import { Flashcard } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+function App() {
+  return (
+    <Flashcard
+      front={{ html: <h1>Front</h1> }}
+      back={{ html: <h1>Back</h1> }}
+    />
+  )
+}
+```
+
+## 📚 Documentation
+
+Visit [react-quizlet-flashcard.vercel.app](https://react-quizlet-flashcard.vercel.app/) for detailed documentation, including:
+
+- Props for `Flashcard` and `FlashcardArray` components.
+- Usage of `useFlashcard` and `useFlashcardArray` hooks.
+- Customization options and accessibility features.
+
+## 🤝 Contributing
+
+Contributions are welcome! Check out the [issues page](https://github.com/ABSanthosh/react-quizlet-flashcard/issues) on GitHub to report bugs or suggest features. Give us a ⭐️ if you find this project helpful!
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## TODO
+
+- [x] Flashcard array needs a new feature to delete and add cards dynamically. That should also update the `cardsInDisplay` state and current card index.
+- [ ] When cycle is enabled after the array was initialized, at the start of the flashcard array (1/7), it breaks.

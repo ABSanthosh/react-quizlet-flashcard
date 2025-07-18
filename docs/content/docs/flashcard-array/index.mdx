@@ -1,0 +1,149 @@
+---
+title: Flashcard Array
+---
+
+Use this to display a deck of flashcards with navigation controls, a progress bar, and interactive flipping capabilities. It leverages the `Flashcard` component to render individual cards and integrates with the `useFlashcardArray` hook to manage deck navigation and state.
+
+import { FlashcardArray, IFlashcard } from 'react-quizlet-flashcard';
+
+## Usage
+
+The `FlashcardArray` component renders a deck of flashcards, showing one active card at a time, with optional navigation controls and a progress bar. It can be controlled using the `useFlashcardArray` hook for advanced customization or used with default settings for simplicity.
+
+Import the component as follows:
+
+```tsx
+import { FlashcardArray } from 'react-quizlet-flashcard';
+```
+
+### Basic Example
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+  <FlashcardArray
+    deck={[
+      { front: { html: <div>Front 1</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } }, back: { html: <div>Back 1</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } } },
+      { front: { html: <div>Front 2</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } }, back: { html: <div>Back 2</div>, style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } } },
+    ]}
+  />
+</div>
+
+```tsx
+import { FlashcardArray, IFlashcard } from 'react-quizlet-flashcard';
+import 'react-quizlet-flashcard/dist/index.css'
+
+const deck: IFlashcard[] = [
+  {front: { html: <div>Front 1</div> }, back: { html: <div>Back 1</div> } },
+  {front: { html: <div>Front 2</div> }, back: { html: <div>Back 2</div> } },
+];
+
+const MyFlashcardArray = () => (
+  <FlashcardArray
+    deck={deck}
+  />
+);
+```
+
+This example renders a deck of two flashcards with default navigation controls and a card counter.
+
+## Props
+
+The following table lists the props available for the `FlashcardArray` component:
+
+| Prop Name       | Data Type                                    | Default     | Description                                                                 |
+|-----------------|----------------------------------------------|-------------|-----------------------------------------------------------------------------|
+| `deck`          | `IFlashcard[]`                               | Required    | An array of flashcard objects, each containing `id`, `front`, and `back` properties. |
+| `flipArrayHook?` | `UseFlashcardArray`                          | `undefined` | Optional hook to control deck navigation and flip state. If not provided, an internal `useFlashcardArray` hook is used with default settings. |
+| `style?`         | `CSSProperties`                              | `undefined` | Inline styles for the flashcard array wrapper, controlling layout or appearance. |
+
+### IFlashcard Interface
+
+Each item in the `deck` array must conform to the `IFlashcard` interface:
+
+| Property    | Type                                    | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| `front`    | `{ html: ReactElement, style?: CSSProperties }` | Content and optional styles for the front side.                     |
+| `back`     | `{ html: ReactElement, style?: CSSProperties }` | Content and optional styles for the back side.                      |
+| `className?`| `string`                                | Optional CSS class for custom styling of the individual flashcard.          |
+| `style?`    | `CSSProperties`                         | Optional inline styles for the individual flashcard.                       |
+
+## Integration with `useFlashcardArray` Hook
+
+The `FlashcardArray` component relies on the `useFlashcardArray` hook to manage deck navigation, card state, and configuration. The hook provides options to customize the deck's behavior, such as enabling cyclic navigation, showing/hiding controls, and triggering callbacks on card changes or flips.
+
+
+### Example with Custom Hook Configuration
+
+```tsx
+import { FlashcardArray, useFlashcardArray, FlipState } from 'react-quizlet-flashcard';
+
+const deck = [
+  { id: 1, front: { html: <div>Front 1</div> }, back: { html: <div>Back 1</div> } },
+  { id: 2, front: { html: <div>Front 2</div> }, back: { html: <div>Back 2</div> } },
+];
+
+const MyControlledFlashcardArray = () => {
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+    cycle: true,
+    showProgressBar: true,
+    onCardChange: (index) => console.log(`Changed to card ${index + 1}`),
+    onFlip: (index, state) => console.log(`Card ${index + 1} flipped to ${state}`),
+  });
+
+  return (
+    <FlashcardArray
+      flipArrayHook={flipArrayHook}
+      deck={deck}
+    />
+  );
+};
+```
+
+## Styling
+
+Most of your styling needs can be achieved through the `style` prop on the `FlashcardArray` component, but if you need more customization, the `FlashcardArray` component uses SCSS for styling, with the following key classes and variables:
+
+- **Wrapper Class**: `.flashcard-array-wrapper`
+  - Default width: 560px (responsive to 90% at 625px breakpoint).
+  - Layout: Flex column with a 15px gap.
+- **Array Class**: `.flashcard-array`
+  - Contains three flashcard wrappers (left, center, right).
+  - Left and right cards are hidden (`opacity: 0`) and used as placeholders for transitions.
+- **Progress Bar**: `.flashcard-array__progress-bar`
+  - Width: 80% of the wrapper.
+  - Background color: `#d0d0d0`.
+  - Fill color: `#4a4a4a` (adjustable via CSS variables).
+- **Controls**: `.flashcard-array__controls`
+  - Contains previous/next buttons and card counter.
+  - Buttons use SVG icons for navigation.
+
+To include the default styles, import the CSS file in your project:
+
+```tsx
+import 'react-quizlet-flashcard/dist/index.css';
+```
+
+## Accessibility
+
+- **ARIA Attributes**:
+  - `role="region"`: Defines the flashcard array as a region for accessibility.
+  - `aria-label`: Indicates the current card number and total deck size (e.g., "Flashcard 1 of 5").
+  - `aria-live="polite"`: Announces navigation changes to screen readers.
+- **Navigation Buttons**: Disabled when navigation is not possible (e.g., first card in non-cyclic mode), with appropriate `disabled` attributes for accessibility.
+- **Sibling Cards**: Hidden from screen readers using `visibility: hidden` and `pointer-events: none`.
+
+## Best Practices
+
+- **Provide a Valid Deck**: Ensure the `deck` prop contains valid `IFlashcard` objects with unique `id` values to avoid rendering issues.
+- **Use TypeScript**: The component and hook are written in TypeScript, providing type safety for props and state. Use TypeScript in your project to catch errors early.
+- **Customize via Hook**: Use the `flipArrayHook` prop with a custom `useFlashcardArray` instance to control navigation, progress bar visibility, and callbacks.
+- **Responsive Design**: The component is responsive (90% width at 625px breakpoint). Test on various screen sizes to ensure usability.
+- **Accessibility**: Leverage the built-in ARIA attributes and ensure any custom styles maintain contrast and readability for accessibility compliance.
+- **Performance**: The component uses memoized hooks (`useCallback`, `useMemo`) to optimize performance. Avoid unnecessary re-renders by passing stable references to `deck` and `flipArrayHook`.
+
+## Notes
+
+- If no `flipArrayHook` is provided, the component creates an internal `useFlashcardArray` instance with default settings (`cycle: false`, `showCount: true`, `showControls: true`, `showProgressBar: false`).
+- Sibling cards (left and right) are rendered as placeholders to enhance the visual transition effect but are hidden and non-interactive.
+- The progress bar is only displayed if `showProgressBar` is `true` in the `useFlashcardArray` configuration.
+- For cyclic navigation, set `cycle: true` in the `useFlashcardArray` hook to loop back to the first card after the last.
