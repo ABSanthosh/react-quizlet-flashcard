@@ -6,7 +6,9 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   transpilePackages: ['react-quizlet-flashcard'],
-
+  redirects: async () => [
+    { source: "/", destination: "/docs", permanent: true },
+  ]
 };
 
 export default withMDX(config);

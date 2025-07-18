@@ -19,7 +19,7 @@ A simple, responsive, and customizable flashcard component library for React, in
 
 ## Demo
 
-Explore the full documentation and live demos at [react-quizlet-flashcard website](https://react-quizlet-flashcard.vercel.app/).
+Explore the full documentation and live demos at [react-quizlet-flashcard website]().
 
 ## Installation
 
@@ -33,7 +33,7 @@ or
 yarn add react-quizlet-flashcard
 ```
 
-## 📖 Usage
+## Usage
 
 ### FlashcardArray Example
 
@@ -75,23 +75,27 @@ function App() {
 }
 ```
 
-## 📚 Documentation
+## Documentation
 
-Visit [react-quizlet-flashcard.vercel.app](https://react-quizlet-flashcard.vercel.app/) for detailed documentation, including:
+Visit [react-quizlet-flashcard.vercel.app]() for detailed documentation, including:
 
 - Props for `Flashcard` and `FlashcardArray` components.
 - Usage of `useFlashcard` and `useFlashcardArray` hooks.
 - Customization options and accessibility features.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Check out the [issues page](https://github.com/ABSanthosh/react-quizlet-flashcard/issues) on GitHub to report bugs or suggest features. Give us a ⭐️ if you find this project helpful!
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License.
 
 ## TODO
 
-- [x] Flashcard array needs a new feature to delete and add cards dynamically. That should also update the `cardsInDisplay` state and current card index.
-- [ ] When cycle is enabled after the array was initialized, at the start of the flashcard array (1/7), it breaks.
+- [ ] Flashcard array needs a new feature to delete and add cards dynamically. That should also update the `cardsInDisplay` state and current card index.
+- [x] When cycle is enabled after the array was initialized, at the start of the flashcard array (1/7), it breaks.
+- [x] Write the component with typescript.
+- [ ] Write Unit tests.
+- [x] More finer control.
+- [x] Write the styles with Sass
