@@ -5,9 +5,9 @@ import {
   type FlipDirection,
   type IFlashcard,
   useFlashcardArray,
-} from 'react-quizlet-flashcard'
-import 'react-quizlet-flashcard/dist/index.css'
-import { Fragment, useState } from 'react'
+} from '../../.yalc/react-quizlet-flashcard'
+import '../../.yalc/react-quizlet-flashcard/dist/index.css'
+import { useState } from 'react'
 
 export const deck: IFlashcard[] = [
   {

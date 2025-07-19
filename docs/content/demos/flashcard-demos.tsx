@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import { Flashcard, FlipDirection, useFlashcard } from 'react-quizlet-flashcard'
+import { Flashcard, FlipDirection, useFlashcard } from '../../.yalc/react-quizlet-flashcard'
 // import '../../app/styles/index.scss'
 
 export function CardFlipCallbackDemo() {

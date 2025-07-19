@@ -7,6 +7,13 @@ import { resolve } from 'node:path'
 import autoprefixer from 'autoprefixer'
 import dts from 'vite-plugin-dts'
 import preserveDirectives from 'rollup-preserve-directives'
+import { fileURLToPath } from 'node:url'
+
+const filesNeedToExclude = ['readme']
+
+const filesPathToExclude = filesNeedToExclude.map((src) => {
+  return fileURLToPath(new URL(src, import.meta.url))
+})
 
 export default defineConfig({
   plugins: [
@@ -21,6 +28,7 @@ export default defineConfig({
   ],
   build: {
     cssCodeSplit: false, // Inline CSS into JS bundle
+
     lib: {
       fileName: 'index',
       cssFileName: 'index',
@@ -28,7 +36,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', ...filesPathToExclude],
       output: {
         globals: {
           react: 'React',

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "npm run yalc && next build",
+    "build": "next build",
     "dev": "next dev --turbo",
     "start": "next start",
     "yalc": "yalc add react-quizlet-flashcard",

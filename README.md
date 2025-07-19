@@ -6,7 +6,7 @@ A simple, responsive, and customizable flashcard component library for React, in
 
 |                                          react-quizlet-flashcard                                           |                                       Quizlet's flashcard component                                        |
 | :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| ![](./public/react-quizlet-flashcard.gif) | ![](./public/quizlet-flashcard.gif) |
+| ![](./package/.readme/react-quizlet-flashcard.gif) | ![](./package/.readme/quizlet-flashcard.gif) |
 
 ## ✨ Features
 
