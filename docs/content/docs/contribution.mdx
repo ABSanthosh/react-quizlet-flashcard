@@ -1,0 +1,169 @@
+---
+title: Contribution Guide
+---
+
+This guide outlines how to contribute to the `react-quizlet-flashcard` project, which consists of two main parts: the documentation site in the `/docs` directory and the component library in the `/package` directory. Follow the instructions below to set up your development environment, make changes, and test your contributions.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Contributing to Documentation (/docs)](#contributing-to-documentation-docs)
+  - [Setup](#setup)
+  - [Running the Development Server](#running-the-development-server)
+  - [Making Changes](#making-changes)
+  - [Updating the Library Dependency](#updating-the-library-dependency)
+  - [Building and Publishing](#building-and-publishing)
+- [Contributing to the Component Library (/package)](#contributing-to-the-component-library-package)
+  - [Setup](#setup-1)
+  - [Running the Development Server](#running-the-development-server-1)
+  - [Making Changes](#making-changes-1)
+  - [Testing with Ladle Stories](#testing-with-ladle-stories)
+  - [Building and Publishing Locally](#building-and-publishing-locally)
+- [Submitting Contributions](#submitting-contributions)
+  - [Pull Requests](#pull-requests)
+  - [Code Style and Linting](#code-style-and-linting)
+- [Project Structure Overview](#project-structure-overview)
+
+## Getting Started
+
+Clone the repository and install dependencies at the root level:
+
+```bash
+git clone https://github.com/ABSanthosh/react-quizlet-flashcard.git
+cd react-quizlet-flashcard
+```
+
+The project is split into two main directories:
+- `/docs`: Contains the Next.js-based documentation site using Fumadocs.
+- `/package`: Contains the `react-quizlet-flashcard` component library.
+
+## Contributing to Documentation (/docs)
+
+The documentation site is built with Next.js and Fumadocs, located in the `/docs` directory. It includes API documentation, usage examples, and demos.
+
+### Setup
+
+Navigate to the `/docs` directory and install dependencies:
+
+```bash
+cd docs
+npm install
+```
+
+### Running the Development Server
+
+Start the development server to preview changes locally at `http://localhost:3000`:
+
+```bash
+npm run dev
+```
+
+This uses Next.js with Turbo mode for faster development.
+
+### Making Changes
+
+- **Documentation Files**: Edit MDX files in `/docs/content/docs` (e.g., `flashcard/index.mdx`, `flashcard-array/index.mdx`) to update content.
+- **Demos**: Modify demo components in `/docs/content/demos` (e.g., `flashcard-demos.tsx`, `flashcard-array-demos.tsx`) to showcase library features.
+- **Styling**: Update SCSS files in `/docs/app/styles` for custom styles, ensuring consistency with `_mixins.scss` and `theme.scss`.
+- **Routing and Layout**: Adjust layouts in `/docs/app` (e.g., `layout.tsx`, `page.tsx`) for structural changes.
+
+Always import the `react-quizlet-flashcard` library from the `.yalc` folder to ensure the latest local build is used:
+
+```tsx
+import { FlashcardArray, useFlashcardArray } from '../../.yalc/react-quizlet-flashcard';
+```
+
+### Updating the Library Dependency
+
+If you make changes to the component library in `/package`, update the `.yalc` dependency in `/docs`:
+
+```bash
+cd ../package
+npm run rebuild
+cd ../docs
+npm run yalc:update
+```
+
+This rebuilds the library and updates the `.yalc` folder in `/docs`.
+
+
+## Contributing to the Component Library (/package)
+
+The component library, located in `/package`, contains the core `Flashcard` and `FlashcardArray` components, along with their hooks and styles.
+
+### Setup
+
+Navigate to the `/package` directory and install dependencies:
+
+```bash
+cd package
+npm install
+```
+
+### Running the Development Server
+
+Use Ladle to run a development server for testing components via stories:
+
+```bash
+npm run dev
+```
+
+This starts a server rendering components from `*.stories.tsx` files in `/package/src/stories`.
+
+### Making Changes
+
+- **Components**: Edit `Flashcard` and `FlashcardArray` in `/package/src/components` (e.g., `index.tsx`, `types.ts`).
+- **Hooks**: Update `useFlashcard.ts` and `useFlashcardArray.ts` in `/package/src/hooks` for state management logic.
+- **Styles**: Modify SCSS files in `/package/src/components/*/style.scss` or `/package/src/styles` for component-specific or global styles.
+- **Stories**: Add or update stories in `/package/src/stories` (e.g., `Flashcard.stories.tsx`, `FlashcardArray.stories.tsx`) to demonstrate component functionality.
+- **Tests**: Update unit tests in `/package/src/components/*/Flashcard.test.tsx` and `FlashcardArray.test.tsx`.
+
+### Testing with Ladle Stories
+
+Ladle stories (in `/package/src/stories`) provide an interactive way to test components. After making changes, run:
+
+```bash
+npm run dev
+```
+
+View the stories in your browser to verify component behavior.
+
+### Building and Publishing Locally
+
+To build the library and publish it locally for use in `/docs`:
+
+```bash
+npm run rebuild
+```
+
+This compiles the TypeScript code, builds the library with Vite, and publishes it to the `.yalc` folder for local testing.
+
+## Submitting Contributions
+
+### Pull Requests
+
+1. Fork the repository and create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+2. Make changes and commit with clear messages.
+3. Push to your fork and submit a pull request to the `refactor` branch.
+4. Reference any related issues in the pull request description.
+
+### Code Style and Linting
+
+- **Linting**: Run `npm run lint` in `/package` to check for linting errors, or `npm run lint:fix` to automatically fix issues.
+- **Formatting**: Use Prettier with `npm run format` to check formatting, or `npm run format:fix` to apply fixes.
+- **TypeScript**: Ensure all code is type-safe and adheres to the configurations in `tsconfig.json`.
+
+## Project Structure Overview
+
+- `/docs`: Documentation site (Next.js + Fumadocs)
+  - `/docs/content/docs`: MDX files for documentation.
+  - `/docs/content/demos`: Demo components for showcasing library features.
+  - `/docs/app`: Next.js app with layouts, routes, and styles.
+- `/package`: Component library
+  - `/package/src/components`: `Flashcard` and `FlashcardArray` components.
+  - `/package/src/hooks`: `useFlashcard` and `useFlashcardArray` hooks.
+  - `/package/src/stories`: Ladle stories for testing components.
+  - `/package/src/styles`: SCSS styles for components.

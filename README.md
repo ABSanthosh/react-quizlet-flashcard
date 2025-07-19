@@ -4,8 +4,8 @@ A simple, responsive, and customizable flashcard component library for React, in
 
 [![NPM Version](https://img.shields.io/npm/v/react-quizlet-flashcard.svg)](https://www.npmjs.com/package/react-quizlet-flashcard)
 
-|                                          react-quizlet-flashcard                                           |                                       Quizlet's flashcard component                                        |
-| :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
+|              react-quizlet-flashcard               |        Quizlet's flashcard component         |
+| :------------------------------------------------: | :------------------------------------------: |
 | ![](./package/.readme/react-quizlet-flashcard.gif) | ![](./package/.readme/quizlet-flashcard.gif) |
 
 ## ✨ Features
@@ -38,8 +38,8 @@ yarn add react-quizlet-flashcard
 ### FlashcardArray Example
 
 ```tsx
-import { FlashcardArray } from 'react-quizlet-flashcard'
-import 'react-quizlet-flashcard/dist/index.css'
+import { FlashcardArray } from "react-quizlet-flashcard";
+import "react-quizlet-flashcard/dist/index.css";
 
 const deck = [
   {
@@ -52,18 +52,18 @@ const deck = [
     front: { html: <div>What is the capital of California?</div> },
     back: { html: <div>Sacramento</div> },
   },
-]
+];
 
 function App() {
-  return <FlashcardArray deck={deck} />
+  return <FlashcardArray deck={deck} />;
 }
 ```
 
 ### Flashcard Example
 
 ```tsx
-import { Flashcard } from 'react-quizlet-flashcard'
-import 'react-quizlet-flashcard/dist/index.css'
+import { Flashcard } from "react-quizlet-flashcard";
+import "react-quizlet-flashcard/dist/index.css";
 
 function App() {
   return (
@@ -71,7 +71,7 @@ function App() {
       front={{ html: <h1>Front</h1> }}
       back={{ html: <h1>Back</h1> }}
     />
-  )
+  );
 }
 ```
 
@@ -90,6 +90,10 @@ Contributions are welcome! Check out the [issues page](https://github.com/ABSant
 ## License
 
 This project is licensed under the MIT License.
+
+## Contribution Guide
+
+Take a look at the [Contribution Guide](https://flashcard.abs.moe/docs/contribution) for detailed instructions on how to contribute to the project, including setting up the development environment, making changes, and testing your contributions.
 
 ## TODO
 
