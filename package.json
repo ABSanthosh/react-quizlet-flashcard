@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs:publish": "git checkout docs-prod && git merge refactor && git push && git checkout refactor"
   },
   "repository": {
     "type": "git",
