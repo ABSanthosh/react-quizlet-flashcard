@@ -1,0 +1,27 @@
+{
+  "name": "react-quizlet-flashcard",
+  "version": "3.0.0",
+  "description": "A simple, responsive, and customizable flashcard component library for React, inspired by Quizlet. Create interactive single flashcards or decks with smooth animations and TypeScript support.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ABSanthosh/react-quizlet-flashcard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ABSanthosh/react-quizlet-flashcard/issues"
+  },
+  "homepage": "https://github.com/ABSanthosh/react-quizlet-flashcard#readme",
+  "workspaces": [
+    "package/*",
+    "docs/*"
+  ]
+}

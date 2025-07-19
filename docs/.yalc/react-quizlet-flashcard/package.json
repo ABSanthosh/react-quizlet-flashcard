@@ -1,0 +1,37 @@
+{
+  "name": "react-quizlet-flashcard",
+  "version": "3.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --ext ts,tsx --ignore-pattern 'docs/'",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "vitest",
+    "dev": "nodemon --watch src --exec 'ladle serve'",
+    "yalc:publish": "yalc publish",
+    "rebuild": "clear && npm run build && npm run yalc:publish"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "dependencies": {
+    "@ladle/react": "^5.0.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./dist/index.css": "./dist/index.css"
+  },
+  "yalcSig": "c7d9860df93a858f8958d91fa404ac82"
+}
