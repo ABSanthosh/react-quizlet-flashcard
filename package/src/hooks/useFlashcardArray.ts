@@ -65,7 +65,7 @@ export function useFlashcardArray({
       const newRight = currentCard + 1 >= deckLength ? -1 : currentCard + 1
       setCardsInDisplay([newLeft, newCenter, newRight])
     }
-  }, [cycle, deckLength])
+  }, [cycle, deckLength, currentCard])
   
   // check and update cardsInDisplay based on cycle state change.
 

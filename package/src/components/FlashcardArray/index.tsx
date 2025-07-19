@@ -59,6 +59,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
             <button
               onClick={() => localFlipArrayHook.prevCard()}
               disabled={localFlipArrayHook.currentCard === 0 && !localFlipArrayHook.cycle}
+              aria-label='Previous card'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -84,6 +85,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
               disabled={
                 localFlipArrayHook.currentCard === deck.length - 1 && !localFlipArrayHook.cycle
               }
+              aria-label='Next card'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

@@ -1,0 +1,38 @@
+name: Package CI
+
+on:
+  push:
+    branches: ['master']
+    paths: ['package/**']
+  pull_request:
+    branches: ['master']
+    paths: ['package/**']
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # On pull requests, checkout the head ref to be able to push changes
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: package/package-lock.json
+        
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build package
+        run: npm run build
