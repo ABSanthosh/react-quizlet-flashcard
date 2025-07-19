@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, act, renderHook } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import Flashcard from '.'
-import { useFlashcard } from '../../hooks/useFlashcard'
+import Flashcard from '../components/Flashcard/index'
+import { useFlashcard } from '../hooks/useFlashcard'
 
 describe('<Flashcard />', () => {
   const frontContent = <div>Front Side</div>

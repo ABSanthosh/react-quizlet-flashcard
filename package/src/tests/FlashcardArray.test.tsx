@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, act, renderHook } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import FlashcardArray from '.'
-import { useFlashcardArray } from '../../hooks/useFlashcardArray'
-import type { IFlashcard } from '../Flashcard/types'
+import FlashcardArray from '../components/FlashcardArray/index'
+import { useFlashcardArray } from '../hooks/useFlashcardArray'
+import type { IFlashcard } from '../components/Flashcard/types'
 
 const mockDeck: IFlashcard[] = [
   { front: { html: <div>Card 1 Front</div> }, back: { html: <div>Card 1 Back</div> } },
