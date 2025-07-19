@@ -8,7 +8,7 @@
     "start": "next start",
     "yalc": "yalc add react-quizlet-flashcard",
     "postinstall": "fumadocs-mdx",
-    "refresh": "clear && rm -fr .next/ .source/ .yalc && npm run yalc && npm run dev"
+    "rebuild": "clear && rm -fr .next/ .source/ .yalc && npm run yalc && npm run dev"
   },
   "dependencies": {
     "fumadocs-core": "15.6.3",

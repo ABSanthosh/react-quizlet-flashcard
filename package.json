@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "docs:publish": "git checkout docs-prod && git merge refactor && git push && git checkout refactor"
+    "docs:publish": "git checkout docs-prod && git merge refactor && git push && git checkout refactor",
+    "package:update": "cd ./package && npm run rebuild && cd .. && cd ./docs && npm run rebuild"
   },
   "repository": {
     "type": "git",

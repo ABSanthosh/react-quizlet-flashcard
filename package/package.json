@@ -15,7 +15,7 @@
     "test": "vitest",
     "dev": "nodemon --watch src --exec 'ladle serve'",
     "yalc:publish": "yalc publish",
-    "rebuild": "clear && npm run build && npm run yalc:publish"
+    "rebuild": "npm run build && npm run yalc:publish"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
