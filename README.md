@@ -100,6 +100,6 @@ Take a look at the [Contribution Guide](https://flashcard.abs.moe/docs/contribut
 - [ ] Flashcard array needs a new feature to delete and add cards dynamically. That should also update the `cardsInDisplay` state and current card index.
 - [x] When cycle is enabled after the array was initialized, at the start of the flashcard array (1/7), it breaks.
 - [x] Write the component with typescript.
-- [ ] Write Unit tests.
+- [X] Write Unit tests.
 - [x] More finer control.
 - [x] Write the styles with Sass
