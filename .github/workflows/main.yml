@@ -3,10 +3,10 @@ name: Package CI
 on:
   workflow_dispatch:
   push:
-    branches: ['master', 'npm-prod']
+    branches: ['npm-prod']
     paths: ['package/**']
   pull_request:
-    branches: ['master']
+    branches: ['npm-prod']
     paths: ['package/**']
 
 jobs:

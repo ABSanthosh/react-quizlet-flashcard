@@ -19,7 +19,7 @@ A simple, responsive, and customizable flashcard component library for React, in
 
 ## Demo
 
-Explore the full documentation and live demos at [react-quizlet-flashcard website]().
+Explore the full documentation and live demos at [react-quizlet-flashcard website](https://flashcard.abs.moe).
 
 ## Installation
 
@@ -77,7 +77,7 @@ function App() {
 
 ## Documentation
 
-Visit [react-quizlet-flashcard.vercel.app]() for detailed documentation, including:
+Visit [https://flashcard.abs.moe](https://flashcard.abs.moe) for detailed documentation, including:
 
 - Props for `Flashcard` and `FlashcardArray` components.
 - Usage of `useFlashcard` and `useFlashcardArray` hooks.
