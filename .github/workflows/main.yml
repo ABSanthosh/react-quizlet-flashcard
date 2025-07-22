@@ -47,7 +47,7 @@ jobs:
       - name: Check if version already exists on npm
         id: check-version
         run: |
-          VERSION=$(node -p "require('./package/package.json').version")
+          VERSION=$(node -p "require('./package.json').version")
           echo "Version: $VERSION"
           if npm view your-package-name@$VERSION > /dev/null 2>&1; then
             echo "Version $VERSION already exists on npm."
