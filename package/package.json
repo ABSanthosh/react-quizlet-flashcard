@@ -2,9 +2,23 @@
   "name": "react-quizlet-flashcard",
   "version": "3.0.0",
   "main": "dist/index.js",
+  "description": "Simple quizlet like flashcard",
+  "repository": "https://github.com/ABSanthosh/react-quizlet-flashcard",
+  "author": "ABSanthosh <a.b.santhosh02@gmail.com>",
+  "private": false,
   "type": "module",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "quizlet",
+    "flashcard",
+    "react",
+    "quizlet-flashcard",
+    "react-quizlet-flashcard",
+    "flash card",
+    "flash-card",
+    "flip card"
   ],
   "scripts": {
     "build": "tsc -b && vite build",

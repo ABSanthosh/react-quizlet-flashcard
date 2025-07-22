@@ -2,7 +2,7 @@ name: Package CI
 
 on:
   push:
-    branches: ['master']
+    branches: ['master', 'npm-prod']
     paths: ['package/**']
   pull_request:
     branches: ['master']
@@ -11,22 +11,25 @@ on:
 jobs:
   lint-test-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          # On pull requests, checkout the head ref to be able to push changes
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
           cache-dependency-path: package/package-lock.json
-        
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         working-directory: package
 
       - name: Run ESLint
@@ -40,3 +43,29 @@ jobs:
       - name: Build package
         run: npm run build
         working-directory: package
+
+      - name: Check if version already exists on npm
+        id: check-version
+        run: |
+          VERSION=$(node -p "require('./package/package.json').version")
+          echo "Version: $VERSION"
+          if npm view your-package-name@$VERSION > /dev/null 2>&1; then
+            echo "Version $VERSION already exists on npm."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+        working-directory: package
+        
+      # DRY-RUN on non-npm-prod branch (e.g. master)
+      - name: Dry run npm publish
+        if: github.ref == 'refs/heads/npm-staging'
+        run: npm publish --dry-run
+        working-directory: package
+ 
+      - name: Publish to npm
+        if: github.ref == 'refs/heads/npm-prod' && steps.check-version.outputs.should_publish == 'true'
+        run: npm publish --access public
+        working-directory: package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
