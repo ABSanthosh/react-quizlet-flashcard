@@ -27,12 +27,16 @@ jobs:
         
       - name: Install dependencies
         run: npm install
+        working-directory: package
 
       - name: Run ESLint
         run: npm run lint
+        working-directory: package
 
       - name: Run tests
         run: npm test
+        working-directory: package
 
       - name: Build package
         run: npm run build
+        working-directory: package
