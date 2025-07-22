@@ -209,7 +209,7 @@ export function CustomControlDemo() {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '15px',
-        width: 'fit-content',
+        // width: 'fit-content',
       }}
     >
       <FlashcardArray
@@ -453,7 +453,7 @@ export function FlipDirectionDemo() {
   })
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px', width: "fit-content" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
       <FlashcardArray
         deck={deck}
         flipArrayHook={flipArrayHook}

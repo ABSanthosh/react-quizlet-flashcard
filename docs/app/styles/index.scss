@@ -1,11 +1,21 @@
 @forward "theme.scss";
+@use "./mixins" as *;
 @use "./CrispButton.scss" as *;
 @use "./CrispInput.scss" as *;
 @use "./CrispSelect.scss" as *;
 
-
 .flashcard-array__controls {
-  & > button > svg > path{
+  & > button > svg > path {
     fill: var(--foreground) !important;
   }
+}
+
+.flashcard-wrapper:has(.responsive-flashcard) {
+  max-width: 560px;
+  width: 100%;
+}
+
+.flashcard-array-wrapper {
+  max-width: 560px;
+  width: 100% !important;
 }

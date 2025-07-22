@@ -14,7 +14,16 @@
     "type": "git",
     "url": "git+https://github.com/ABSanthosh/react-quizlet-flashcard.git"
   },
-  "keywords": [],
+  "keywords": [
+    "quizlet",
+    "flashcard",
+    "react",
+    "quizlet-flashcard",
+    "react-quizlet-flashcard",
+    "flash card",
+    "flash-card",
+    "flip card"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

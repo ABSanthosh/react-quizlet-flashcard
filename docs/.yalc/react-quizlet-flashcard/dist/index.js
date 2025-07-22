@@ -1,18 +1,18 @@
 "use client";
 import { jsx as c, jsxs as y, Fragment as v } from "react/jsx-runtime";
-import { useState as F, useCallback as C, useMemo as N, useEffect as _ } from "react";
+import { useState as F, useCallback as b, useMemo as N, useEffect as _ } from "react";
 function D({
   onFlip: n,
   disableFlip: l = !1,
   manualFlip: i = !1,
   flipDirection: f = "bt"
 }) {
-  const [a, d] = F("front"), h = C(
+  const [a, d] = F("front"), h = b(
     (u) => {
       n && n(u);
     },
     [n]
-  ), b = C(
+  ), C = b(
     (u) => {
       l || d((t) => {
         const m = u ?? (t === "front" ? "back" : "front");
@@ -20,12 +20,12 @@ function D({
       });
     },
     [l, h]
-  ), o = C(() => {
+  ), o = b(() => {
     d("front");
   }, []);
   return N(
     () => ({
-      flip: b,
+      flip: C,
       manualFlip: i,
       disableFlip: l,
       flipDirection: f,
@@ -33,7 +33,7 @@ function D({
       state: a,
       onFlip: h
     }),
-    [a, b, o, i, h, f, l]
+    [a, C, o, i, h, f, l]
   );
 }
 function I({
@@ -43,11 +43,11 @@ function I({
   front: f,
   back: a
 }) {
-  const [d, h] = F(l ? l.state === "back" : !1), b = D({
+  const [d, h] = F(l ? l.state === "back" : !1), C = D({
     onFlip: (u) => {
       h(u === "back");
     }
-  }), o = l || b;
+  }), o = l || C;
   return _(() => {
     o && h(o.state === "back");
   }, [o]), /* @__PURE__ */ c(
@@ -105,7 +105,7 @@ function R({
   disableFlip: a,
   onCardChange: d,
   flipDirection: h,
-  showCount: b = !0,
+  showCount: C = !0,
   showControls: o = !0,
   showProgressBar: u = !1
 }) {
@@ -123,21 +123,21 @@ function R({
       const r = t - 1 < 0 ? -1 : t - 1, s = t, w = t + 1 >= i ? -1 : t + 1;
       p([r, s, w]);
     }
-  }, [n, i]);
-  const H = C(
+  }, [n, i, t]);
+  const H = b(
     (r) => {
       l?.(t, r);
     },
     [l, t]
-  ), g = D({
+  ), x = D({
     onFlip: H,
     manualFlip: f,
     disableFlip: a,
     flipDirection: h
-  }), M = C(() => {
+  }), M = b(() => {
     const r = n ? (t + 1) % e : Math.min(t + 1, e - 1);
     if (r !== t) {
-      if (g.resetCardState(), m(r), n)
+      if (x.resetCardState(), m(r), n)
         p((s) => [
           s[1],
           // Previous center becomes left
@@ -147,15 +147,15 @@ function R({
           // New right card
         ]);
       else {
-        const s = r - 1 < 0 ? -1 : r - 1, w = r, x = r + 1 >= e ? -1 : r + 1;
-        p([s, w, x]);
+        const s = r - 1 < 0 ? -1 : r - 1, w = r, g = r + 1 >= e ? -1 : r + 1;
+        p([s, w, g]);
       }
       d?.(r);
     }
-  }, [t, e, n, g, d]), B = C(() => {
+  }, [t, e, n, x, d]), B = b(() => {
     const r = n ? (t - 1 + e) % e : Math.max(t - 1, 0);
     if (r !== t) {
-      if (g.resetCardState(), m(r), n)
+      if (x.resetCardState(), m(r), n)
         p((s) => [
           (s[0] - 1 + e) % e,
           // New left card
@@ -165,21 +165,21 @@ function R({
           // Previous center becomes right
         ]);
       else {
-        const s = r - 1 < 0 ? -1 : r - 1, w = r, x = r + 1 >= e ? -1 : r + 1;
-        p([s, w, x]);
+        const s = r - 1 < 0 ? -1 : r - 1, w = r, g = r + 1 >= e ? -1 : r + 1;
+        p([s, w, g]);
       }
       d?.(r);
     }
-  }, [t, e, n, g, d]);
+  }, [t, e, n, x, d]);
   return {
     cycle: n,
     deckLength: i,
     currentCard: t,
-    flipHook: g,
+    flipHook: x,
     prevCard: B,
     nextCard: M,
     cardsInDisplay: S,
-    showCount: b,
+    showCount: C,
     showControls: o,
     showProgressBar: u,
     progressBar: {
@@ -187,7 +187,7 @@ function R({
       total: e,
       percentage: e > 0 ? Math.round((t + 1) / e * 100) : 0
     },
-    setCurrentCard: C(
+    setCurrentCard: b(
       (r) => {
         const s = n ? (r % e + e) % e : Math.max(0, Math.min(r, e - 1));
         if (console.log(`Setting current card to index: ${s}`), m(s), n)
@@ -197,8 +197,8 @@ function R({
             (s + 1) % e
           ]);
         else {
-          const w = s - 1 < 0 ? -1 : s - 1, x = s, k = s + 1 >= e ? -1 : s + 1;
-          p([w, x, k]);
+          const w = s - 1 < 0 ? -1 : s - 1, g = s, k = s + 1 >= e ? -1 : s + 1;
+          p([w, g, k]);
         }
       },
       [n, e]
@@ -260,6 +260,7 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
             {
               onClick: () => a.prevCard(),
               disabled: a.currentCard === 0 && !a.cycle,
+              "aria-label": "Previous card",
               children: /* @__PURE__ */ c(
                 "svg",
                 {
@@ -288,6 +289,7 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
             {
               onClick: () => a.nextCard(),
               disabled: a.currentCard === l.length - 1 && !a.cycle,
+              "aria-label": "Next card",
               children: /* @__PURE__ */ c(
                 "svg",
                 {

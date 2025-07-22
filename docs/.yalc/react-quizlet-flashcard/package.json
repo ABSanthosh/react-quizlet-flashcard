@@ -4,7 +4,8 @@
   "main": "dist/index.js",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "../README.md"
   ],
   "scripts": {
     "build": "tsc -b && vite build",
@@ -33,5 +34,5 @@
     "./package.json": "./package.json",
     "./dist/index.css": "./dist/index.css"
   },
-  "yalcSig": "dfbaed75542046bb6c6e11b448e502d5"
+  "yalcSig": "bb8618c8adaa1878664f79e19590bc4b"
 }
