@@ -97,7 +97,7 @@ describe('useFlashcardArray', () => {
       expect(result.current.cardsInDisplay).toEqual([4, 5, 6])
     })
 
-    it('should clamp out-of-bounds index in setCurrentCard() when not cycling', () => {
+    it('should limit out-of-bounds index in setCurrentCard() when not cycling', () => {
       const { result } = renderHook(() => useFlashcardArray({ deckLength: 10 }))
       act(() => result.current.setCurrentCard(99))
       expect(result.current.currentCard).toBe(9) // Clamped to max
