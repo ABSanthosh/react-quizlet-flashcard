@@ -50,7 +50,7 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "Version: $VERSION"
-          if npm view your-package-name@$VERSION > /dev/null 2>&1; then
+          if npm view react-quizlet-flashcard@$VERSION > /dev/null 2>&1; then
             echo "Version $VERSION already exists on npm."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
