@@ -44,29 +44,7 @@ jobs:
       - name: Build package
         run: npm run build
         working-directory: package
-
-      - name: Check if version already exists on npm
-        id: check-version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "Version: $VERSION"
-          if npm view react-quizlet-flashcard@$VERSION > /dev/null 2>&1; then
-            echo "Version $VERSION already exists on npm."
-            echo "should_publish=false" >> $GITHUB_OUTPUT
-          else
-            echo "should_publish=true" >> $GITHUB_OUTPUT
-          fi
-        working-directory: package
-        
-      # DRY-RUN on non-npm-prod branch (e.g. master)
-      - name: Dry run npm publish
-        if: github.ref == 'refs/heads/npm-staging'
-        run: npm publish --dry-run
-        working-directory: package
  
-      - name: Publish to npm
-        if: github.ref == 'refs/heads/npm-prod' && steps.check-version.outputs.should_publish == 'true'
-        run: npm publish --access public
-        working-directory: package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
