@@ -90,3 +90,22 @@ export const BasicFlashcardArray: Story = () => {
     </Fragment>
   )
 }
+
+export const CustomArrowColors: Story = () => {
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.cards.length,
+    arrowColor: 'purple',
+    disabledArrowColor: 'lightgray',
+  })
+
+  return (
+    <FlashcardArray
+      flipArrayHook={flipArrayHook}
+      deck={deck.cards.map((card) => ({
+        id: card.id,
+        front: card.front,
+        back: card.back,
+      }))}
+    />
+  )
+}

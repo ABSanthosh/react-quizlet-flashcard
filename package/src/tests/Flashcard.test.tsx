@@ -8,7 +8,12 @@ describe('<Flashcard />', () => {
   const backContent = <div>Back Side</div>
 
   it('should render the front content by default', () => {
-    render(<Flashcard front={{ html: frontContent }} back={{ html: backContent }} />)
+    render(
+      <Flashcard
+        front={{ html: frontContent }}
+        back={{ html: backContent }}
+      />
+    )
     expect(screen.getByText('Front Side')).toBeInTheDocument()
 
     expect(screen.getByText('Front Side').closest('.flashcard__front')).toHaveAttribute(
@@ -22,7 +27,12 @@ describe('<Flashcard />', () => {
   })
 
   it('should flip when clicked (uncontrolled)', () => {
-    render(<Flashcard front={{ html: frontContent }} back={{ html: backContent }} />)
+    render(
+      <Flashcard
+        front={{ html: frontContent }}
+        back={{ html: backContent }}
+      />
+    )
     const flashcard = screen.getByRole('region')
     expect(flashcard).toHaveAttribute('data-flip', 'false')
 
@@ -32,7 +42,12 @@ describe('<Flashcard />', () => {
   })
 
   it('should update aria-label on flip', () => {
-    render(<Flashcard front={{ html: frontContent }} back={{ html: backContent }} />)
+    render(
+      <Flashcard
+        front={{ html: frontContent }}
+        back={{ html: backContent }}
+      />
+    )
     const flashcard = screen.getByRole('region')
     expect(flashcard).toHaveAttribute('aria-label', 'Flashcard, currently showing front side')
 

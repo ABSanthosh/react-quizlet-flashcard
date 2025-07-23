@@ -55,49 +55,128 @@ describe('<FlashcardArray />', () => {
   describe('with an external flipArrayHook (controlled)', () => {
     it('should update view when external hook changes card', () => {
       const { result } = renderHook(() => useFlashcardArray({ deckLength: mockDeck.length }))
-      const { rerender } = render(<FlashcardArray deck={mockDeck} flipArrayHook={result.current} />)
+      const { rerender } = render(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
 
       act(() => {
         result.current.nextCard()
       })
-      
-      rerender(<FlashcardArray deck={mockDeck} flipArrayHook={result.current} />)
+
+      rerender(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
 
       expect(screen.getByText('Card 2 Front')).toBeInTheDocument()
       expect(screen.getByText('2/3')).toBeInTheDocument()
     })
 
-    it('should call the hook\'s nextCard function on click', () => {
-        const { result } = renderHook(() => useFlashcardArray({ deckLength: mockDeck.length }))
-        const nextCardSpy = vi.spyOn(result.current, 'nextCard')
-        render(<FlashcardArray deck={mockDeck} flipArrayHook={result.current} />)
-  
-        fireEvent.click(getNextButton())
-        expect(nextCardSpy).toHaveBeenCalledOnce()
-      })
+    it("should call the hook's nextCard function on click", () => {
+      const { result } = renderHook(() => useFlashcardArray({ deckLength: mockDeck.length }))
+      const nextCardSpy = vi.spyOn(result.current, 'nextCard')
+      render(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
+
+      fireEvent.click(getNextButton())
+      expect(nextCardSpy).toHaveBeenCalledOnce()
+    })
   })
 
   describe('UI conditional rendering', () => {
     it('should not render controls or count if hook props are false', () => {
-      const { result } = renderHook(() => useFlashcardArray({
-        deckLength: mockDeck.length,
-        showControls: false,
-        showCount: false,
-      }))
-      render(<FlashcardArray deck={mockDeck} flipArrayHook={result.current} />)
+      const { result } = renderHook(() =>
+        useFlashcardArray({
+          deckLength: mockDeck.length,
+          showControls: false,
+          showCount: false,
+        })
+      )
+      render(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
       expect(screen.queryByRole('button', { name: /Next Card/i })).not.toBeInTheDocument()
       expect(screen.queryByText(/1\/3/)).not.toBeInTheDocument()
     })
 
     it('should render the progress bar when showProgressBar is true', () => {
-      const { result } = renderHook(() => useFlashcardArray({
-        deckLength: mockDeck.length,
-        showProgressBar: true,
-      }))
-      render(<FlashcardArray deck={mockDeck} flipArrayHook={result.current} />)
+      const { result } = renderHook(() =>
+        useFlashcardArray({
+          deckLength: mockDeck.length,
+          showProgressBar: true,
+        })
+      )
+      render(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
       const progressBarFill = document.querySelector('.flashcard-array__progress-bar-fill')
       expect(progressBarFill).toBeInTheDocument()
+      // Initial percentage for 1/3 should be 33%
       expect(progressBarFill).toHaveStyle('width: 33%')
+    })
+
+    it('should apply custom colors to navigation arrows', () => {
+      const { result } = renderHook(() =>
+        useFlashcardArray({
+          deckLength: mockDeck.length,
+          arrowColor: 'rgb(255, 0, 0)', // red
+          disabledArrowColor: 'rgb(128, 128, 128)', // grey
+        })
+      )
+      // Get the rerender function from the initial render
+      const { rerender } = render(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
+
+      const prevArrow = getPrevButton().querySelector('path')
+      const nextArrow = getNextButton().querySelector('path')
+
+      // Initial state: prev is disabled, next is enabled
+      expect(prevArrow).toHaveStyle('fill: rgb(128, 128, 128)') // Disabled color
+      expect(nextArrow).toHaveStyle('fill: rgb(255, 0, 0)') // Active color
+
+      act(() => {
+        result.current.nextCard()
+      })
+      rerender(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
+
+      act(() => {
+        result.current.nextCard()
+      })
+      // Rerender again for the final state
+      rerender(
+        <FlashcardArray
+          deck={mockDeck}
+          flipArrayHook={result.current}
+        />
+      )
+
+      // Final state: prev is enabled, next is disabled
+      expect(prevArrow).toHaveStyle('fill: rgb(255, 0, 0)') // Active color
+      expect(nextArrow).toHaveStyle('fill: rgb(128, 128, 128)') // Disabled color
     })
   })
 })

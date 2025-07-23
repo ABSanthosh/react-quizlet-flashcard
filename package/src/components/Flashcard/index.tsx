@@ -5,13 +5,7 @@ import { useEffect, useState } from 'react'
 import { useFlashcard } from '../../hooks/useFlashcard'
 import { type FlashcardProps } from './types'
 
-export default function Flashcard({
-  style,
-  flipHook,
-  className,
-  front,
-  back,
-}: FlashcardProps) {
+export default function Flashcard({ style, flipHook, className, front, back }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(flipHook ? flipHook.state === 'back' : false)
 
   const defaultFlipHook = useFlashcard({
