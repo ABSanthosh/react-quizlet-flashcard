@@ -14,24 +14,9 @@ describe('useFlashcardArray', () => {
       expect(result.current.showCount).toBe(true)
       expect(result.current.showProgressBar).toBe(false)
       expect(result.current.cardsInDisplay).toEqual([-1, 0, 1])
-      // Test for default arrow colors
-      expect(result.current.arrowColor).toBe('#1c1b1e')
-      expect(result.current.disabledArrowColor).toBe('#a9a9a9')
       // Test for new navigation state properties
       expect(result.current.canGoPrev).toBe(false)
       expect(result.current.canGoNext).toBe(true)
-    })
-
-    it('should accept custom arrow colors on initialization', () => {
-      const { result } = renderHook(() =>
-        useFlashcardArray({
-          deckLength: 10,
-          arrowColor: 'blue',
-          disabledArrowColor: 'grey',
-        })
-      )
-      expect(result.current.arrowColor).toBe('blue')
-      expect(result.current.disabledArrowColor).toBe('grey')
     })
 
     it('should initialize correctly when cycle is true', () => {

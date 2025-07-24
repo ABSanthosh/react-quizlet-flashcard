@@ -70,13 +70,6 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
               >
                 <path
                   d='M19 12a1 1 0 0 1-1 1H8.414l1.293 1.293a1 1 0 1 1-1.414 1.414l-3-3a1 1 0 0 1 0-1.414l3-3a1 1 0 0 1 1.414 1.414L8.414 11H18a1 1 0 0 1 1 1z'
-                  style={{
-                    fill: !localFlipArrayHook.canGoPrev
-                      ? localFlipArrayHook.disabledArrowColor
-                      : localFlipArrayHook.arrowColor,
-                    height: '24px',
-                    width: '24px',
-                  }}
                   data-name='Left'
                 />
               </svg>
@@ -100,13 +93,6 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
               >
                 <path
                   d='m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z'
-                  style={{
-                    fill: !localFlipArrayHook.canGoNext
-                      ? localFlipArrayHook.disabledArrowColor
-                      : localFlipArrayHook.arrowColor,
-                    height: '24px',
-                    width: '24px',
-                  }}
                   data-name='Right'
                 />
               </svg>

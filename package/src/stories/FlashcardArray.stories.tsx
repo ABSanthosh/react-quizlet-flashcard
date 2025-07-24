@@ -3,7 +3,7 @@ import './styles.scss'
 import { FlashcardArray } from '../main'
 import { useFlashcardArray } from '../hooks/useFlashcardArray'
 import { Fragment } from 'react/jsx-runtime'
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 
 const deck = {
   id: 'nsh19mt',
@@ -94,12 +94,17 @@ export const BasicFlashcardArray: Story = () => {
 export const CustomArrowColors: Story = () => {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.cards.length,
-    arrowColor: 'purple',
-    disabledArrowColor: 'lightgray',
   })
 
   return (
     <FlashcardArray
+      style={
+        {
+          '--prev-arrow-color': '#4614a9',
+          '--next-arrow-color': '#4614a9',
+          '--disabled-arrow-color': '#c3b3e6',
+        } as CSSProperties
+      }
       flipArrayHook={flipArrayHook}
       deck={deck.cards.map((card) => ({
         id: card.id,

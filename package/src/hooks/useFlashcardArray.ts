@@ -12,12 +12,10 @@ export interface UseFlashcardArray {
   canGoNext: boolean
   prevCard: () => void
   nextCard: () => void
-  arrowColor: string
   showControls: boolean
   flipHook: UseFlashcard
   cardsInDisplay: number[]
   showProgressBar: boolean
-  disabledArrowColor: string
   setCurrentCard: (index: number) => void
   progressBar: {
     current: number
@@ -30,10 +28,8 @@ export interface UseFlashcardArrayProps extends Omit<UseFlashcardProps, 'onFlip'
   cycle?: boolean
   deckLength: number
   showCount?: boolean
-  arrowColor?: string
   showControls?: boolean
   showProgressBar?: boolean
-  disabledArrowColor?: string
   onCardChange?: (cardIndex: number) => void
   onFlip?: (cardIndex: number, state: FlipState) => void
 }
@@ -49,8 +45,6 @@ export function useFlashcardArray({
   showCount = true,
   showControls = true,
   showProgressBar = false,
-  arrowColor = '#1c1b1e',
-  disabledArrowColor = '#a9a9a9',
 }: UseFlashcardArrayProps): UseFlashcardArray {
   const [currentCard, setCurrentCard] = useState<number>(0)
   const [cardsInDisplay, setCardsInDisplay] = useState<number[]>(
@@ -151,7 +145,6 @@ export function useFlashcardArray({
   return {
     cycle,
     deckLength,
-    arrowColor,
     currentCard,
     flipHook,
     prevCard,
@@ -162,7 +155,6 @@ export function useFlashcardArray({
     showCount,
     showControls,
     showProgressBar,
-    disabledArrowColor,
     progressBar: {
       current: currentCard + 1,
       total: totalCards,
