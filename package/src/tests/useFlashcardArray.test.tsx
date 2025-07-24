@@ -17,6 +17,9 @@ describe('useFlashcardArray', () => {
       // Test for default arrow colors
       expect(result.current.arrowColor).toBe('#1c1b1e')
       expect(result.current.disabledArrowColor).toBe('#a9a9a9')
+      // Test for new navigation state properties
+      expect(result.current.canGoPrev).toBe(false)
+      expect(result.current.canGoNext).toBe(true)
     })
 
     it('should accept custom arrow colors on initialization', () => {
@@ -37,6 +40,9 @@ describe('useFlashcardArray', () => {
       expect(result.current.currentCard).toBe(0)
       // When cycling, the card to the "left" of the first card is the last card.
       expect(result.current.cardsInDisplay).toEqual([9, 0, 1])
+      // When cycling, navigation should always be possible
+      expect(result.current.canGoPrev).toBe(true)
+      expect(result.current.canGoNext).toBe(true)
     })
   })
 
@@ -71,6 +77,7 @@ describe('useFlashcardArray', () => {
 
       act(() => result.current.setCurrentCard(2)) // Go to last card
       expect(result.current.currentCard).toBe(2)
+      expect(result.current.canGoNext).toBe(false)
 
       act(() => result.current.nextCard()) // Try to go further
       expect(result.current.currentCard).toBe(2) // Should not change
@@ -79,6 +86,7 @@ describe('useFlashcardArray', () => {
     it('should not go before the first card if cycle is false', () => {
       const { result } = renderHook(() => useFlashcardArray({ deckLength: 3 }))
       expect(result.current.currentCard).toBe(0)
+      expect(result.current.canGoPrev).toBe(false)
 
       act(() => result.current.prevCard()) // Try to go back
       expect(result.current.currentCard).toBe(0) // Should not change

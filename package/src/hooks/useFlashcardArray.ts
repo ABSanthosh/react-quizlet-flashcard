@@ -8,6 +8,8 @@ export interface UseFlashcardArray {
   showCount: boolean
   deckLength: number
   currentCard: number
+  canGoPrev: boolean
+  canGoNext: boolean
   prevCard: () => void
   nextCard: () => void
   arrowColor: string
@@ -56,6 +58,9 @@ export function useFlashcardArray({
   )
 
   const totalCards = useMemo(() => deckLength, [deckLength])
+
+  const canGoPrev = useMemo(() => cardsInDisplay[0] !== -1, [cardsInDisplay])
+  const canGoNext = useMemo(() => cardsInDisplay[2] !== -1, [cardsInDisplay])
 
   // Update cardsInDisplay when cycle or deckLength changes
   useEffect(() => {
@@ -151,6 +156,8 @@ export function useFlashcardArray({
     flipHook,
     prevCard,
     nextCard,
+    canGoPrev,
+    canGoNext,
     cardsInDisplay,
     showCount,
     showControls,
