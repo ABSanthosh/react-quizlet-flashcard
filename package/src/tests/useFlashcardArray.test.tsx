@@ -166,12 +166,15 @@ describe('useFlashcardArray', () => {
 
   describe('Dynamic deck modification', () => {
     it('should adjust currentCard when a card before it is deleted', () => {
-      const { result, rerender } = renderHook(({ deckLength }) => useFlashcardArray({ deckLength }), {
-        initialProps: { deckLength: 5 },
-      })
+      const { result, rerender } = renderHook(
+        ({ deckLength }) => useFlashcardArray({ deckLength }),
+        {
+          initialProps: { deckLength: 5 },
+        }
+      )
       act(() => result.current.setCurrentCard(3))
 
-      act(() => result.current.deleteCard(1)) 
+      act(() => result.current.deleteCard(1))
 
       expect(result.current.currentCard).toBe(2)
 
@@ -181,9 +184,12 @@ describe('useFlashcardArray', () => {
     })
 
     it('should not change currentCard when a card after it is deleted', () => {
-      const { result, rerender } = renderHook(({ deckLength }) => useFlashcardArray({ deckLength }), {
-        initialProps: { deckLength: 5 },
-      })
+      const { result, rerender } = renderHook(
+        ({ deckLength }) => useFlashcardArray({ deckLength }),
+        {
+          initialProps: { deckLength: 5 },
+        }
+      )
       act(() => result.current.setCurrentCard(1))
 
       act(() => result.current.deleteCard(3))
@@ -195,9 +201,12 @@ describe('useFlashcardArray', () => {
     })
 
     it('should adjust currentCard when a new card is added before it', () => {
-      const { result, rerender } = renderHook(({ deckLength }) => useFlashcardArray({ deckLength }), {
-        initialProps: { deckLength: 5 },
-      })
+      const { result, rerender } = renderHook(
+        ({ deckLength }) => useFlashcardArray({ deckLength }),
+        {
+          initialProps: { deckLength: 5 },
+        }
+      )
       act(() => result.current.setCurrentCard(3))
 
       act(() => result.current.addCard(1))
@@ -210,25 +219,31 @@ describe('useFlashcardArray', () => {
     })
 
     it('should adjust currentCard if it goes out of bounds after deletion', () => {
-      const { result, rerender } = renderHook(({ deckLength }) => useFlashcardArray({ deckLength }), {
-        initialProps: { deckLength: 5 },
-      })
-      act(() => result.current.setCurrentCard(4)) 
+      const { result, rerender } = renderHook(
+        ({ deckLength }) => useFlashcardArray({ deckLength }),
+        {
+          initialProps: { deckLength: 5 },
+        }
+      )
+      act(() => result.current.setCurrentCard(4))
 
-      rerender({ deckLength: 2 }) 
+      rerender({ deckLength: 2 })
 
-      expect(result.current.currentCard).toBe(1) 
+      expect(result.current.currentCard).toBe(1)
     })
 
     it('should handle deleting the last card', () => {
-      const { result, rerender } = renderHook(({ deckLength }) => useFlashcardArray({ deckLength }), {
-        initialProps: { deckLength: 3 },
-      })
-      act(() => result.current.setCurrentCard(2)) 
+      const { result, rerender } = renderHook(
+        ({ deckLength }) => useFlashcardArray({ deckLength }),
+        {
+          initialProps: { deckLength: 3 },
+        }
+      )
+      act(() => result.current.setCurrentCard(2))
 
       act(() => result.current.deleteCard(2))
 
-      expect(result.current.currentCard).toBe(1) 
+      expect(result.current.currentCard).toBe(1)
 
       rerender({ deckLength: 2 })
       expect(result.current.deckLength).toBe(2)

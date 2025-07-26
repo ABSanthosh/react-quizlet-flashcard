@@ -135,7 +135,11 @@ export function useFlashcardArray({
 
       if (currentCard > indexToDelete) {
         setCurrentCard((c) => c - 1)
-      } else if (currentCard === indexToDelete && currentCard === deckLength - 1 && currentCard > 0) {
+      } else if (
+        currentCard === indexToDelete &&
+        currentCard === deckLength - 1 &&
+        currentCard > 0
+      ) {
         setCurrentCard((c) => c - 1)
       }
     },
