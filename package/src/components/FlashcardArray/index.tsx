@@ -5,7 +5,12 @@ import { useFlashcardArray } from '../../hooks/useFlashcardArray'
 import Flashcard from '../Flashcard'
 import type { FlashcardArrayProps } from './types'
 
-export default function FlashcardArray({ flipArrayHook, deck, style }: FlashcardArrayProps) {
+export default function FlashcardArray({
+  deck,
+  style,
+  className,
+  flipArrayHook,
+}: FlashcardArrayProps) {
   const tempFlipArrayHook = useFlashcardArray({
     deckLength: deck.length,
   })
@@ -24,13 +29,15 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
 
   return (
     <div
-      className='flashcard-array-wrapper'
+      className={['flashcard-array-wrapper', className].filter(Boolean).join(' ')}
       style={style}
     >
       <div
         className='flashcard-array'
         role='region'
-        aria-label={`Flashcard ${localFlipArrayHook.currentCard + 1} of ${localFlipArrayHook.deckLength}`}
+        aria-label={`Flashcard ${localFlipArrayHook.currentCard + 1} of ${
+          localFlipArrayHook.deckLength
+        }`}
         aria-live='polite'
       >
         {SiblingCard(localFlipArrayHook.cardsInDisplay[0])}
@@ -58,7 +65,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
           {localFlipArrayHook.showControls && (
             <button
               onClick={() => localFlipArrayHook.prevCard()}
-              disabled={localFlipArrayHook.currentCard === 0 && !localFlipArrayHook.cycle}
+              disabled={!localFlipArrayHook.canGoPrev}
               aria-label='Previous card'
             >
               <svg
@@ -68,23 +75,20 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
               >
                 <path
                   d='M19 12a1 1 0 0 1-1 1H8.414l1.293 1.293a1 1 0 1 1-1.414 1.414l-3-3a1 1 0 0 1 0-1.414l3-3a1 1 0 0 1 1.414 1.414L8.414 11H18a1 1 0 0 1 1 1z'
-                  style={{ fill: '#1c1b1e', height: '24px', width: '24px' }}
                   data-name='Left'
                 />
               </svg>
             </button>
           )}
           {localFlipArrayHook.showCount && (
-            <span>
+            <span className='flashcard-array__controls--count'>
               {localFlipArrayHook.currentCard + 1}/{deck.length}
             </span>
           )}
           {localFlipArrayHook.showControls && (
             <button
               onClick={() => localFlipArrayHook.nextCard()}
-              disabled={
-                localFlipArrayHook.currentCard === deck.length - 1 && !localFlipArrayHook.cycle
-              }
+              disabled={!localFlipArrayHook.canGoNext}
               aria-label='Next card'
             >
               <svg
@@ -94,7 +98,6 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
               >
                 <path
                   d='m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z'
-                  style={{ fill: '#1c1b1e', height: '24px', width: '24px' }}
                   data-name='Right'
                 />
               </svg>

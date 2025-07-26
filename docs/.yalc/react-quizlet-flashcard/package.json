@@ -1,11 +1,24 @@
 {
   "name": "react-quizlet-flashcard",
-  "version": "3.0.0",
+  "version": "4.0.2",
   "main": "dist/index.js",
+  "description": "Simple quizlet like flashcard",
+  "repository": "https://github.com/ABSanthosh/react-quizlet-flashcard",
+  "author": "ABSanthosh <a.b.santhosh02@gmail.com>",
+  "private": false,
   "type": "module",
   "files": [
-    "dist",
-    "../README.md"
+    "dist"
+  ],
+  "keywords": [
+    "quizlet",
+    "flashcard",
+    "react",
+    "quizlet-flashcard",
+    "react-quizlet-flashcard",
+    "flash card",
+    "flash-card",
+    "flip card"
   ],
   "scripts": {
     "build": "tsc -b && vite build",
@@ -34,5 +47,5 @@
     "./package.json": "./package.json",
     "./dist/index.css": "./dist/index.css"
   },
-  "yalcSig": "bb8618c8adaa1878664f79e19590bc4b"
+  "yalcSig": "974a70bdb4df9e21a74b7fb00aa5c179"
 }

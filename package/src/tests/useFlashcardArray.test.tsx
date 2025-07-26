@@ -14,6 +14,9 @@ describe('useFlashcardArray', () => {
       expect(result.current.showCount).toBe(true)
       expect(result.current.showProgressBar).toBe(false)
       expect(result.current.cardsInDisplay).toEqual([-1, 0, 1])
+      // Test for new navigation state properties
+      expect(result.current.canGoPrev).toBe(false)
+      expect(result.current.canGoNext).toBe(true)
     })
 
     it('should initialize correctly when cycle is true', () => {
@@ -22,6 +25,9 @@ describe('useFlashcardArray', () => {
       expect(result.current.currentCard).toBe(0)
       // When cycling, the card to the "left" of the first card is the last card.
       expect(result.current.cardsInDisplay).toEqual([9, 0, 1])
+      // When cycling, navigation should always be possible
+      expect(result.current.canGoPrev).toBe(true)
+      expect(result.current.canGoNext).toBe(true)
     })
   })
 
@@ -56,6 +62,7 @@ describe('useFlashcardArray', () => {
 
       act(() => result.current.setCurrentCard(2)) // Go to last card
       expect(result.current.currentCard).toBe(2)
+      expect(result.current.canGoNext).toBe(false)
 
       act(() => result.current.nextCard()) // Try to go further
       expect(result.current.currentCard).toBe(2) // Should not change
@@ -64,6 +71,7 @@ describe('useFlashcardArray', () => {
     it('should not go before the first card if cycle is false', () => {
       const { result } = renderHook(() => useFlashcardArray({ deckLength: 3 }))
       expect(result.current.currentCard).toBe(0)
+      expect(result.current.canGoPrev).toBe(false)
 
       act(() => result.current.prevCard()) // Try to go back
       expect(result.current.currentCard).toBe(0) // Should not change
@@ -104,10 +112,12 @@ describe('useFlashcardArray', () => {
       act(() => result.current.setCurrentCard(-50))
       expect(result.current.currentCard).toBe(0) // Clamped to min
     })
-    
+
     it('should call onCardChange when the card is changed', () => {
       const onCardChangeMock = vi.fn()
-      const { result } = renderHook(() => useFlashcardArray({ deckLength: 5, onCardChange: onCardChangeMock }))
+      const { result } = renderHook(() =>
+        useFlashcardArray({ deckLength: 5, onCardChange: onCardChangeMock })
+      )
 
       act(() => result.current.nextCard())
       expect(onCardChangeMock).toHaveBeenCalledOnce()
@@ -121,10 +131,10 @@ describe('useFlashcardArray', () => {
     it('should call onFlip with card index and flip state', () => {
       const onFlipMock = vi.fn()
       const { result } = renderHook(() => useFlashcardArray({ deckLength: 5, onFlip: onFlipMock }))
-      
+
       // Flip the first card (index 0)
       act(() => result.current.flipHook.flip())
-      
+
       expect(onFlipMock).toHaveBeenCalledOnce()
       expect(onFlipMock).toHaveBeenCalledWith(0, 'back')
     })
@@ -133,9 +143,9 @@ describe('useFlashcardArray', () => {
   describe('State Properties', () => {
     it('should calculate the progress bar percentage correctly', () => {
       const { result } = renderHook(() => useFlashcardArray({ deckLength: 4 }))
-      
+
       expect(result.current.progressBar.percentage).toBe(25) // Card 1 of 4
-      
+
       act(() => result.current.nextCard())
       expect(result.current.progressBar.percentage).toBe(50) // Card 2 of 4
 
@@ -147,10 +157,10 @@ describe('useFlashcardArray', () => {
     })
 
     it('should handle zero deck length gracefully', () => {
-        const { result } = renderHook(() => useFlashcardArray({ deckLength: 0 }))
-        expect(result.current.progressBar.percentage).toBe(0)
-        expect(result.current.currentCard).toBe(0)
-        expect(result.current.cardsInDisplay).toEqual([-1, 0, -1]) 
+      const { result } = renderHook(() => useFlashcardArray({ deckLength: 0 }))
+      expect(result.current.progressBar.percentage).toBe(0)
+      expect(result.current.currentCard).toBe(0)
+      expect(result.current.cardsInDisplay).toEqual([-1, 0, -1])
     })
   })
 })

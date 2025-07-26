@@ -3,7 +3,7 @@ import './styles.scss'
 import { FlashcardArray } from '../main'
 import { useFlashcardArray } from '../hooks/useFlashcardArray'
 import { Fragment } from 'react/jsx-runtime'
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 
 const deck = {
   id: 'nsh19mt',
@@ -88,5 +88,61 @@ export const BasicFlashcardArray: Story = () => {
         {cycle ? 'Disable Cycle' : 'Enable Cycle'}
       </button>
     </Fragment>
+  )
+}
+
+export const CustomArrowColors: Story = () => {
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.cards.length,
+  })
+
+  return (
+    <FlashcardArray
+      style={
+        {
+          '--prev-arrow-color': '#2ec140',
+          '--next-arrow-color': '#2ec140',
+          '--disabled-arrow-color': '#c3a3e6',
+        } as CSSProperties
+      }
+      flipArrayHook={flipArrayHook}
+      deck={deck.cards.map((card) => ({
+        id: card.id,
+        front: card.front,
+        back: card.back,
+      }))}
+    />
+  )
+}
+
+export const CustomArrowColorsWithState: Story = () => {
+  const [arrowColor, setArrowColor] = useState('#2ec140')
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.cards.length,
+  })
+  
+  return (
+    <div>
+      <FlashcardArray
+        deck={deck.cards.map((card) => ({
+          id: card.id,
+          front: card.front,
+          back: card.back,
+        }))}
+        flipArrayHook={flipArrayHook}
+        style={
+          {
+            '--prev-arrow-color': arrowColor,
+            '--next-arrow-color': arrowColor,
+            '--disabled-arrow-color': '#c3a3e6',
+          } as CSSProperties
+        }
+      />
+      <input
+        type='color'
+        value={arrowColor}
+        onChange={(e) => setArrowColor(e.target.value)}
+      />
+    </div>
   )
 }

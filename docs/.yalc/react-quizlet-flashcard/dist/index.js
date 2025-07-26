@@ -1,94 +1,88 @@
 "use client";
-import { jsx as c, jsxs as y, Fragment as v } from "react/jsx-runtime";
-import { useState as F, useCallback as b, useMemo as N, useEffect as _ } from "react";
-function D({
-  onFlip: n,
-  disableFlip: l = !1,
-  manualFlip: i = !1,
+import { jsx as i, jsxs as v, Fragment as I } from "react/jsx-runtime";
+import { useState as N, useCallback as C, useMemo as F, useEffect as D } from "react";
+function S({
+  onFlip: t,
+  disableFlip: c = !1,
+  manualFlip: l = !1,
   flipDirection: f = "bt"
 }) {
-  const [a, d] = F("front"), h = b(
-    (u) => {
-      n && n(u);
+  const [h, a] = N("front"), d = C(
+    (m) => {
+      t && t(m);
     },
-    [n]
-  ), C = b(
-    (u) => {
-      l || d((t) => {
-        const m = u ?? (t === "front" ? "back" : "front");
-        return m !== t && h(m), m;
+    [t]
+  ), p = C(
+    (m) => {
+      c || a((r) => {
+        const w = m ?? (r === "front" ? "back" : "front");
+        return w !== r && d(w), w;
       });
     },
-    [l, h]
-  ), o = b(() => {
-    d("front");
+    [c, d]
+  ), o = C(() => {
+    a("front");
   }, []);
-  return N(
+  return F(
     () => ({
-      flip: C,
-      manualFlip: i,
-      disableFlip: l,
+      flip: p,
+      manualFlip: l,
+      disableFlip: c,
       flipDirection: f,
       resetCardState: o,
-      state: a,
-      onFlip: h
+      state: h,
+      onFlip: d
     }),
-    [a, C, o, i, h, f, l]
+    [h, p, o, l, d, f, c]
   );
 }
-function I({
-  style: n,
-  flipHook: l,
-  className: i,
-  front: f,
-  back: a
-}) {
-  const [d, h] = F(l ? l.state === "back" : !1), C = D({
-    onFlip: (u) => {
-      h(u === "back");
+function _({ style: t, flipHook: c, className: l, front: f, back: h }) {
+  const [a, d] = N(c ? c.state === "back" : !1), p = S({
+    onFlip: (m) => {
+      d(m === "back");
     }
-  }), o = l || C;
-  return _(() => {
-    o && h(o.state === "back");
-  }, [o]), /* @__PURE__ */ c(
+  }), o = c || p;
+  return D(() => {
+    o && d(o.state === "back");
+  }, [o]), /* @__PURE__ */ i(
     "div",
     {
-      style: n,
+      style: t,
       className: "flashcard-wrapper",
-      children: /* @__PURE__ */ y(
+      children: /* @__PURE__ */ v(
         "div",
         {
-          className: ["flashcard", i].filter(Boolean).join(" "),
-          "data-flip": d,
+          className: ["flashcard", l].filter(Boolean).join(" "),
+          "data-flip": a,
           "data-dir": o?.flipDirection || "bt",
           role: "region",
-          "aria-label": `Flashcard, currently showing ${d ? "back" : "front"} side`,
+          "aria-label": `Flashcard, currently showing ${a ? "back" : "front"} side`,
           "aria-live": "polite",
           tabIndex: 0,
           onClick: () => {
             o?.manualFlip || o.disableFlip || o.flip();
           },
           children: [
-            /* @__PURE__ */ c(
+            /* @__PURE__ */ i(
               "div",
               {
                 className: "flashcard__front",
                 "data-flip-type": o?.disableFlip ? "disable" : o?.manualFlip ? "manual" : "auto",
                 style: f.style,
-                "aria-hidden": d,
+                "aria-hidden": a,
                 role: "contentinfo",
                 children: f.html
               }
             ),
-            /* @__PURE__ */ c(
+            /* @__PURE__ */ i(
               "div",
               {
                 className: "flashcard__back",
                 "data-flip-type": o?.disableFlip ? "disable" : o?.manualFlip ? "manual" : "auto",
-                style: a.style,
-                "aria-hidden": d,
+                style: h.style,
+                "aria-hidden": a,
                 role: "contentinfo",
-                children: a.html
+                children: h.html
               }
             )
           ]
@@ -97,133 +91,140 @@ function I({
     }
   );
 }
-function R({
-  cycle: n = !1,
-  onFlip: l,
-  deckLength: i,
+function j({
+  cycle: t = !1,
+  onFlip: c,
+  deckLength: l,
   manualFlip: f,
-  disableFlip: a,
-  onCardChange: d,
-  flipDirection: h,
-  showCount: C = !0,
+  disableFlip: h,
+  onCardChange: a,
+  flipDirection: d,
+  showCount: p = !0,
   showControls: o = !0,
-  showProgressBar: u = !1
+  showProgressBar: m = !1
 }) {
-  const [t, m] = F(0), [S, p] = F(
-    n ? [i - 1, 0, 1] : [-1, 0, 1]
-  ), e = N(() => i, [i]);
-  _(() => {
-    if (n)
-      p([
-        (t - 1 + i) % i,
-        t,
-        (t + 1) % i
+  const [r, w] = N(0), [x, u] = N(
+    t ? [l - 1, 0, 1] : [-1, 0, 1]
+  ), n = F(() => l, [l]), H = F(() => x[0] !== -1, [x]), B = F(() => x[2] !== -1, [x]);
+  D(() => {
+    if (t)
+      u([
+        (r - 1 + l) % l,
+        r,
+        (r + 1) % l
       ]);
     else {
-      const r = t - 1 < 0 ? -1 : t - 1, s = t, w = t + 1 >= i ? -1 : t + 1;
-      p([r, s, w]);
+      const s = r - 1 < 0 ? -1 : r - 1, e = r, b = r + 1 >= l ? -1 : r + 1;
+      u([s, e, b]);
     }
-  }, [n, i, t]);
-  const H = b(
-    (r) => {
-      l?.(t, r);
+  }, [t, l, r]);
+  const M = C(
+    (s) => {
+      c?.(r, s);
     },
-    [l, t]
-  ), x = D({
-    onFlip: H,
+    [c, r]
+  ), g = S({
+    onFlip: M,
     manualFlip: f,
-    disableFlip: a,
-    flipDirection: h
-  }), M = b(() => {
-    const r = n ? (t + 1) % e : Math.min(t + 1, e - 1);
-    if (r !== t) {
-      if (x.resetCardState(), m(r), n)
-        p((s) => [
-          s[1],
+    disableFlip: h,
+    flipDirection: d
+  }), k = C(() => {
+    const s = t ? (r + 1) % n : Math.min(r + 1, n - 1);
+    if (s !== r) {
+      if (g.resetCardState(), w(s), t)
+        u((e) => [
+          e[1],
           // Previous center becomes left
-          s[2],
+          e[2],
           // Previous right becomes center
-          (s[2] + 1) % e
+          (e[2] + 1) % n
           // New right card
         ]);
       else {
-        const s = r - 1 < 0 ? -1 : r - 1, w = r, g = r + 1 >= e ? -1 : r + 1;
-        p([s, w, g]);
+        const e = s - 1 < 0 ? -1 : s - 1, b = s, y = s + 1 >= n ? -1 : s + 1;
+        u([e, b, y]);
       }
-      d?.(r);
+      a?.(s);
     }
-  }, [t, e, n, x, d]), B = b(() => {
-    const r = n ? (t - 1 + e) % e : Math.max(t - 1, 0);
-    if (r !== t) {
-      if (x.resetCardState(), m(r), n)
-        p((s) => [
-          (s[0] - 1 + e) % e,
+  }, [r, n, t, g, a]), R = C(() => {
+    const s = t ? (r - 1 + n) % n : Math.max(r - 1, 0);
+    if (s !== r) {
+      if (g.resetCardState(), w(s), t)
+        u((e) => [
+          (e[0] - 1 + n) % n,
           // New left card
-          s[0],
+          e[0],
           // Previous left becomes center
-          s[1]
+          e[1]
           // Previous center becomes right
         ]);
       else {
-        const s = r - 1 < 0 ? -1 : r - 1, w = r, g = r + 1 >= e ? -1 : r + 1;
-        p([s, w, g]);
+        const e = s - 1 < 0 ? -1 : s - 1, b = s, y = s + 1 >= n ? -1 : s + 1;
+        u([e, b, y]);
       }
-      d?.(r);
+      a?.(s);
     }
-  }, [t, e, n, x, d]);
+  }, [r, n, t, g, a]);
   return {
-    cycle: n,
-    deckLength: i,
-    currentCard: t,
-    flipHook: x,
-    prevCard: B,
-    nextCard: M,
-    cardsInDisplay: S,
-    showCount: C,
+    cycle: t,
+    deckLength: l,
+    currentCard: r,
+    flipHook: g,
+    prevCard: R,
+    nextCard: k,
+    canGoPrev: H,
+    canGoNext: B,
+    cardsInDisplay: x,
+    showCount: p,
     showControls: o,
-    showProgressBar: u,
+    showProgressBar: m,
     progressBar: {
-      current: t + 1,
-      total: e,
-      percentage: e > 0 ? Math.round((t + 1) / e * 100) : 0
+      current: r + 1,
+      total: n,
+      percentage: n > 0 ? Math.round((r + 1) / n * 100) : 0
     },
-    setCurrentCard: b(
-      (r) => {
-        const s = n ? (r % e + e) % e : Math.max(0, Math.min(r, e - 1));
-        if (console.log(`Setting current card to index: ${s}`), m(s), n)
-          p([
-            (s - 1 + e) % e,
-            s,
-            (s + 1) % e
+    setCurrentCard: C(
+      (s) => {
+        const e = t ? (s % n + n) % n : Math.max(0, Math.min(s, n - 1));
+        if (console.log(`Setting current card to index: ${e}`), w(e), t)
+          u([
+            (e - 1 + n) % n,
+            e,
+            (e + 1) % n
           ]);
         else {
-          const w = s - 1 < 0 ? -1 : s - 1, g = s, k = s + 1 >= e ? -1 : s + 1;
-          p([w, g, k]);
+          const b = e - 1 < 0 ? -1 : e - 1, y = e, $ = e + 1 >= n ? -1 : e + 1;
+          u([b, y, $]);
         }
       },
-      [n, e]
+      [t, n]
     )
   };
 }
-function A({ flipArrayHook: n, deck: l, style: i }) {
-  const f = R({
-    deckLength: l.length
-  }), a = n || f, d = (h) => /* @__PURE__ */ c(
-    I,
+function G({
+  deck: t,
+  style: c,
+  className: l,
+  flipArrayHook: f
+}) {
+  const h = j({
+    deckLength: t.length
+  }), a = f || h, d = (p) => /* @__PURE__ */ i(
+    _,
     {
-      back: { html: /* @__PURE__ */ c(v, {}) },
-      front: { html: /* @__PURE__ */ c(v, {}) },
+      back: { html: /* @__PURE__ */ i(I, {}) },
+      front: { html: /* @__PURE__ */ i(I, {}) },
       className: "flashcard__sibling"
     },
-    h
+    p
   );
-  return /* @__PURE__ */ y(
+  return /* @__PURE__ */ v(
     "div",
     {
-      className: "flashcard-array-wrapper",
-      style: i,
+      className: ["flashcard-array-wrapper", l].filter(Boolean).join(" "),
+      style: c,
       children: [
-        /* @__PURE__ */ y(
+        /* @__PURE__ */ v(
           "div",
           {
             className: "flashcard-array",
@@ -232,14 +233,14 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
             "aria-live": "polite",
             children: [
               d(a.cardsInDisplay[0]),
-              /* @__PURE__ */ c(
-                I,
+              /* @__PURE__ */ i(
+                _,
                 {
                   flipHook: a.flipHook,
-                  back: l[a.cardsInDisplay[1]].back,
-                  front: l[a.cardsInDisplay[1]].front,
-                  style: l[a.cardsInDisplay[1]].style,
-                  className: l[a.cardsInDisplay[1]].className
+                  back: t[a.cardsInDisplay[1]].back,
+                  front: t[a.cardsInDisplay[1]].front,
+                  style: t[a.cardsInDisplay[1]].style,
+                  className: t[a.cardsInDisplay[1]].className
                 },
                 a.cardsInDisplay[1]
               ),
@@ -247,31 +248,30 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
             ]
           }
         ),
-        a.showProgressBar && /* @__PURE__ */ c("div", { className: "flashcard-array__progress-bar", children: /* @__PURE__ */ c(
+        a.showProgressBar && /* @__PURE__ */ i("div", { className: "flashcard-array__progress-bar", children: /* @__PURE__ */ i(
           "div",
           {
             className: "flashcard-array__progress-bar-fill",
             style: { width: `${a.progressBar.percentage}%` }
           }
         ) }),
-        (a.showControls || a.showCount) && /* @__PURE__ */ y("div", { className: "flashcard-array__controls", children: [
-          a.showControls && /* @__PURE__ */ c(
+        (a.showControls || a.showCount) && /* @__PURE__ */ v("div", { className: "flashcard-array__controls", children: [
+          a.showControls && /* @__PURE__ */ i(
             "button",
             {
               onClick: () => a.prevCard(),
-              disabled: a.currentCard === 0 && !a.cycle,
+              disabled: !a.canGoPrev,
               "aria-label": "Previous card",
-              children: /* @__PURE__ */ c(
+              children: /* @__PURE__ */ i(
                 "svg",
                 {
                   xmlns: "http://www.w3.org/2000/svg",
                   viewBox: "0 0 24 24",
                   style: { height: "24px", width: "24px" },
-                  children: /* @__PURE__ */ c(
+                  children: /* @__PURE__ */ i(
                     "path",
                     {
                       d: "M19 12a1 1 0 0 1-1 1H8.414l1.293 1.293a1 1 0 1 1-1.414 1.414l-3-3a1 1 0 0 1 0-1.414l3-3a1 1 0 0 1 1.414 1.414L8.414 11H18a1 1 0 0 1 1 1z",
-                      style: { fill: "#1c1b1e", height: "24px", width: "24px" },
                       "data-name": "Left"
                     }
                   )
@@ -279,28 +279,27 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
               )
             }
           ),
-          a.showCount && /* @__PURE__ */ y("span", { children: [
+          a.showCount && /* @__PURE__ */ v("span", { className: "flashcard-array__controls--count", children: [
             a.currentCard + 1,
             "/",
-            l.length
+            t.length
           ] }),
-          a.showControls && /* @__PURE__ */ c(
+          a.showControls && /* @__PURE__ */ i(
             "button",
             {
               onClick: () => a.nextCard(),
-              disabled: a.currentCard === l.length - 1 && !a.cycle,
+              disabled: !a.canGoNext,
               "aria-label": "Next card",
-              children: /* @__PURE__ */ c(
+              children: /* @__PURE__ */ i(
                 "svg",
                 {
                   xmlns: "http://www.w3.org/2000/svg",
                   viewBox: "0 0 24 24",
                   style: { height: "24px", width: "24px" },
-                  children: /* @__PURE__ */ c(
+                  children: /* @__PURE__ */ i(
                     "path",
                     {
                       d: "m18.707 12.707-3 3a1 1 0 0 1-1.414-1.414L15.586 13H6a1 1 0 0 1 0-2h9.586l-1.293-1.293a1 1 0 0 1 1.414-1.414l3 3a1 1 0 0 1 0 1.414z",
-                      style: { fill: "#1c1b1e", height: "24px", width: "24px" },
                       "data-name": "Right"
                     }
                   )
@@ -314,8 +313,8 @@ function A({ flipArrayHook: n, deck: l, style: i }) {
   );
 }
 export {
-  I as Flashcard,
-  A as FlashcardArray,
-  D as useFlashcard,
-  R as useFlashcardArray
+  _ as Flashcard,
+  G as FlashcardArray,
+  S as useFlashcard,
+  j as useFlashcardArray
 };

@@ -2,14 +2,15 @@ import { CSSProperties } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { ReactElement } from 'react';
 
-export declare function Flashcard({ style, flipHook, className, front, back, }: FlashcardProps): JSX.Element;
+export declare function Flashcard({ style, flipHook, className, front, back }: FlashcardProps): JSX.Element;
 
-export declare function FlashcardArray({ flipArrayHook, deck, style }: FlashcardArrayProps): JSX.Element;
+export declare function FlashcardArray({ deck, style, className, flipArrayHook, }: FlashcardArrayProps): JSX.Element;
 
 export declare interface FlashcardArrayProps {
-    flipArrayHook?: UseFlashcardArray;
     deck: IFlashcard[];
+    className?: string;
     style?: CSSProperties;
+    flipArrayHook?: UseFlashcardArray;
 }
 
 export declare interface FlashcardProps extends IFlashcard {
@@ -50,6 +51,8 @@ export declare interface UseFlashcardArray {
     showCount: boolean;
     deckLength: number;
     currentCard: number;
+    canGoPrev: boolean;
+    canGoNext: boolean;
     prevCard: () => void;
     nextCard: () => void;
     showControls: boolean;

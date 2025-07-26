@@ -1,9 +1,10 @@
 import type { CSSProperties } from 'react'
-import type { UseFlashcardArray } from '../../hooks/useFlashcardArray'
 import type { IFlashcard } from '../Flashcard/types'
+import type { UseFlashcardArray } from '../../hooks/useFlashcardArray'
 
 export interface FlashcardArrayProps {
-  flipArrayHook?: UseFlashcardArray
   deck: IFlashcard[]
+  className?: string
   style?: CSSProperties
+  flipArrayHook?: UseFlashcardArray
 }

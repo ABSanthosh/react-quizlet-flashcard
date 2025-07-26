@@ -1,34 +1,34 @@
-'use client'
+"use client";
 
 import {
   FlashcardArray,
   type FlipDirection,
   type IFlashcard,
   useFlashcardArray,
-} from '../../.yalc/react-quizlet-flashcard'
-import '../../.yalc/react-quizlet-flashcard/dist/index.css'
-import { useState } from 'react'
+} from "../../.yalc/react-quizlet-flashcard";
+import "../../.yalc/react-quizlet-flashcard/dist/index.css";
+import { CSSProperties, useEffect, useState } from "react";
 
 export const deck: IFlashcard[] = [
   {
     front: {
       html: <>What is the capital of Alaska?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Juneau</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -36,21 +36,21 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of California?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Sacramento</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -58,21 +58,21 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of New York?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Albany</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -80,21 +80,21 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of Florida?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Tallahassee</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -102,21 +102,21 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of Texas?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Austin</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -124,21 +124,21 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of New Mexico?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Santa Fe</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
@@ -146,87 +146,74 @@ export const deck: IFlashcard[] = [
     front: {
       html: <>What is the capital of Arizona?</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'blueviolet',
-        backgroundColor: 'lightblue',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "blueviolet",
+        backgroundColor: "lightblue",
       },
     },
     back: {
       html: <>Phoenix</>,
       style: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'gainsboro',
-        backgroundColor: 'darkslategray',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "gainsboro",
+        backgroundColor: "darkslategray",
       },
     },
   },
-]
+];
 
 export function BasicArrayDemo() {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
-  })
+  });
 
-  return (
-    <FlashcardArray
-      flipArrayHook={flipArrayHook}
-      deck={deck}
-    />
-  )
+  return <FlashcardArray flipArrayHook={flipArrayHook} deck={deck} />;
 }
 
 export function CyclingArrayDemo() {
   const flipArrayHook = useFlashcardArray({
     cycle: true,
     deckLength: deck.length,
-  })
+  });
 
-  return (
-    <FlashcardArray
-      flipArrayHook={flipArrayHook}
-      deck={deck}
-    />
-  )
+  return <FlashcardArray flipArrayHook={flipArrayHook} deck={deck} />;
 }
 
 export function CustomControlDemo() {
-  const [useCycle, setUseCycle] = useState(false)
+  const [useCycle, setUseCycle] = useState(false);
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
     showCount: false,
     showControls: false,
     cycle: useCycle,
-  })
+  });
 
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '15px',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "15px",
         // width: 'fit-content',
       }}
     >
-      <FlashcardArray
-        deck={deck}
-        flipArrayHook={flipArrayHook}
-      />
+      <FlashcardArray deck={deck} flipArrayHook={flipArrayHook} />
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: '15px',
-          width: 'fit-content',
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "15px",
+          width: "fit-content",
         }}
       >
         <button
-          className='CrispButton'
+          className="CrispButton"
           onClick={() => flipArrayHook.prevCard()}
         >
           Previous
@@ -235,25 +222,32 @@ export function CustomControlDemo() {
           {flipArrayHook.currentCard + 1} / {deck.length}
         </span>
         <button
-          className='CrispButton'
+          className="CrispButton"
           onClick={() => flipArrayHook.nextCard()}
         >
           Next
         </button>
       </div>
       <div>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+        <label
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+            cursor: "pointer",
+          }}
+        >
           <input
-            type='checkbox'
+            type="checkbox"
             checked={useCycle}
-            className='CrispInput'
+            className="CrispInput"
             onChange={(e) => setUseCycle(e.target.checked)}
           />
           Cycle through cards
         </label>
       </div>
     </div>
-  )
+  );
 }
 
 export function CustomStylePerCardDemo() {
@@ -264,33 +258,33 @@ export function CustomStylePerCardDemo() {
           <>
             <span
               style={{
-                backgroundColor: 'lawngreen',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lawngreen",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 1
             </span>
             <span
               style={{
-                backgroundColor: 'lawngreen',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lawngreen",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 2
             </span>
             <span
               style={{
-                backgroundColor: 'lawngreen',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lawngreen",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 3
@@ -298,23 +292,23 @@ export function CustomStylePerCardDemo() {
           </>
         ),
         style: {
-          backgroundColor: 'lightgoldenrodyellow',
-          color: 'black',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gridTemplateRows: '1fr',
-          gap: '10px',
-          padding: '10px',
+          backgroundColor: "lightgoldenrodyellow",
+          color: "black",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateRows: "1fr",
+          gap: "10px",
+          padding: "10px",
         },
       },
       back: {
         html: <>Juneau</>,
         style: {
-          backgroundColor: 'lightgoldenrodyellow',
-          color: 'black',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundColor: "lightgoldenrodyellow",
+          color: "black",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         },
       },
     },
@@ -324,33 +318,33 @@ export function CustomStylePerCardDemo() {
           <>
             <span
               style={{
-                backgroundColor: 'lightcoral',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lightcoral",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 1
             </span>
             <span
               style={{
-                backgroundColor: 'lightcoral',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lightcoral",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 2
             </span>
             <span
               style={{
-                backgroundColor: 'lightcoral',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '8px',
+                backgroundColor: "lightcoral",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "8px",
               }}
             >
               Option 3
@@ -358,44 +352,39 @@ export function CustomStylePerCardDemo() {
           </>
         ),
         style: {
-          backgroundColor: 'lightgoldenrodyellow',
-          color: 'black',
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gridTemplateRows: '1fr 1fr 1fr',
-          gap: '10px',
-          padding: '10px',
+          backgroundColor: "lightgoldenrodyellow",
+          color: "black",
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gridTemplateRows: "1fr 1fr 1fr",
+          gap: "10px",
+          padding: "10px",
         },
       },
       back: {
         html: <>Sacramento</>,
         style: {
-          backgroundColor: 'lightgoldenrodyellow',
-          color: 'black',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundColor: "lightgoldenrodyellow",
+          color: "black",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         },
       },
     },
-  ]
+  ];
 
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
-  })
+  });
 
-  return (
-    <FlashcardArray
-      deck={deck}
-      flipArrayHook={flipArrayHook}
-    />
-  )
+  return <FlashcardArray deck={deck} flipArrayHook={flipArrayHook} />;
 }
 
 export function CustomStyleAllCardsDemo() {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
-  })
+  });
 
   return (
     <FlashcardArray
@@ -404,70 +393,118 @@ export function CustomStyleAllCardsDemo() {
         front: {
           ...card.front,
           style: {
-            backgroundColor: 'lightgoldenrodyellow',
-            color: 'black',
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gridTemplateRows: '1fr 1fr 1fr',
-            gap: '10px',
-            padding: '10px',
+            backgroundColor: "lightgoldenrodyellow",
+            color: "black",
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gridTemplateRows: "1fr 1fr 1fr",
+            gap: "10px",
+            padding: "10px",
           },
         },
         back: {
           ...card.back,
           style: {
-            backgroundColor: 'lightgoldenrodyellow',
-            color: 'black',
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gridTemplateRows: '1fr 1fr 1fr',
-            gap: '10px',
-            padding: '10px',
+            backgroundColor: "lightgoldenrodyellow",
+            color: "black",
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gridTemplateRows: "1fr 1fr 1fr",
+            gap: "10px",
+            padding: "10px",
           },
         },
       }))}
       flipArrayHook={flipArrayHook}
     />
-  )
+  );
 }
 
 export function ShowProgressBarDemo() {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
     showProgressBar: true,
-  })
+  });
 
-  return (
-    <FlashcardArray
-      deck={deck}
-      flipArrayHook={flipArrayHook}
-    />
-  )
+  return <FlashcardArray deck={deck} flipArrayHook={flipArrayHook} />;
 }
 
 export function FlipDirectionDemo() {
-  const [dir, setDir] = useState<FlipDirection>('bt')
+  const [dir, setDir] = useState<FlipDirection>("bt");
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.length,
     flipDirection: dir,
-  })
+  });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
-      <FlashcardArray
-        deck={deck}
-        flipArrayHook={flipArrayHook}
-      />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "15px",
+      }}
+    >
+      <FlashcardArray deck={deck} flipArrayHook={flipArrayHook} />
       <select
-        className='CrispSelect'
+        className="CrispSelect"
         value={dir}
         onChange={(e) => setDir(e.target.value as FlipDirection)}
       >
-        <option value='bt'>Bottom to Top</option>
-        <option value='tb'>Top to Bottom</option>
-        <option value='ltr'>Left to Right</option>
-        <option value='rtl'>Right to Left</option>
+        <option value="bt">Bottom to Top</option>
+        <option value="tb">Top to Bottom</option>
+        <option value="ltr">Left to Right</option>
+        <option value="rtl">Right to Left</option>
       </select>
     </div>
-  )
+  );
+}
+
+export function CustomArrowStyleDemo() {
+  const [arrowColor, setArrowColor] = useState("#2ec140");
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+  });
+
+  const colors = ["#2ec140", "#c3a3e6", "#ff6347", "#4682b4", "#ffa500"];
+
+  return (
+    <div>
+      <FlashcardArray
+        deck={deck}
+        className="custom-arrow-style"
+        flipArrayHook={flipArrayHook}
+        style={
+          {
+            "--prev-arrow-color": arrowColor,
+            "--next-arrow-color": arrowColor,
+            "--disabled-arrow-color": "#c3a3e6",
+          } as CSSProperties
+        }
+      />
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px",
+          marginTop: "10px",
+        }}
+      >
+        {colors.map((color) => (
+          <button
+            key={color}
+            style={{
+              backgroundColor: color,
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => setArrowColor(color)}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
