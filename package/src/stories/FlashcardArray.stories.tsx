@@ -100,9 +100,9 @@ export const CustomArrowColors: Story = () => {
     <FlashcardArray
       style={
         {
-          '--prev-arrow-color': '#4614a9',
-          '--next-arrow-color': '#4614a9',
-          '--disabled-arrow-color': '#c3b3e6',
+          '--prev-arrow-color': '#2ec140',
+          '--next-arrow-color': '#2ec140',
+          '--disabled-arrow-color': '#c3a3e6',
         } as CSSProperties
       }
       flipArrayHook={flipArrayHook}
@@ -112,5 +112,37 @@ export const CustomArrowColors: Story = () => {
         back: card.back,
       }))}
     />
+  )
+}
+
+export const CustomArrowColorsWithState: Story = () => {
+  const [arrowColor, setArrowColor] = useState('#2ec140')
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.cards.length,
+  })
+  
+  return (
+    <div>
+      <FlashcardArray
+        deck={deck.cards.map((card) => ({
+          id: card.id,
+          front: card.front,
+          back: card.back,
+        }))}
+        flipArrayHook={flipArrayHook}
+        style={
+          {
+            '--prev-arrow-color': arrowColor,
+            '--next-arrow-color': arrowColor,
+            '--disabled-arrow-color': '#c3a3e6',
+          } as CSSProperties
+        }
+      />
+      <input
+        type='color'
+        value={arrowColor}
+        onChange={(e) => setArrowColor(e.target.value)}
+      />
+    </div>
   )
 }

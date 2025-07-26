@@ -1,0 +1,40 @@
+---
+title: Custom Arrow Style
+description: Demonstrates custom arrow styles for navigating the flashcard array.
+---
+
+import { CustomArrowStyleDemo } from '../../../demos/flashcard-array-demos.tsx'
+
+## Demo
+<CustomArrowStyleDemo />
+
+## Code Example
+
+```tsx
+'use client'
+
+import { FlashcardArray, IFlashcard, useFlashcardArray } from 'react-quizlet-flashcard'
+import 'react-quizlet-flashcard/dist/index.css'
+
+export default function CyclingArray() {
+  const deck: IFlashcard[] = [...]
+
+  const flipArrayHook = useFlashcardArray({
+    deckLength: deck.length,
+  })
+
+  return (
+    <FlashcardArray
+      flipArrayHook={flipArrayHook}
+      deck={deck}
+      style={
+        {
+          "--prev-arrow-color": "#2ec140",
+          "--next-arrow-color": "#2ec140",
+          "--disabled-arrow-color": "#c3a3e6",
+        } as CSSProperties
+      }
+    />
+  )
+}
+```
