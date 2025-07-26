@@ -1,6 +1,6 @@
 {
   "name": "react-quizlet-flashcard",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A simple, responsive, and customizable flashcard component library for React, inspired by Quizlet. Create interactive single flashcards or decks with smooth animations and TypeScript support.",
   "main": "index.js",
   "directories": {
