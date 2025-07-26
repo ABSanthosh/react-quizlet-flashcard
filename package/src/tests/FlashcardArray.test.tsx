@@ -130,4 +130,21 @@ describe('<FlashcardArray />', () => {
       expect(progressBarFill).toHaveStyle('width: 33%')
     })
   })
+  describe('Empty deck state', () => {
+    it('should display an empty state message and correct controls when the deck is empty', () => {
+      render(<FlashcardArray deck={[]} />)
+
+      expect(screen.getByText('No cards in the deck.')).toBeInTheDocument()
+
+      expect(screen.queryByRole('region', { name: /Flashcard/i })).toBeNull()
+
+      // Check that controls are still visible but show 0/0
+      expect(screen.getByText('0/0')).toBeInTheDocument()
+
+      expect(getPrevButton()).toBeInTheDocument()
+      expect(getPrevButton()).toBeDisabled()
+      expect(getNextButton()).toBeInTheDocument()
+      expect(getNextButton()).toBeDisabled()
+    })
+  })
 })

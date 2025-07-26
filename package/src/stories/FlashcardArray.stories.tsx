@@ -2,8 +2,7 @@ import type { Story } from '@ladle/react'
 import './styles.scss'
 import { FlashcardArray } from '../main'
 import { useFlashcardArray } from '../hooks/useFlashcardArray'
-import { Fragment } from 'react/jsx-runtime'
-import { useState, type CSSProperties } from 'react'
+import { Fragment, useState, type CSSProperties } from 'react'
 
 const deck = {
   id: 'nsh19mt',
@@ -91,6 +90,72 @@ export const BasicFlashcardArray: Story = () => {
   )
 }
 
+export const DynamicDeck: Story = () => {
+  const [localDeck, setLocalDeck] = useState(deck.cards)
+
+  const flipArrayHook = useFlashcardArray({
+    deckLength: localDeck.length,
+  })
+
+  const handleDelete = () => {
+    if (localDeck.length === 0) return
+    const indexToDelete = flipArrayHook.currentCard
+
+    flipArrayHook.deleteCard(indexToDelete)
+
+    setLocalDeck((currentDeck) => currentDeck.filter((_, i) => i !== indexToDelete))
+  }
+
+  const handleAdd = () => {
+    const newCard = {
+      id: new Date().getTime(),
+      front: { html: <p>New Card Front</p>, style: { color: 'black' } },
+      back: { html: <p>New Card Back</p>, style: { color: 'black' } },
+      options: [],
+    }
+    const indexToAdd = localDeck.length > 0 ? flipArrayHook.currentCard + 1 : 0
+
+    flipArrayHook.addCard(indexToAdd)
+
+    setLocalDeck((currentDeck) => {
+      const newDeck = [...currentDeck]
+      newDeck.splice(indexToAdd, 0, newCard)
+      return newDeck
+    })
+  }
+  const addButtonText = localDeck.length === 0 ? 'Add a new card' : 'Add card after current'
+
+  return (
+    <Fragment>
+      <FlashcardArray
+        flipArrayHook={flipArrayHook}
+        deck={localDeck.map((card) => ({
+          front: card.front,
+          back: card.back,
+        }))}
+      />
+      <div
+        className='dynamic-controls'
+        style={{ display: 'flex', gap: '10px', marginTop: '1rem' }}
+      >
+        <button
+          className='CrispButton'
+          onClick={handleAdd}
+        >
+          {addButtonText}
+        </button>
+        <button
+          className='CrispButton'
+          onClick={handleDelete}
+          disabled={localDeck.length === 0}
+        >
+          Delete Current Card
+        </button>
+      </div>
+    </Fragment>
+  )
+}
+
 export const CustomArrowColors: Story = () => {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.cards.length,
@@ -120,7 +185,7 @@ export const CustomArrowColorsWithState: Story = () => {
   const flipArrayHook = useFlashcardArray({
     deckLength: deck.cards.length,
   })
-  
+
   return (
     <div>
       <FlashcardArray

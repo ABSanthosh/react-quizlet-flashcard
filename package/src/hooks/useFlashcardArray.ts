@@ -12,6 +12,8 @@ export interface UseFlashcardArray {
   canGoNext: boolean
   prevCard: () => void
   nextCard: () => void
+  addCard: (index?: number) => void
+  deleteCard: (index: number) => void
   showControls: boolean
   flipHook: UseFlashcard
   cardsInDisplay: number[]
@@ -56,9 +58,25 @@ export function useFlashcardArray({
   const canGoPrev = useMemo(() => cardsInDisplay[0] !== -1, [cardsInDisplay])
   const canGoNext = useMemo(() => cardsInDisplay[2] !== -1, [cardsInDisplay])
 
+  // Adjust currentCard if it's out of bounds after deckLength changes
+  useEffect(() => {
+    if (deckLength === 0 && currentCard !== 0) {
+      setCurrentCard(0)
+      return
+    }
+
+    if (currentCard >= deckLength && deckLength > 0) {
+      setCurrentCard(deckLength - 1)
+    }
+  }, [deckLength, currentCard])
+
   // Update cardsInDisplay when cycle or deckLength changes
   useEffect(() => {
     if (cycle) {
+      if (deckLength === 0) {
+        setCardsInDisplay([-1, 0, -1]) // Handle empty deck case
+        return
+      }
       setCardsInDisplay([
         (currentCard - 1 + deckLength) % deckLength,
         currentCard,
@@ -71,8 +89,6 @@ export function useFlashcardArray({
       setCardsInDisplay([newLeft, newCenter, newRight])
     }
   }, [cycle, deckLength, currentCard])
-
-  // check and update cardsInDisplay based on cycle state change.
 
   const memoizedOnFlip = useCallback(
     (state: FlipState) => {
@@ -89,58 +105,56 @@ export function useFlashcardArray({
   })
 
   const nextCard = useCallback(() => {
+    if (!canGoNext) return
     const nextCardIndex = cycle
       ? (currentCard + 1) % totalCards
       : Math.min(currentCard + 1, totalCards - 1)
 
-    if (nextCardIndex === currentCard) return // No change, don't animate
-
     flipHook.resetCardState()
     setCurrentCard(nextCardIndex)
-
-    if (cycle) {
-      setCardsInDisplay((prev) => [
-        prev[1], // Previous center becomes left
-        prev[2], // Previous right becomes center
-        (prev[2] + 1) % totalCards, // New right card
-      ])
-    } else {
-      const newLeft = nextCardIndex - 1 < 0 ? -1 : nextCardIndex - 1
-      const newCenter = nextCardIndex
-      const newRight = nextCardIndex + 1 >= totalCards ? -1 : nextCardIndex + 1
-
-      setCardsInDisplay([newLeft, newCenter, newRight])
-    }
-
     onCardChange?.(nextCardIndex)
-  }, [currentCard, totalCards, cycle, flipHook, onCardChange])
+  }, [currentCard, totalCards, cycle, flipHook, onCardChange, canGoNext])
 
   const prevCard = useCallback(() => {
+    if (!canGoPrev) return
     const prevCardIndex = cycle
       ? (currentCard - 1 + totalCards) % totalCards
       : Math.max(currentCard - 1, 0)
 
-    if (prevCardIndex === currentCard) return // No change, don't animate
-
     flipHook.resetCardState()
     setCurrentCard(prevCardIndex)
-
-    if (cycle) {
-      setCardsInDisplay((prev) => [
-        (prev[0] - 1 + totalCards) % totalCards, // New left card
-        prev[0], // Previous left becomes center
-        prev[1], // Previous center becomes right
-      ])
-    } else {
-      const newLeft = prevCardIndex - 1 < 0 ? -1 : prevCardIndex - 1
-      const newCenter = prevCardIndex
-      const newRight = prevCardIndex + 1 >= totalCards ? -1 : prevCardIndex + 1
-
-      setCardsInDisplay([newLeft, newCenter, newRight])
-    }
-
     onCardChange?.(prevCardIndex)
-  }, [currentCard, totalCards, cycle, flipHook, onCardChange])
+  }, [currentCard, totalCards, cycle, flipHook, onCardChange, canGoPrev])
+
+  const deleteCard = useCallback(
+    (indexToDelete: number) => {
+      if (indexToDelete < 0 || indexToDelete >= deckLength) {
+        console.warn(`Cannot delete card at index ${indexToDelete}: index out of bounds.`)
+        return
+      }
+
+      if (currentCard > indexToDelete) {
+        setCurrentCard((c) => c - 1)
+      } else if (currentCard === indexToDelete && currentCard === deckLength - 1 && currentCard > 0) {
+        setCurrentCard((c) => c - 1)
+      }
+    },
+    [currentCard, deckLength]
+  )
+
+  const addCard = useCallback(
+    (indexToAddAt?: number) => {
+      const addIndex = indexToAddAt === undefined ? deckLength : indexToAddAt
+      if (addIndex < 0 || addIndex > deckLength) {
+        console.warn(`Cannot add card at index ${addIndex}: index out of bounds.`)
+        return
+      }
+      if (currentCard >= addIndex && deckLength > 0) {
+        setCurrentCard((c) => c + 1)
+      }
+    },
+    [currentCard, deckLength]
+  )
 
   return {
     cycle,
@@ -149,6 +163,8 @@ export function useFlashcardArray({
     flipHook,
     prevCard,
     nextCard,
+    addCard,
+    deleteCard,
     canGoPrev,
     canGoNext,
     cardsInDisplay,
@@ -162,29 +178,17 @@ export function useFlashcardArray({
     },
     setCurrentCard: useCallback(
       (index: number) => {
+        if (deckLength === 0) {
+          setCurrentCard(0)
+          return
+        }
         const newIndex = cycle
           ? ((index % totalCards) + totalCards) % totalCards
           : Math.max(0, Math.min(index, totalCards - 1))
 
-        console.log(`Setting current card to index: ${newIndex}`)
         setCurrentCard(newIndex)
-
-        // Update cards in display for direct navigation
-        if (cycle) {
-          setCardsInDisplay([
-            (newIndex - 1 + totalCards) % totalCards,
-            newIndex,
-            (newIndex + 1) % totalCards,
-          ])
-        } else {
-          const newLeft = newIndex - 1 < 0 ? -1 : newIndex - 1
-          const newCenter = newIndex
-          const newRight = newIndex + 1 >= totalCards ? -1 : newIndex + 1
-
-          setCardsInDisplay([newLeft, newCenter, newRight])
-        }
       },
-      [cycle, totalCards]
+      [cycle, totalCards, deckLength]
     ),
   }
 }
