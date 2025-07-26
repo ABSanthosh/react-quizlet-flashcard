@@ -1,14 +1,15 @@
 @use '../../styles/mixins' as *;
 
 .flashcard-array-wrapper {
-  @include make-flex($dir: column);
-  @include box(560px, auto);
-  gap: 15px;
-
-  --prev-arrow-color: #4614a9;
-  --next-arrow-color: #4614a9;
+  --prev-arrow-color: #1c1b1e;
+  --next-arrow-color: #1c1b1e;
   --disabled-arrow-color: #a9a9a9;
 
+  gap: 15px;
+  @include box(560px, auto);
+  @include make-flex($dir: column);
+
+  // TODO: Remove this in https://github.com/ABSanthosh/react-quizlet-flashcard/issues/21
   @include respondAt(625px) {
     width: 90%;
   }
@@ -29,7 +30,7 @@
       pointer-events: none;
       background: transparent;
       display: block !important;
-      // transform-style: preserve-3d;
+      transform-style: preserve-3d;
       transition:
         transform 0.24s ease,
         opacity 0.12s linear !important;
@@ -66,7 +67,7 @@
       transform-style: preserve-3d;
       transition:
         transform 0.24s ease,
-        opacity 0.12s linear !important;
+        opacity 0.12s linear;
     }
   }
 
@@ -111,10 +112,10 @@
 
         path {
           &[data-name='Left'] {
-            fill: var(--prev-arrow-color) !important;
+            fill: var(--prev-arrow-color);
           }
           &[data-name='Right'] {
-            fill: var(--next-arrow-color) !important;
+            fill: var(--next-arrow-color);
           }
         }
       }
@@ -122,13 +123,13 @@
       &:disabled {
         cursor: not-allowed;
         svg path {
-          fill: var(--disabled-arrow-color) !important;
+          fill: var(--disabled-arrow-color);
         }
       }
     }
 
     &--count {
-      font-size: 15px !important;
+      font-size: 15px;
     }
   }
 }

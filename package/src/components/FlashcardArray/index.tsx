@@ -5,7 +5,12 @@ import { useFlashcardArray } from '../../hooks/useFlashcardArray'
 import Flashcard from '../Flashcard'
 import type { FlashcardArrayProps } from './types'
 
-export default function FlashcardArray({ flipArrayHook, deck, style }: FlashcardArrayProps) {
+export default function FlashcardArray({
+  deck,
+  style,
+  className,
+  flipArrayHook,
+}: FlashcardArrayProps) {
   const tempFlipArrayHook = useFlashcardArray({
     deckLength: deck.length,
   })
@@ -24,7 +29,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
 
   return (
     <div
-      className='flashcard-array-wrapper'
+      className={['flashcard-array-wrapper', className].filter(Boolean).join(' ')}
       style={style}
     >
       <div
@@ -76,7 +81,7 @@ export default function FlashcardArray({ flipArrayHook, deck, style }: Flashcard
             </button>
           )}
           {localFlipArrayHook.showCount && (
-            <span>
+            <span className='flashcard-array__controls--count'>
               {localFlipArrayHook.currentCard + 1}/{deck.length}
             </span>
           )}
