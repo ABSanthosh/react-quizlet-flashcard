@@ -149,7 +149,7 @@ export const DynamicDeck: Story = () => {
           onClick={handleDelete}
           disabled={localDeck.length === 0}
         >
-          Delete Current Card
+          Delete current card
         </button>
       </div>
     </Fragment>
