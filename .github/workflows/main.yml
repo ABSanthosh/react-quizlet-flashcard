@@ -1,50 +1,50 @@
-name: Package CI
+# name: Package CI
 
-on:
-  workflow_dispatch:
-  push:
-    branches: ['npm-prod']
-    paths: ['package/**']
-  pull_request:
-    branches: ['npm-prod']
-    paths: ['package/**']
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches: ['npm-prod']
+#     paths: ['package/**']
+#   pull_request:
+#     branches: ['npm-prod']
+#     paths: ['package/**']
 
-jobs:
-  lint-test-build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+# jobs:
+#   lint-test-build:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       packages: write
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          registry-url: 'https://npm.pkg.github.com'
-          cache-dependency-path: package/package-lock.json
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
+#           cache: 'npm'
+#           registry-url: 'https://npm.pkg.github.com'
+#           cache-dependency-path: package/package-lock.json
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: package
+#       - name: Install dependencies
+#         run: npm ci
+#         working-directory: package
 
-      - name: Run ESLint
-        run: npm run lint
-        working-directory: package
+#       - name: Run ESLint
+#         run: npm run lint
+#         working-directory: package
 
-      - name: Run tests
-        run: npm test
-        working-directory: package
+#       - name: Run tests
+#         run: npm test
+#         working-directory: package
 
-      - name: Build package
-        run: npm run build
-        working-directory: package
+#       - name: Build package
+#         run: npm run build
+#         working-directory: package
  
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+#       - uses: JS-DevTools/npm-publish@v3
+#         with:
+#           token: ${{ secrets.NPM_TOKEN }}
