@@ -27,6 +27,8 @@ export default function FlashcardArray({
     )
   }
 
+  const isEmpty = deck.length === 0
+
   return (
     <div
       className={['flashcard-array-wrapper', className].filter(Boolean).join(' ')}
@@ -35,21 +37,31 @@ export default function FlashcardArray({
       <div
         className='flashcard-array'
         role='region'
-        aria-label={`Flashcard ${localFlipArrayHook.currentCard + 1} of ${
-          localFlipArrayHook.deckLength
-        }`}
+        aria-label={
+          isEmpty
+            ? 'Card deck is empty'
+            : `Flashcard ${localFlipArrayHook.currentCard + 1} of ${localFlipArrayHook.deckLength}`
+        }
         aria-live='polite'
       >
-        {SiblingCard(localFlipArrayHook.cardsInDisplay[0])}
-        <Flashcard
-          flipHook={localFlipArrayHook.flipHook}
-          key={localFlipArrayHook.cardsInDisplay[1]}
-          back={deck[localFlipArrayHook.cardsInDisplay[1]].back}
-          front={deck[localFlipArrayHook.cardsInDisplay[1]].front}
-          style={deck[localFlipArrayHook.cardsInDisplay[1]].style}
-          className={deck[localFlipArrayHook.cardsInDisplay[1]].className}
-        />
-        {SiblingCard(localFlipArrayHook.cardsInDisplay[2])}
+        {isEmpty ? (
+          <div className='flashcard-array__empty-state'>
+            <p>No cards in the deck.</p>
+          </div>
+        ) : (
+          <>
+            {SiblingCard(localFlipArrayHook.cardsInDisplay[0])}
+            <Flashcard
+              flipHook={localFlipArrayHook.flipHook}
+              key={localFlipArrayHook.cardsInDisplay[1]}
+              back={deck[localFlipArrayHook.cardsInDisplay[1]].back}
+              front={deck[localFlipArrayHook.cardsInDisplay[1]].front}
+              style={deck[localFlipArrayHook.cardsInDisplay[1]].style}
+              className={deck[localFlipArrayHook.cardsInDisplay[1]].className}
+            />
+            {SiblingCard(localFlipArrayHook.cardsInDisplay[2])}
+          </>
+        )}
       </div>
 
       {localFlipArrayHook.showProgressBar && (
@@ -82,7 +94,7 @@ export default function FlashcardArray({
           )}
           {localFlipArrayHook.showCount && (
             <span className='flashcard-array__controls--count'>
-              {localFlipArrayHook.currentCard + 1}/{deck.length}
+              {isEmpty ? 0 : localFlipArrayHook.currentCard + 1}/{deck.length}
             </span>
           )}
           {localFlipArrayHook.showControls && (
